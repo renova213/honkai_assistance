@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +27,10 @@ class CurrentBannerCharacter extends StatelessWidget {
         color: Colors.grey.shade800,
         border: Border.all(color: Colors.grey.shade800),
       ),
-      child: const Center(
+      child: Center(
         child: Text(
           "Current Banners Character",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: subtitle,
         ),
       ),
     );
@@ -48,7 +49,7 @@ class CurrentBannerCharacter extends StatelessWidget {
               height: 100,
               decoration: BoxDecoration(
                 color: index.isEven ? Colors.transparent : Colors.grey.shade800,
-                border: Border.all(color: Colors.grey.shade800),
+                border: Border.all(color: Colors.grey.shade800, width: 2),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -79,13 +80,11 @@ class CurrentBannerCharacter extends StatelessWidget {
                       children: [
                         Text(
                           data.nameCharacter,
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          style: subtitle,
                         ),
                         Text(
                           "Ends on ${data.endDate}",
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12),
+                          style: bodyText2,
                         ),
                       ],
                     )

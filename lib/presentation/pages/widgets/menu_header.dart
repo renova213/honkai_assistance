@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/header_provider.dart';
@@ -57,8 +58,7 @@ class MenuHeader extends StatelessWidget {
                                     const SizedBox(width: 8),
                                     Text(
                                       header.listMenu[index].menu,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                      style: headline6,
                                     ),
                                   ],
                                 ),

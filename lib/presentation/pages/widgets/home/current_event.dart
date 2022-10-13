@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -41,12 +42,8 @@ class CurrentEvent extends StatelessWidget {
               SizedBox(
                 width: width,
                 height: 50,
-                child: const Center(
-                  child: Text(
-                    "Current Event",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                child: Center(
+                  child: Text("Current Event", style: subtitle),
                 ),
               ),
               Container(
@@ -75,16 +72,9 @@ class CurrentEvent extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      data.title,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
+                    Text(data.title, style: subtitle),
                     const SizedBox(height: 8),
-                    Text(
-                      data.description,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
-                    ),
+                    Text(data.description, style: bodyText2),
                   ],
                 ),
               )
@@ -112,13 +102,8 @@ class CurrentEvent extends StatelessWidget {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text(
-                "Current Events",
-                style: notifier.indexEvent == 0
-                    ? const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)
-                    : const TextStyle(color: Colors.white),
-              ),
+              child: Text("Current Events",
+                  style: notifier.indexEvent == 0 ? subtitle : bodyText1),
             ),
           ),
         ),
@@ -136,13 +121,8 @@ class CurrentEvent extends StatelessWidget {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text(
-                "Ongoing Events",
-                style: notifier.indexEvent == 1
-                    ? const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)
-                    : const TextStyle(color: Colors.white),
-              ),
+              child: Text("Ongoing Events",
+                  style: notifier.indexEvent == 1 ? subtitle : bodyText1),
             ),
           ),
         ),

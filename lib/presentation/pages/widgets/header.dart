@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/header_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,9 @@ class Header extends StatelessWidget {
         children: [
           const SizedBox(width: 16),
           Image.asset('assets/crystal.png', width: 40, height: 40),
-          const Text(
+          Text(
             "Honkai Lab",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+            style: headline6,
           ),
           const Spacer(),
           Consumer<HeaderProvider>(

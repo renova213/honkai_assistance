@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,19 +59,12 @@ class ListUpdate extends StatelessWidget {
               const SizedBox(height: 16),
               GestureDetector(
                 onTap: () => _launchUrl(data.urlWeb),
-                child: Text(
-                  data.title,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
+                child: Text(data.title, style: subtitle),
               ),
               const SizedBox(height: 8),
               SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Text(
-                  data.description,
-                  style: const TextStyle(color: Colors.white, fontSize: 12),
-                ),
+                child: Text(data.description, style: bodyText2),
               ),
             ],
           );
@@ -93,11 +87,7 @@ class ListUpdate extends StatelessWidget {
                 bottom: BorderSide(color: Colors.blue, width: 3),
               ),
             ),
-            child: const Text(
-              "Latest Update",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+            child: Text("Latest Update", style: subtitle),
           ),
         ),
         Expanded(

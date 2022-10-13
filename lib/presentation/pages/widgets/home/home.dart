@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_banners_character.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_event.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/list_update.dart';
@@ -38,7 +39,7 @@ class _HomePageState extends State<Home> {
     return SizedBox(
       child: TextField(
         decoration: InputDecoration(
-            hintStyle: TextStyle(color: Colors.grey.shade700),
+            hintStyle: bodyText1.copyWith(color: Colors.grey.shade700),
             hintText: "Search Character ...",
             filled: true,
             fillColor: Colors.white),

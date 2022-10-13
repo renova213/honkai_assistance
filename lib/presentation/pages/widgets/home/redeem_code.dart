@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -45,26 +46,17 @@ class RedeemCode extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        data.code,
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
+                      Text(data.code, style: subtitle),
                       const SizedBox(height: 16),
-                      Text(
-                        data.reward,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                      Text(data.reward, style: bodyText2),
                       const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             "${index + 1} / $length",
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            style:
+                                bodyText2.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -93,11 +85,7 @@ class RedeemCode extends StatelessWidget {
                 bottom: BorderSide(color: Colors.blue, width: 3),
               ),
             ),
-            child: const Text(
-              "Active Codes",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+            child: Text("Active Codes", style: subtitle),
           ),
         ),
         Expanded(
@@ -115,13 +103,10 @@ class RedeemCode extends StatelessWidget {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text(
-                "Sea",
-                style: notifier.indexServer == 0
-                    ? const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)
-                    : const TextStyle(color: Colors.white),
-              ),
+              child: Text("Sea",
+                  style: notifier.indexServer == 0
+                      ? bodyText1.copyWith(fontWeight: FontWeight.bold)
+                      : bodyText1),
             ),
           ),
         ),
@@ -140,13 +125,10 @@ class RedeemCode extends StatelessWidget {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text(
-                "Global",
-                style: notifier.indexServer == 1
-                    ? const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)
-                    : const TextStyle(color: Colors.white),
-              ),
+              child: Text("Global",
+                  style: notifier.indexServer == 1
+                      ? bodyText1.copyWith(fontWeight: FontWeight.bold)
+                      : bodyText1),
             ),
           ),
         ),
@@ -168,11 +150,7 @@ class RedeemCode extends StatelessWidget {
                 bottom: BorderSide(color: Colors.blue, width: 3),
               ),
             ),
-            child: const Text(
-              "Active Codes",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+            child: Text("Active Codes", style: subtitle),
           ),
         ),
         Expanded(
@@ -187,11 +165,10 @@ class RedeemCode extends StatelessWidget {
               ),
             ),
             child: Text(
-              notifier.codesGlobal.isEmpty
-                  ? "Only for the sea server"
-                  : "Only for the global server",
-              style: const TextStyle(color: Colors.white),
-            ),
+                notifier.codesGlobal.isEmpty
+                    ? "Only for the sea server"
+                    : "Only for the global server",
+                style: bodyText1),
           ),
         ),
       ],
