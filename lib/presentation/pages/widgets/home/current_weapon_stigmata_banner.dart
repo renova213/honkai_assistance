@@ -4,8 +4,24 @@ import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class CurrentWeaponStigmataBanner extends StatelessWidget {
+class CurrentWeaponStigmataBanner extends StatefulWidget {
   const CurrentWeaponStigmataBanner({super.key});
+
+  @override
+  State<CurrentWeaponStigmataBanner> createState() =>
+      _CurrentWeaponStigmataBannerState();
+}
+
+class _CurrentWeaponStigmataBannerState
+    extends State<CurrentWeaponStigmataBanner> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => Provider.of<HomeProvider>(context, listen: false)
+          .fetchWeaponStigmaBanner(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/common/utils/finite_state.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class CurrentEvent extends StatelessWidget {
+class CurrentEvent extends StatefulWidget {
   const CurrentEvent({super.key});
+
+  @override
+  State<CurrentEvent> createState() => _CurrentEventState();
+}
+
+class _CurrentEventState extends State<CurrentEvent> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () =>
+          Provider.of<HomeProvider>(context, listen: false).fetchEventHonkai(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,60 +42,70 @@ class CurrentEvent extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: notifier.indexEvent == 0
           ? notifier.currentEvents.length
-          : notifier.ongoingEvents.length,
+          : notifier.upcomingEvent.length,
       separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final data = notifier.indexEvent == 0
             ? notifier.currentEvents[index]
-            : notifier.ongoingEvents[index];
-        return SizedBox(
-          width: width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: width,
-                height: 50,
-                child: Center(
-                  child: Text("Current Event", style: subtitle),
+            : notifier.upcomingEvent[index];
+        if (notifier.myState == MyState.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (notifier.myState == MyState.failed) {
+          return Center(
+            child: Text("Failed get data from server", style: subtitle),
+          );
+        } else {
+          return SizedBox(
+            width: width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: width,
+                  height: 50,
+                  child: Center(
+                    child: Text("Current Event", style: subtitle),
+                  ),
                 ),
-              ),
-              Container(
-                width: width,
-                height: 200,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 3),
+                Container(
+                  width: width,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 3),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: data.urlImage,
+                    errorWidget: (context, url, error) {
+                      return const Center(
+                        child: Icon(Icons.error, color: Colors.red),
+                      );
+                    },
+                    placeholder: (context, url) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    fit: BoxFit.fill,
+                  ),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: data.urlImage,
-                  errorWidget: (context, url, error) {
-                    return const Center(
-                      child: Icon(Icons.error, color: Colors.red),
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                  fit: BoxFit.fill,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(data.title, style: subtitle),
-                    const SizedBox(height: 8),
-                    Text(data.description, style: bodyText2),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
+                const SizedBox(height: 16),
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(data.title, style: subtitle),
+                      const SizedBox(height: 8),
+                      Text(data.description, style: bodyText2),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }
       },
     );
   }
@@ -121,7 +146,7 @@ class CurrentEvent extends StatelessWidget {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text("Ongoing Events",
+              child: Text("Upcoming Events",
                   style: notifier.indexEvent == 1 ? subtitle : bodyText1),
             ),
           ),

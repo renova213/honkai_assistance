@@ -3,8 +3,24 @@ import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class RedeemCode extends StatelessWidget {
+import '../../../../common/utils/finite_state.dart';
+
+class RedeemCode extends StatefulWidget {
   const RedeemCode({super.key});
+
+  @override
+  State<RedeemCode> createState() => _RedeemCodeState();
+}
+
+class _RedeemCodeState extends State<RedeemCode> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () =>
+          Provider.of<HomeProvider>(context, listen: false).fetchActiveCodes(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,31 +57,44 @@ class RedeemCode extends StatelessWidget {
                     ? notifier.codesSea.length
                     : notifier.codesGlobal.length;
 
-                return SizedBox(
-                  width: width * 0.9,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(data.code, style: subtitle),
-                      const SizedBox(height: 16),
-                      Text(data.reward, style: bodyText2),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "${index + 1} / $length",
-                            style:
-                                bodyText2.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
+                if (notifier.myState == MyState.loading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (notifier.myState == MyState.failed) {
+                  return Center(
+                    child: Text(
+                      "Failed get this data from server",
+                      style: subtitle,
+                    ),
+                  );
+                } else {
+                  return SizedBox(
+                    width: width * 0.9,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(data.code, style: subtitle),
+                        const SizedBox(height: 16),
+                        Text(data.reward, style: bodyText2),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "${index + 1} / $length",
+                              style: bodyText2.copyWith(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
               },
             ),
-          )
+          ),
         ],
       ),
     );

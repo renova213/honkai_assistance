@@ -1,12 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/common/utils/finite_state.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ListUpdate extends StatelessWidget {
+class ListUpdate extends StatefulWidget {
   const ListUpdate({super.key});
+
+  @override
+  State<ListUpdate> createState() => _ListUpdateState();
+}
+
+class _ListUpdateState extends State<ListUpdate> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () =>
+          Provider.of<HomeProvider>(context, listen: false).fetchLatestUpdate(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,45 +44,55 @@ class ListUpdate extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(height: 32),
         itemBuilder: (context, index) {
           final data = notifier.listUpdates[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () => _launchUrl(data.urlWeb),
-                child: Container(
-                  width: width,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue, width: 3),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: data.urlImage,
-                    errorWidget: (context, url, error) {
-                      return const Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    fit: BoxFit.fill,
+          if (notifier.myState == MyState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (notifier.myState == MyState.failed) {
+            return Center(
+              child: Text("Failed Get Data From Server", style: subtitle),
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () => _launchUrl(data.urlWeb),
+                  child: Container(
+                    width: width,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 3),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: data.urlImage,
+                      errorWidget: (context, url, error) {
+                        return const Center(
+                          child: Icon(Icons.error, color: Colors.red),
+                        );
+                      },
+                      placeholder: (context, url) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: () => _launchUrl(data.urlWeb),
-                child: Text(data.title, style: subtitle),
-              ),
-              const SizedBox(height: 8),
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Text(data.description, style: bodyText2),
-              ),
-            ],
-          );
+                const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () => _launchUrl(data.urlWeb),
+                  child: Text(data.title, style: subtitle),
+                ),
+                const SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(data.description, style: bodyText2),
+                ),
+              ],
+            );
+          }
         },
       ),
     );

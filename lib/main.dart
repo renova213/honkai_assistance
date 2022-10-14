@@ -1,11 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/presentation/providers/header_provider.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'injector_container.dart';
 import 'presentation/pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  setUp();
   runApp(const MyApp());
 }
 
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (_) => HeaderProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => HomeProvider(),
+          create: (_) => sl<HomeProvider>(),
         ),
       ],
       child: const MaterialApp(

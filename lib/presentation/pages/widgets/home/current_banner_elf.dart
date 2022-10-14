@@ -1,11 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/common/utils/finite_state.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class CurrentBannerElf extends StatelessWidget {
+class CurrentBannerElf extends StatefulWidget {
   const CurrentBannerElf({super.key});
+
+  @override
+  State<CurrentBannerElf> createState() => _CurrentBannerElfState();
+}
+
+class _CurrentBannerElfState extends State<CurrentBannerElf> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => Provider.of<HomeProvider>(context, listen: false).fetchElfBanner(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +59,15 @@ class CurrentBannerElf extends StatelessWidget {
         itemBuilder: (context, index) {
           final data = notifier.elfBanners[index];
 
-          return Container(
+          if (notifier.myState == MyState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (notifier.myState == MyState.failed) {
+            return Center(
+                child: Text("Failed Get Data From Server", style: subtitle));
+          } else {
+            return Container(
               width: width,
               height: 100,
               decoration: BoxDecoration(
@@ -91,7 +113,9 @@ class CurrentBannerElf extends StatelessWidget {
                     )
                   ],
                 ),
-              ));
+              ),
+            );
+          }
         },
       ),
     );

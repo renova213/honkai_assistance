@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class Update extends Equatable {
+class LatestUpdate extends Equatable {
   final String urlWeb;
   final String title;
   final String description;
   final String urlImage;
 
-  const Update(
+  const LatestUpdate(
       {required this.urlWeb,
       required this.title,
       required this.description,
