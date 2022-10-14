@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:honkai_lab/domain/entities/active_code.dart';
 import 'package:honkai_lab/domain/entities/banner_character.dart';
+import 'package:honkai_lab/domain/entities/elf_banner.dart';
 import 'package:honkai_lab/domain/entities/event.dart';
 import 'package:honkai_lab/domain/entities/update.dart';
+import 'package:honkai_lab/domain/entities/weapon_stigmata_banner.dart';
 
 class HomeProvider extends ChangeNotifier {
   int _indexServer = 0;
@@ -46,7 +48,7 @@ class HomeProvider extends ChangeNotifier {
         urlImage: "https://pbs.twimg.com/media/E9IinmCVcAAFMRS.png"),
     EventHonkai(
         title: "Summer Survival Rhapsody Side 13",
-        description: "Plant vs Zombie with chibi Flamse Chasers",
+        description: "Plant vs Zombie with chibi Flame Chasers",
         urlImage:
             "https://upload-os-bbs.hoyolab.com/upload/2022/09/14/1016563/6b54313ef39a670cfbc9c92c0fce6715_986478854470749386.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png"),
   ];
@@ -92,16 +94,40 @@ class HomeProvider extends ChangeNotifier {
   final List<BannerCharacter> _bannerCharacters = const [
     BannerCharacter(
         urlImage:
-            "https://i.pinimg.com/736x/70/34/1a/70341a161c1b15a6d3e951d059ffaafa.jpg",
-        endDate: "13 October 2022",
-        nameCharacter: "Herrscher of Thunder"),
-    BannerCharacter(
-        urlImage:
-            "https://i.pinimg.com/736x/70/34/1a/70341a161c1b15a6d3e951d059ffaafa.jpg",
+            "https://i.ibb.co/sJYFL1d/70341a161c1b15a6d3e951d059ffaafa-removebg-preview.png",
         endDate: "13 October 2022",
         nameCharacter: "Herrscher of Thunder"),
   ];
   List<BannerCharacter> get bannerCharacters => _bannerCharacters;
+
+  final List<ElfBanner> _elfBanners = const [
+    ElfBanner(
+        urlImage:
+            "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/4/4c/Elf_Elysia.png/revision/latest/scale-to-width-down/488?cb=20220916070416",
+        endDate: "13 October 2022",
+        nameElf: "Elf Elysia"),
+  ];
+  List<ElfBanner> get elfBanners => _elfBanners;
+
+  final List<WeaponStigmataBanner> _weaponStigmatasBanners = const [
+    WeaponStigmataBanner(
+        urlImageWeapon:
+            "https://i.ibb.co/rFXFBWY/997e4f52f17-removebg-preview.png",
+        urlImageStigmata: "https://i.ibb.co/ZNvyFhT/Icons-removebg-preview.png",
+        endDate: "13 October 2022",
+        nameStigmata: "Benares: Awakened",
+        nameWeapon: "Key of Castigation"),
+    WeaponStigmataBanner(
+        urlImageWeapon:
+            "https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/a/a4/Zither%27s_Lament_%285%29.png/revision/latest/scale-to-width-down/250?cb=20220614054743",
+        urlImageStigmata:
+            "https://i.ibb.co/qR53XBG/Untitled-removebg-preview.png",
+        endDate: "13 October 2022",
+        nameStigmata: "Shuijing",
+        nameWeapon: "Key of Castigation"),
+  ];
+  List<WeaponStigmataBanner> get weaponStigmatasBanners =>
+      _weaponStigmatasBanners;
 
   void changeIndexServer(int index) {
     _indexServer = index;

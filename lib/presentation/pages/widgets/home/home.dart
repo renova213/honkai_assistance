@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/presentation/pages/widgets/home/current_banner_elf.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_banners_character.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_event.dart';
+import 'package:honkai_lab/presentation/pages/widgets/home/current_weapon_stigmata_banner.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/list_update.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/redeem_code.dart';
 
@@ -30,6 +32,10 @@ class _HomePageState extends State<Home> {
           const CurrentEvent(),
           const SizedBox(height: 32),
           const CurrentBannerCharacter(),
+          const SizedBox(height: 32),
+          const CurrentWeaponStigmataBanner(),
+          const SizedBox(height: 32),
+          const CurrentBannerElf(),
         ],
       ),
     );

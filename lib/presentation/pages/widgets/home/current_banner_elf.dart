@@ -4,8 +4,8 @@ import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class CurrentBannerCharacter extends StatelessWidget {
-  const CurrentBannerCharacter({super.key});
+class CurrentBannerElf extends StatelessWidget {
+  const CurrentBannerElf({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CurrentBannerCharacter extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          "Current Banners Character",
+          "Current Banners Elf",
           style: subtitle,
         ),
       ),
@@ -41,9 +41,9 @@ class CurrentBannerCharacter extends StatelessWidget {
       builder: (context, notifier, _) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: notifier.bannerCharacters.length,
+        itemCount: notifier.elfBanners.length,
         itemBuilder: (context, index) {
-          final data = notifier.bannerCharacters[index];
+          final data = notifier.elfBanners[index];
 
           return Container(
               width: width,
@@ -80,7 +80,7 @@ class CurrentBannerCharacter extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          data.nameCharacter,
+                          data.nameElf,
                           style: subtitle,
                         ),
                         Text(
