@@ -19,7 +19,6 @@
 		-->
 		<meta-data android:name="flutterEmbedding" android:value="2" />
 	</application>
-	<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<queries>
 		<intent>

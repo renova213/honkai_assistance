@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/presentation/providers/about_provider.dart';
 import 'package:honkai_lab/presentation/providers/header_provider.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => sl<HomeProvider>(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AboutProvider(),
         ),
       ],
       child: const MaterialApp(

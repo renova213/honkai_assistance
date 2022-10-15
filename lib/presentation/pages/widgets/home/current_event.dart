@@ -67,7 +67,11 @@ class _CurrentEventState extends State<CurrentEvent> {
                   width: width,
                   height: 50,
                   child: Center(
-                    child: Text("Current Event", style: subtitle),
+                    child: Text(
+                        notifier.indexEvent == 0
+                            ? "Current Event"
+                            : "Upcoming Event",
+                        style: subtitle),
                   ),
                 ),
                 Container(
@@ -98,7 +102,8 @@ class _CurrentEventState extends State<CurrentEvent> {
                     children: [
                       Text(data.title, style: subtitle),
                       const SizedBox(height: 8),
-                      Text(data.description, style: bodyText2),
+                      Text(data.description,
+                          style: bodyText2, textAlign: TextAlign.center),
                     ],
                   ),
                 )

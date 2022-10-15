@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/domain/entities/menu.dart';
+import 'package:honkai_lab/presentation/pages/widgets/about/about_game.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/home.dart';
 
 class HeaderProvider extends ChangeNotifier {
@@ -14,10 +15,14 @@ class HeaderProvider extends ChangeNotifier {
 
   List<Widget> pages = [
     const Home(),
+    const AboutGame(),
   ];
 
   final List<Menu> _listMenu = [
-    Menu(menu: "Home"),
+    Menu(
+        menu: "Home",
+        urlImage: 'https://i.ibb.co/1srJ0Jk/2-removebg-preview.png'),
+    Menu(menu: "About The Game", urlImage: 'https://i.ibb.co/LvrC14q/4.png'),
   ];
   List<Menu> get listMenu => _listMenu;
 

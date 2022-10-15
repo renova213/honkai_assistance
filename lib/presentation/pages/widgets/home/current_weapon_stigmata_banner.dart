@@ -43,10 +43,14 @@ class _CurrentWeaponStigmataBannerState
         color: Colors.grey.shade800,
         border: Border.all(color: Colors.grey.shade800),
       ),
-      child: Center(
-        child: Text(
-          "Current Banners Weapon & Stigmatas",
-          style: subtitle,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Center(
+          child: Text(
+            "Current Banners Weapon & Stigmatas",
+            textAlign: TextAlign.center,
+            style: subtitle,
+          ),
         ),
       ),
     );
@@ -78,19 +82,23 @@ class _CurrentWeaponStigmataBannerState
                         SizedBox(
                           width: 85,
                           height: 85,
-                          child: CachedNetworkImage(
-                            imageUrl: data.urlImageWeapon,
-                            errorWidget: (context, url, error) {
-                              return const Center(
-                                child: Icon(Icons.error, color: Colors.red),
-                              );
-                            },
-                            placeholder: (context, url) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                            fit: BoxFit.fill,
+                          child: GestureDetector(
+                            onTap: () =>
+                                _bottomSheet(data.urlImageWeapon, width),
+                            child: CachedNetworkImage(
+                              imageUrl: data.urlImageWeapon,
+                              errorWidget: (context, url, error) {
+                                return const Center(
+                                  child: Icon(Icons.error, color: Colors.red),
+                                );
+                              },
+                              placeholder: (context, url) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         Column(
@@ -110,21 +118,25 @@ class _CurrentWeaponStigmataBannerState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: 180,
+                          width: 85,
                           height: 85,
-                          child: CachedNetworkImage(
-                            imageUrl: data.urlImageStigmata,
-                            errorWidget: (context, url, error) {
-                              return const Center(
-                                child: Icon(Icons.error, color: Colors.red),
-                              );
-                            },
-                            placeholder: (context, url) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                            fit: BoxFit.fill,
+                          child: GestureDetector(
+                            onTap: () =>
+                                _bottomSheet(data.urlImageStigmata, width),
+                            child: CachedNetworkImage(
+                              imageUrl: data.urlImageStigmata,
+                              errorWidget: (context, url, error) {
+                                return const Center(
+                                  child: Icon(Icons.error, color: Colors.red),
+                                );
+                              },
+                              placeholder: (context, url) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              },
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         Column(
@@ -148,6 +160,24 @@ class _CurrentWeaponStigmataBannerState
           );
         },
       ),
+    );
+  }
+
+  void _bottomSheet(String urlImage, double width) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: width * 0.05),
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+              urlImage,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      },
     );
   }
 }

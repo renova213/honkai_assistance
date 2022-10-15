@@ -82,19 +82,22 @@ class _CurrentBannerElfState extends State<CurrentBannerElf> {
                     SizedBox(
                       width: 85,
                       height: 85,
-                      child: CachedNetworkImage(
-                        imageUrl: data.urlImage,
-                        errorWidget: (context, url, error) {
-                          return const Center(
-                            child: Icon(Icons.error, color: Colors.red),
-                          );
-                        },
-                        placeholder: (context, url) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                        fit: BoxFit.fill,
+                      child: GestureDetector(
+                        onTap: () => _bottomSheet(data.urlImage, width),
+                        child: CachedNetworkImage(
+                          imageUrl: data.urlImage,
+                          errorWidget: (context, url, error) {
+                            return const Center(
+                              child: Icon(Icons.error, color: Colors.red),
+                            );
+                          },
+                          placeholder: (context, url) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                     Column(
@@ -118,6 +121,24 @@ class _CurrentBannerElfState extends State<CurrentBannerElf> {
           }
         },
       ),
+    );
+  }
+
+  void _bottomSheet(String urlImage, double width) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: width * 0.05),
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+              urlImage,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      },
     );
   }
 }

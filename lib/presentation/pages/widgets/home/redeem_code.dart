@@ -34,7 +34,7 @@ class _RedeemCodeState extends State<RedeemCode> {
               : _allServer(notifier),
           const SizedBox(height: 32),
           Container(
-            height: 100,
+            height: 110,
             width: width,
             decoration: const BoxDecoration(
               color: Colors.transparent,
@@ -71,24 +71,28 @@ class _RedeemCodeState extends State<RedeemCode> {
                 } else {
                   return SizedBox(
                     width: width * 0.9,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(data.code, style: subtitle),
-                        const SizedBox(height: 16),
-                        Text(data.reward, style: bodyText2),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "${index + 1} / $length",
-                              style: bodyText2.copyWith(
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(data.code, style: subtitle),
+                          const SizedBox(height: 16),
+                          Text(data.reward,
+                              style: bodyText2, textAlign: TextAlign.center),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${index + 1} / $length",
+                                style: bodyText2.copyWith(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }
@@ -132,7 +136,7 @@ class _RedeemCodeState extends State<RedeemCode> {
                       : BorderSide(color: Colors.grey.shade700, width: 1),
                 ),
               ),
-              child: Text("Sea",
+              child: Text("SEA",
                   style: notifier.indexServer == 0
                       ? bodyText1.copyWith(fontWeight: FontWeight.bold)
                       : bodyText1),
@@ -195,7 +199,7 @@ class _RedeemCodeState extends State<RedeemCode> {
             ),
             child: Text(
                 notifier.codesGlobal.isEmpty
-                    ? "Only for the sea server"
+                    ? "Only for the SEA server"
                     : "Only for the global server",
                 style: bodyText1),
           ),

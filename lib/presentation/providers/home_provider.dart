@@ -87,9 +87,9 @@ class HomeProvider extends ChangeNotifier {
         (failure) => throw _mapFailureOrMessage(failure),
         (activeCode) {
           for (var i in activeCode) {
-            if (i.server == "Global") {
+            if (i.server == "Global" && !_codesGlobal.contains(i)) {
               _codesGlobal.add(i);
-            } else {
+            } else if (!_codesGlobal.contains(i) && !_codesSea.contains(i)) {
               _codesSea.add(i);
             }
           }
@@ -115,9 +115,10 @@ class HomeProvider extends ChangeNotifier {
         (failure) => throw _mapFailureOrMessage(failure),
         (event) {
           for (var i in event) {
-            if (i.eventType == "current") {
+            if (i.eventType == "current" && !_currentEvents.contains(i)) {
               _currentEvents.add(i);
-            } else {
+            } else if (!_upcomingEvent.contains(i) &&
+                !_currentEvents.contains(i)) {
               _upcomingEvent.add(i);
             }
           }
