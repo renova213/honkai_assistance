@@ -61,41 +61,41 @@ class _RedeemCodeState extends State<RedeemCode> {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (notifier.myState == MyState.failed) {
+                }
+                if (notifier.myState == MyState.failed) {
                   return Center(
                     child: Text(
                       "Failed get this data from server",
                       style: subtitle,
                     ),
                   );
-                } else {
-                  return SizedBox(
-                    width: width * 0.9,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(data.code, style: subtitle),
-                          const SizedBox(height: 16),
-                          Text(data.reward,
-                              style: bodyText2, textAlign: TextAlign.center),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "${index + 1} / $length",
-                                style: bodyText2.copyWith(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
                 }
+                return SizedBox(
+                  width: width * 0.9,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(data.code, style: subtitle),
+                        const SizedBox(height: 16),
+                        Text(data.reward,
+                            style: bodyText2, textAlign: TextAlign.center),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "${index + 1} / $length",
+                              style: bodyText2.copyWith(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           ),

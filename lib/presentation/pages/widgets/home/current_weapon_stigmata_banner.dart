@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/common/utils/finite_state.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -64,6 +65,18 @@ class _CurrentWeaponStigmataBannerState
         itemCount: notifier.weaponStigmatasBanners.length,
         itemBuilder: (context, index) {
           final data = notifier.weaponStigmatasBanners[index];
+
+          if (notifier.myState == MyState.loading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (notifier.myState == MyState.failed) {
+            return Center(
+              child: Text("Failed Get Data From Server", style: subtitle),
+            );
+          }
 
           return Container(
             width: width,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_lab/data/models/banner_character_model.dart';
+import 'package:honkai_lab/data/models/character_model.dart';
 import 'package:honkai_lab/data/models/elf_banner_model.dart';
 import 'package:honkai_lab/data/models/event_honkai_model.dart';
 import 'package:honkai_lab/data/models/latest_update_model.dart';
@@ -17,6 +18,8 @@ abstract class HonkaiLabRemoteDataSource {
   Future<List<ElfBannerModel>> getElfBanner(String collectionName);
   Future<List<WeaponStigmaBannerModel>> getWeaponStigmaBanner(
       String collectionName);
+
+  Future<List<CharacterModel>> getCharacter(String collectionName);
 }
 
 class HonkaiLabRemoteDataSourceImpl implements HonkaiLabRemoteDataSource {
@@ -128,5 +131,23 @@ class HonkaiLabRemoteDataSourceImpl implements HonkaiLabRemoteDataSource {
       },
     );
     return listWeaponStigmaBanner;
+  }
+
+  @override
+  Future<List<CharacterModel>> getCharacter(String collectionName) async {
+    List<CharacterModel> characters = [];
+
+    await db.collection(collectionName).get().then(
+      (value) {
+        for (var i in value.docs) {
+          characters.add(
+            CharacterModel.fromMap(
+              i.data(),
+            ),
+          );
+        }
+      },
+    );
+    return characters;
   }
 }

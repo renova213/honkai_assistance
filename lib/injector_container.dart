@@ -7,8 +7,11 @@ import 'package:honkai_lab/domain/usecases/get_banner_character.dart';
 import 'package:honkai_lab/domain/usecases/get_elf_banner.dart';
 import 'package:honkai_lab/domain/usecases/get_event_honkai.dart';
 import 'package:honkai_lab/domain/usecases/get_last_update.dart';
+import 'package:honkai_lab/domain/usecases/get_character.dart';
 import 'package:honkai_lab/domain/usecases/get_weapon_stigma_banner.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
+
+import 'presentation/providers/tier_list_provider.dart';
 
 final sl = GetIt.instance;
 
@@ -51,6 +54,13 @@ void setUp() {
       repositories: sl(),
     ),
   );
+  sl.registerLazySingleton<GetCharacter>(
+    () => GetCharacter(
+      repositories: sl(),
+    ),
+  );
+
+  //provider
   sl.registerLazySingleton<HomeProvider>(
     () => HomeProvider(
       getWeaponStigmaBanner: sl(),
@@ -59,6 +69,12 @@ void setUp() {
       getEventHonkai: sl(),
       getLastUpdate: sl(),
       getElfBanner: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<TierListProvider>(
+    () => TierListProvider(
+      character: sl(),
     ),
   );
 }

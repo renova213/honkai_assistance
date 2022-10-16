@@ -64,63 +64,63 @@ class _CurrentBannerCharacterState extends State<CurrentBannerCharacter> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (notifier.myState == MyState.failed) {
+          }
+          if (notifier.myState == MyState.failed) {
             return Center(
               child: Text("Failed Get Data From Server", style: subtitle),
             );
-          } else {
-            return Container(
-              width: width,
-              height: 100,
-              decoration: BoxDecoration(
-                color: index.isEven ? Colors.transparent : Colors.grey.shade800,
-                border: Border.all(color: Colors.grey.shade800, width: 2),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 85,
-                      height: 85,
-                      child: GestureDetector(
-                        onTap: () => _bottomSheet(data.urlImage, width),
-                        child: CachedNetworkImage(
-                          imageUrl: data.urlImage,
-                          errorWidget: (context, url, error) {
-                            return const Center(
-                              child: Icon(Icons.error, color: Colors.red),
-                            );
-                          },
-                          placeholder: (context, url) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
-                          fit: BoxFit.fill,
-                        ),
+          }
+          return Container(
+            width: width,
+            height: 100,
+            decoration: BoxDecoration(
+              color: index.isEven ? Colors.transparent : Colors.grey.shade800,
+              border: Border.all(color: Colors.grey.shade800, width: 2),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 85,
+                    height: 85,
+                    child: GestureDetector(
+                      onTap: () => _bottomSheet(data.urlImage, width),
+                      child: CachedNetworkImage(
+                        imageUrl: data.urlImage,
+                        errorWidget: (context, url, error) {
+                          return const Center(
+                            child: Icon(Icons.error, color: Colors.red),
+                          );
+                        },
+                        placeholder: (context, url) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          data.nameCharacter,
-                          style: subtitle,
-                        ),
-                        Text(
-                          "Ends on ${data.endDate}",
-                          style: bodyText2,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        data.nameCharacter,
+                        style: subtitle,
+                      ),
+                      Text(
+                        "Ends on ${data.endDate}",
+                        style: bodyText2,
+                      ),
+                    ],
+                  )
+                ],
               ),
-            );
-          }
+            ),
+          );
         },
       ),
     );

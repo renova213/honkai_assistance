@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:honkai_lab/presentation/providers/about_provider.dart';
 import 'package:honkai_lab/presentation/providers/header_provider.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
+import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'injector_container.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => AboutProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TierListProvider(character: sl()),
         ),
       ],
       child: const MaterialApp(

@@ -7,6 +7,7 @@ import 'package:honkai_lab/domain/entities/banner_character.dart';
 import 'package:honkai_lab/domain/entities/elf_banner.dart';
 import 'package:honkai_lab/domain/entities/event_honkai.dart';
 import 'package:honkai_lab/domain/entities/last_update.dart';
+import 'package:honkai_lab/domain/entities/character.dart';
 import 'package:honkai_lab/domain/entities/weapon_stigmata_banner.dart';
 import 'package:honkai_lab/domain/repositories/honkai_lab_repositories.dart';
 
@@ -95,6 +96,21 @@ class HonkaiLabRepositoriesImpl implements HonkaiLabRepositories {
           await remoteDataSource.getWeaponStigmaBanner(collectionName);
 
       return Right(listWeaponStigmaBanner);
+    } on ServerException {
+      return const Left(
+        ServerFailure(message: "can't connect to server"),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Character>>> getCharacter(
+      String collectionName) async {
+    try {
+      final tierExCharacter =
+          await remoteDataSource.getCharacter(collectionName);
+
+      return Right(tierExCharacter);
     } on ServerException {
       return const Left(
         ServerFailure(message: "can't connect to server"),

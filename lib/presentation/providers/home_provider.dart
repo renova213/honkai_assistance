@@ -89,7 +89,8 @@ class HomeProvider extends ChangeNotifier {
           for (var i in activeCode) {
             if (i.server == "Global" && !_codesGlobal.contains(i)) {
               _codesGlobal.add(i);
-            } else if (!_codesGlobal.contains(i) && !_codesSea.contains(i)) {
+            }
+            if (i.server == "Sea" && !_codesSea.contains(i)) {
               _codesSea.add(i);
             }
           }
@@ -117,8 +118,8 @@ class HomeProvider extends ChangeNotifier {
           for (var i in event) {
             if (i.eventType == "current" && !_currentEvents.contains(i)) {
               _currentEvents.add(i);
-            } else if (!_upcomingEvent.contains(i) &&
-                !_currentEvents.contains(i)) {
+            }
+            if (!_upcomingEvent.contains(i) && i.eventType == "upcoming") {
               _upcomingEvent.add(i);
             }
           }

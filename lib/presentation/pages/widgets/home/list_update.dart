@@ -48,51 +48,51 @@ class _ListUpdateState extends State<ListUpdate> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (notifier.myState == MyState.failed) {
+          }
+          if (notifier.myState == MyState.failed) {
             return Center(
               child: Text("Failed Get Data From Server", style: subtitle),
             );
-          } else {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () => _launchUrl(data.urlWeb),
-                  child: Container(
-                    width: width,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue, width: 3),
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: data.urlImage,
-                      errorWidget: (context, url, error) {
-                        return const Center(
-                          child: Icon(Icons.error, color: Colors.red),
-                        );
-                      },
-                      placeholder: (context, url) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                      fit: BoxFit.fill,
-                    ),
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () => _launchUrl(data.urlWeb),
+                child: Container(
+                  width: width,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 3),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: data.urlImage,
+                    errorWidget: (context, url, error) {
+                      return const Center(
+                        child: Icon(Icons.error, color: Colors.red),
+                      );
+                    },
+                    placeholder: (context, url) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    fit: BoxFit.fill,
                   ),
                 ),
-                const SizedBox(height: 16),
-                GestureDetector(
-                  onTap: () => _launchUrl(data.urlWeb),
-                  child: Text(data.title, style: subtitle),
-                ),
-                const SizedBox(height: 8),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Text(data.description, style: bodyText2),
-                ),
-              ],
-            );
-          }
+              ),
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap: () => _launchUrl(data.urlWeb),
+                child: Text(data.title, style: subtitle),
+              ),
+              const SizedBox(height: 8),
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Text(data.description, style: bodyText2),
+              ),
+            ],
+          );
         },
       ),
     );

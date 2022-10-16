@@ -52,65 +52,65 @@ class _CurrentEventState extends State<CurrentEvent> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (notifier.myState == MyState.failed) {
+        }
+        if (notifier.myState == MyState.failed) {
           return Center(
             child: Text("Failed get data from server", style: subtitle),
           );
-        } else {
-          return SizedBox(
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: width,
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                        notifier.indexEvent == 0
-                            ? "Current Event"
-                            : "Upcoming Event",
-                        style: subtitle),
-                  ),
-                ),
-                Container(
-                  width: width,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue, width: 3),
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: data.urlImage,
-                    errorWidget: (context, url, error) {
-                      return const Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(data.title, style: subtitle),
-                      const SizedBox(height: 8),
-                      Text(data.description,
-                          style: bodyText2, textAlign: TextAlign.center),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
         }
+        return SizedBox(
+          width: width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: width,
+                height: 50,
+                child: Center(
+                  child: Text(
+                      notifier.indexEvent == 0
+                          ? "Current Event"
+                          : "Upcoming Event",
+                      style: subtitle),
+                ),
+              ),
+              Container(
+                width: width,
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue, width: 3),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: data.urlImage,
+                  errorWidget: (context, url, error) {
+                    return const Center(
+                      child: Icon(Icons.error, color: Colors.red),
+                    );
+                  },
+                  placeholder: (context, url) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                  fit: BoxFit.fill,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(data.title, style: subtitle),
+                    const SizedBox(height: 8),
+                    Text(data.description,
+                        style: bodyText2, textAlign: TextAlign.center),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
       },
     );
   }
