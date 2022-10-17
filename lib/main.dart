@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
           create: (_) => AboutProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => TierListProvider(character: sl()),
+          create: (_) => TierListProvider(
+            character: sl(),
+            changelog: sl(),
+          ),
         ),
       ],
       child: const MaterialApp(

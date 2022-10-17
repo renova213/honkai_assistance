@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/domain/entities/changelog.dart';
 import 'package:honkai_lab/domain/entities/character.dart';
+import 'package:honkai_lab/domain/entities/modes.dart';
+import 'package:honkai_lab/domain/entities/rank_glossary.dart';
+import 'package:honkai_lab/domain/usecases/get_changelog.dart';
 import 'package:honkai_lab/domain/usecases/get_character.dart';
 
 import '../../common/errors/failure.dart';
@@ -7,7 +11,8 @@ import '../../common/utils/finite_state.dart';
 
 class TierListProvider extends ChangeNotifier {
   final GetCharacter character;
-  TierListProvider({required this.character});
+  final GetChangelog changelog;
+  TierListProvider({required this.character, required this.changelog});
 
   final List<String> items = ["DPS", "Support"];
 
@@ -31,6 +36,40 @@ class TierListProvider extends ChangeNotifier {
 
   final List<Character> _tierSSupportCharacters = [];
   List<Character> get tierSSupportCharacters => _tierSSupportCharacters;
+
+  final List<Modes> _listModeGame = [
+    Modes(mode: "Story Mode", explanation: "Campaign and some Event stages."),
+    Modes(
+        mode: "Memorial Arena",
+        explanation:
+            "is a game mode where Captains can face off against challenging bosses with different difficulties, the score depend on how fast boss get killed"),
+    Modes(
+        mode: "Exalted Abyss",
+        explanation:
+            "Is an Abyss mode for Lv80+ Captains. Every Abyss round consists of four stages."),
+    Modes(
+        mode: "Q-Singularis",
+        explanation:
+            "Q-Singularis breaks down into 4 layers, each containing 4 standard floors and 1 Boss floor with a special layer effect."),
+  ];
+  List<Modes> get listModeGame => _listModeGame;
+
+  final List<RankGlossary> _rankGlossaries = [
+    RankGlossary(tier: "ex", explanation: "Have highest score on bosses"),
+    RankGlossary(
+        tier: "s",
+        explanation:
+            "Coverage more bosses and still top scores on spesific bosses"),
+    RankGlossary(
+        tier: "a",
+        explanation:
+            "Technically still a great valk, but lost in meta due to various reasons"),
+    RankGlossary(tier: "b", explanation: "Lost to meta"),
+  ];
+  List<RankGlossary> get rankGlossaries => _rankGlossaries;
+
+  late Changelog _changelogs;
+  Changelog get changelogs => _changelogs;
 
   String _value = "DPS";
   String get value => _value;
@@ -105,6 +144,24 @@ class TierListProvider extends ChangeNotifier {
           }
         }
       });
+
+      _myState = MyState.hasData;
+      notifyListeners();
+    } catch (e) {
+      _myState = MyState.failed;
+      notifyListeners();
+    }
+  }
+
+  void fetchChangelog() async {
+    try {
+      _myState = MyState.loading;
+      notifyListeners();
+
+      final response = await changelog("changelog");
+
+      response.fold((failure) => throw _mapFailureOrMessage(failure),
+          (changelog) => _changelogs = changelog);
 
       _myState = MyState.hasData;
       notifyListeners();

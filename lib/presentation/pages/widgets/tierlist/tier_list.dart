@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/presentation/pages/widgets/tierlist/changelog.dart';
+import 'package:honkai_lab/presentation/pages/widgets/tierlist/help.dart';
 import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list_dps.dart';
 import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list_support.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
@@ -28,7 +30,7 @@ class TierList extends StatelessWidget {
           _dropDownButton(),
           const SizedBox(height: 32),
           _titleContainer(),
-          _log(),
+          _log(context, width),
           const SizedBox(height: 16),
           Consumer<TierListProvider>(
             builder: (context, notifier, _) => notifier.value == "DPS"
@@ -131,7 +133,7 @@ class TierList extends StatelessWidget {
     );
   }
 
-  Widget _log() {
+  Widget _log(BuildContext context, double width) {
     return Container(
       height: 50,
       decoration: BoxDecoration(
@@ -142,31 +144,9 @@ class TierList extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.history, color: Colors.blue, size: 20),
-              TextButton(
-                child: Text(
-                  "Changelog",
-                  style: bodyText2.copyWith(color: Colors.blue),
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Icon(Icons.help, color: Colors.blue, size: 20),
-              TextButton(
-                child: Text(
-                  "Help",
-                  style: bodyText2.copyWith(color: Colors.blue),
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
+        children: const [
+          ChangeLog(),
+          Help(),
         ],
       ),
     );

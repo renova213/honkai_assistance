@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_lab/data/models/banner_character_model.dart';
+import 'package:honkai_lab/data/models/changelog_model.dart';
 import 'package:honkai_lab/data/models/character_model.dart';
 import 'package:honkai_lab/data/models/elf_banner_model.dart';
 import 'package:honkai_lab/data/models/event_honkai_model.dart';
@@ -20,6 +21,7 @@ abstract class HonkaiLabRemoteDataSource {
       String collectionName);
 
   Future<List<CharacterModel>> getCharacter(String collectionName);
+  Future<ChangelogModel> getChangelog(String collectionName);
 }
 
 class HonkaiLabRemoteDataSourceImpl implements HonkaiLabRemoteDataSource {
@@ -149,5 +151,21 @@ class HonkaiLabRemoteDataSourceImpl implements HonkaiLabRemoteDataSource {
       },
     );
     return characters;
+  }
+
+  @override
+  Future<ChangelogModel> getChangelog(String collectionName) async {
+    late ChangelogModel changelogs;
+
+    await db.collection(collectionName).get().then(
+      (value) {
+        for (var i in value.docs) {
+          changelogs = ChangelogModel.fromMap(
+            i.data(),
+          );
+        }
+      },
+    );
+    return changelogs;
   }
 }

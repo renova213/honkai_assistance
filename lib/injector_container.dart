@@ -4,6 +4,7 @@ import 'package:honkai_lab/data/repositories/honkai_lab_repositories_impl.dart';
 import 'package:honkai_lab/domain/repositories/honkai_lab_repositories.dart';
 import 'package:honkai_lab/domain/usecases/get_active_codes.dart';
 import 'package:honkai_lab/domain/usecases/get_banner_character.dart';
+import 'package:honkai_lab/domain/usecases/get_changelog.dart';
 import 'package:honkai_lab/domain/usecases/get_elf_banner.dart';
 import 'package:honkai_lab/domain/usecases/get_event_honkai.dart';
 import 'package:honkai_lab/domain/usecases/get_last_update.dart';
@@ -59,6 +60,11 @@ void setUp() {
       repositories: sl(),
     ),
   );
+  sl.registerLazySingleton<GetChangelog>(
+    () => GetChangelog(
+      repositories: sl(),
+    ),
+  );
 
   //provider
   sl.registerLazySingleton<HomeProvider>(
@@ -75,6 +81,7 @@ void setUp() {
   sl.registerLazySingleton<TierListProvider>(
     () => TierListProvider(
       character: sl(),
+      changelog: sl(),
     ),
   );
 }
