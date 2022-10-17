@@ -30,13 +30,13 @@ class _TierListDpsState extends State<TierListDps> {
       builder: (context, notifier, _) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _characterList(width, notifier.tierExCharacters, 0),
+          _characterList(width, notifier.tierExDpsCharacters, 0),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierSCharacter, 1),
+          _characterList(width, notifier.tierSDpsCharacter, 1),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierSCharacter, 2),
+          _characterList(width, notifier.tierADpsCharacter, 2),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierSCharacter, 3),
+          _characterList(width, notifier.tierBDpsCharacter, 3),
           const SizedBox(height: 16),
         ],
       ),

@@ -7,7 +7,8 @@ class CharacterModel extends Character {
       required super.imageChibi,
       required super.nameCharacter,
       required super.tier,
-      required super.elementImage});
+      required super.elementImage,
+      required super.role});
 
   factory CharacterModel.fromMap(Map<String, dynamic> json) => CharacterModel(
         element: json["element"],
@@ -16,5 +17,6 @@ class CharacterModel extends Character {
         nameCharacter: json["nameCharacter"],
         tier: json["tier"],
         elementImage: json["elementImage"],
+        role: json['role'],
       );
 }

@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list_dps.dart';
+import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list_support.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,11 @@ class TierList extends StatelessWidget {
           _titleContainer(),
           _log(),
           const SizedBox(height: 16),
-          const TierListDps(),
+          Consumer<TierListProvider>(
+            builder: (context, notifier, _) => notifier.value == "DPS"
+                ? const TierListDps()
+                : const TierListSupport(),
+          ),
           const SizedBox(height: 16),
         ],
       ),
@@ -41,7 +46,7 @@ class TierList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text("Server", style: bodyText2),
+        Text("Role", style: subtitle),
         const SizedBox(height: 8),
         SizedBox(
           height: 40,

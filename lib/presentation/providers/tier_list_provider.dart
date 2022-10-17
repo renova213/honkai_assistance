@@ -14,11 +14,17 @@ class TierListProvider extends ChangeNotifier {
   MyState _myState = MyState.loading;
   MyState get myState => _myState;
 
-  final List<Character> _tierExCharacters = [];
-  List<Character> get tierExCharacters => _tierExCharacters;
+  final List<Character> _tierExDpsCharacters = [];
+  List<Character> get tierExDpsCharacters => _tierExDpsCharacters;
 
-  final List<Character> _tierSCharacter = [];
-  List<Character> get tierSCharacter => _tierSCharacter;
+  final List<Character> _tierSDpsCharacter = [];
+  List<Character> get tierSDpsCharacter => _tierSDpsCharacter;
+
+  final List<Character> _tierADpsCharacter = [];
+  List<Character> get tierADpsCharacter => _tierADpsCharacter;
+
+  final List<Character> _tierBDpsCharacter = [];
+  List<Character> get tierBDpsCharacter => _tierBDpsCharacter;
 
   String _value = "DPS";
   String get value => _value;
@@ -49,7 +55,7 @@ class TierListProvider extends ChangeNotifier {
     }
 
     if (element == "imaginary") {
-      _colorBottom = Colors.amber;
+      _colorBottom = Colors.yellow;
     }
 
     if (element == "thunder") {
@@ -67,11 +73,25 @@ class TierListProvider extends ChangeNotifier {
       response.fold((failure) => throw _mapFailureOrMessage(failure),
           (character) {
         for (var i in character) {
-          if (i.tier == "ex" && !_tierExCharacters.contains(i)) {
-            _tierExCharacters.add(i);
+          if (i.tier == "ex" &&
+              !_tierExDpsCharacters.contains(i) &&
+              i.role == "dps") {
+            _tierExDpsCharacters.add(i);
           }
-          if (i.tier == "s" && !_tierSCharacter.contains(i)) {
-            _tierSCharacter.add(i);
+          if (i.tier == "s" &&
+              !_tierSDpsCharacter.contains(i) &&
+              i.role == "dps") {
+            _tierSDpsCharacter.add(i);
+          }
+          if (i.tier == "a" &&
+              !_tierADpsCharacter.contains(i) &&
+              i.role == "dps") {
+            _tierADpsCharacter.add(i);
+          }
+          if (i.tier == "b" &&
+              !_tierBDpsCharacter.contains(i) &&
+              i.role == "dps") {
+            _tierBDpsCharacter.add(i);
           }
         }
       });
