@@ -26,6 +26,12 @@ class TierListProvider extends ChangeNotifier {
   final List<Character> _tierBDpsCharacter = [];
   List<Character> get tierBDpsCharacter => _tierBDpsCharacter;
 
+  final List<Character> _tierExSupportCharacters = [];
+  List<Character> get tierExSupportCharacters => _tierExSupportCharacters;
+
+  final List<Character> _tierSSupportCharacters = [];
+  List<Character> get tierSSupportCharacters => _tierSSupportCharacters;
+
   String _value = "DPS";
   String get value => _value;
 
@@ -48,14 +54,6 @@ class TierListProvider extends ChangeNotifier {
 
     if (element == "fire") {
       _colorBottom = Colors.red;
-    }
-
-    if (element == "quantum") {
-      _colorBottom = Colors.blue;
-    }
-
-    if (element == "imaginary") {
-      _colorBottom = Colors.yellow;
     }
 
     if (element == "thunder") {
@@ -92,6 +90,18 @@ class TierListProvider extends ChangeNotifier {
               !_tierBDpsCharacter.contains(i) &&
               i.role == "dps") {
             _tierBDpsCharacter.add(i);
+          }
+
+          if (i.role == "support" &&
+              i.tier == "ex" &&
+              !_tierExSupportCharacters.contains(i)) {
+            _tierExSupportCharacters.add(i);
+          }
+
+          if (i.role == "support" &&
+              i.tier == "s" &&
+              !_tierSSupportCharacters.contains(i)) {
+            _tierSSupportCharacters.add(i);
           }
         }
       });
