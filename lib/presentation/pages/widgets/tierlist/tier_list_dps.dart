@@ -17,10 +17,12 @@ class _TierListDpsState extends State<TierListDps> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
-      Provider.of<TierListProvider>(context, listen: false)
-          .fetchTierExCharacter();
-    });
+    Future.microtask(
+      () {
+        Provider.of<TierListProvider>(context, listen: false)
+            .fetchCharacter("dps");
+      },
+    );
   }
 
   @override

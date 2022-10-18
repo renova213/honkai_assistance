@@ -10,6 +10,7 @@ import 'package:honkai_lab/domain/usecases/get_event_honkai.dart';
 import 'package:honkai_lab/domain/usecases/get_last_update.dart';
 import 'package:honkai_lab/domain/usecases/get_character.dart';
 import 'package:honkai_lab/domain/usecases/get_weapon_stigma_banner.dart';
+import 'package:honkai_lab/presentation/providers/character_provider.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 
 import 'presentation/providers/tier_list_provider.dart';
@@ -82,6 +83,11 @@ void setUp() {
     () => TierListProvider(
       character: sl(),
       changelog: sl(),
+    ),
+  );
+  sl.registerLazySingleton<CharacterProvider>(
+    () => CharacterProvider(
+      character: sl(),
     ),
   );
 }

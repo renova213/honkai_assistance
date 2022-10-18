@@ -19,7 +19,7 @@ class _TierListDpsState extends State<TierListSupport> {
     super.initState();
     Future.microtask(() {
       Provider.of<TierListProvider>(context, listen: false)
-          .fetchTierExCharacter();
+          .fetchCharacter("support");
     });
   }
 

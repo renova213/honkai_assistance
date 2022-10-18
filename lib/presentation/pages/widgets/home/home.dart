@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_banner_elf.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_banners_character.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/current_event.dart';
@@ -22,33 +21,19 @@ class _HomePageState extends State<Home> {
       padding: EdgeInsets.all(width * 0.05),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          _searchCharacter(),
-          const SizedBox(height: 32),
-          const RedeemCode(),
-          const SizedBox(height: 32),
-          const ListUpdate(),
-          const SizedBox(height: 32),
-          const CurrentEvent(),
-          const SizedBox(height: 32),
-          const CurrentBannerCharacter(),
-          const SizedBox(height: 32),
-          const CurrentWeaponStigmataBanner(),
-          const SizedBox(height: 32),
-          const CurrentBannerElf(),
+        children: const [
+          RedeemCode(),
+          SizedBox(height: 32),
+          ListUpdate(),
+          SizedBox(height: 32),
+          CurrentEvent(),
+          SizedBox(height: 32),
+          CurrentBannerCharacter(),
+          SizedBox(height: 32),
+          CurrentWeaponStigmataBanner(),
+          SizedBox(height: 32),
+          CurrentBannerElf(),
         ],
-      ),
-    );
-  }
-
-  Widget _searchCharacter() {
-    return SizedBox(
-      child: TextField(
-        decoration: InputDecoration(
-            hintStyle: bodyText1.copyWith(color: Colors.grey.shade700),
-            hintText: "Search Character ...",
-            filled: true,
-            fillColor: Colors.white),
       ),
     );
   }

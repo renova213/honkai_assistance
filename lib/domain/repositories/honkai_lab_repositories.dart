@@ -21,6 +21,7 @@ abstract class HonkaiLabRepositories {
   Future<Either<Failure, List<ElfBanner>>> getElfBanner(String collectionName);
   Future<Either<Failure, List<WeaponStigmataBanner>>> getWeaponStigmaBanner(
       String collectionName);
-  Future<Either<Failure, List<Character>>> getCharacter(String collectionName);
+  Future<Either<Failure, List<Character>>> getCharacter(
+      String collectionName, String value);
   Future<Either<Failure, Changelog>> getChangelog(String collectionName);
 }

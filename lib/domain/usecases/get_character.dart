@@ -7,9 +7,10 @@ class GetCharacter {
   final HonkaiLabRepositories repositories;
   GetCharacter({required this.repositories});
 
-  Future<Either<Failure, List<Character>>> call(String collectionName) async {
+  Future<Either<Failure, List<Character>>> call(
+      String collectionName, String value) async {
     Either<Failure, List<Character>> tierExCharacter =
-        await repositories.getCharacter(collectionName);
+        await repositories.getCharacter(collectionName, value);
 
     return tierExCharacter;
   }

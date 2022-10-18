@@ -100,12 +100,12 @@ class TierListProvider extends ChangeNotifier {
     }
   }
 
-  void fetchTierExCharacter() async {
+  void fetchCharacter(String value) async {
     try {
       _myState = MyState.loading;
       notifyListeners();
 
-      final response = await character("character");
+      final response = await character("character", value);
 
       response.fold((failure) => throw _mapFailureOrMessage(failure),
           (character) {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/domain/entities/menu.dart';
-import 'package:honkai_lab/presentation/pages/widgets/about/about_game.dart';
+import 'package:honkai_lab/presentation/pages/about_game_page.dart';
+import 'package:honkai_lab/presentation/pages/character.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/home.dart';
-import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list.dart';
+import 'package:honkai_lab/presentation/pages/tier_list_page.dart';
 
 class HeaderProvider extends ChangeNotifier {
   bool _isExpand = false;
@@ -16,8 +17,9 @@ class HeaderProvider extends ChangeNotifier {
 
   List<Widget> pages = [
     const Home(),
-    const AboutGame(),
-    const TierList(),
+    const AboutGamePage(),
+    const TierListPage(),
+    const CharacterPage(),
   ];
 
   final List<Menu> _listMenu = [
@@ -28,6 +30,9 @@ class HeaderProvider extends ChangeNotifier {
     Menu(
         menu: "Tier List",
         urlImage: "https://i.ibb.co/3pkBjtC/1-removebg-preview.png"),
+    Menu(
+        menu: "Character",
+        urlImage: "https://i.ibb.co/BzNykVR/asf-removebg-preview.png"),
   ];
   List<Menu> get listMenu => _listMenu;
 

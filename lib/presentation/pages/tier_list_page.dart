@@ -8,8 +8,8 @@ import 'package:honkai_lab/presentation/pages/widgets/tierlist/tier_list_support
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
-class TierList extends StatelessWidget {
-  const TierList({super.key});
+class TierListPage extends StatelessWidget {
+  const TierListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

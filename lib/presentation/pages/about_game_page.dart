@@ -6,8 +6,8 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutGame extends StatelessWidget {
-  const AboutGame({super.key});
+class AboutGamePage extends StatelessWidget {
+  const AboutGamePage({super.key});
 
   @override
   Widget build(BuildContext context) {

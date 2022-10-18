@@ -106,12 +106,25 @@ class HonkaiLabRepositoriesImpl implements HonkaiLabRepositories {
 
   @override
   Future<Either<Failure, List<Character>>> getCharacter(
-      String collectionName) async {
+      String collectionName, String value) async {
     try {
-      final tierExCharacter =
-          await remoteDataSource.getCharacter(collectionName);
+      final characters = await remoteDataSource.getCharacter(collectionName);
+      final filterByValue = characters
+          .where(
+            (e) =>
+                e.element.toLowerCase().contains(
+                      value.toLowerCase(),
+                    ) ||
+                e.role.toLowerCase().contains(
+                      value.toLowerCase(),
+                    ) ||
+                e.nameCharacter.toLowerCase().contains(
+                      value.toLowerCase(),
+                    ),
+          )
+          .toList();
 
-      return Right(tierExCharacter);
+      return Right(value.isEmpty ? characters : filterByValue);
     } on ServerException {
       return const Left(
         ServerFailure(message: "can't connect to server"),
