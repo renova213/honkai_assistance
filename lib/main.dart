@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/presentation/providers/about_provider.dart';
 import 'package:honkai_lab/presentation/providers/character_provider.dart';
+import 'package:honkai_lab/presentation/providers/detail_character_provider.dart';
 import 'package:honkai_lab/presentation/providers/header_provider.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
           create: (_) => CharacterProvider(
             character: sl(),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DetailCharacterProvider(),
         ),
       ],
       child: const MaterialApp(

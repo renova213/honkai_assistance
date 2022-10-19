@@ -7,7 +7,7 @@ class Changelog extends Equatable {
   const Changelog({required this.characterLog, required this.date});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [date, characterLog];
 }
 
 class CharacterLog extends Equatable {

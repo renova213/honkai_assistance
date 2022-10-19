@@ -27,6 +27,7 @@ class CharacterProvider extends ChangeNotifier {
     "Quantum",
     "Imaginary"
   ];
+
   List<String> get itemsType => _itemsType;
 
   String _value = "Sort By A-Z";

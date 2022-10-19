@@ -1,21 +1,21 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:honkai_lab/presentation/pages/widgets/character/list_character.dart';
-import 'package:honkai_lab/presentation/pages/widgets/character/search_character_field.dart';
+import 'package:honkai_lab/presentation/pages/widgets/elf/list_elf.dart';
+import 'package:honkai_lab/presentation/pages/widgets/elf/search_character_field_elf.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style.dart';
 import '../providers/character_provider.dart';
 
-class CharacterPage extends StatefulWidget {
-  const CharacterPage({super.key});
+class ElfPage extends StatefulWidget {
+  const ElfPage({super.key});
 
   @override
-  State<CharacterPage> createState() => _CharacterPageState();
+  State<ElfPage> createState() => _CharacterPageState();
 }
 
-class _CharacterPageState extends State<CharacterPage> {
+class _CharacterPageState extends State<ElfPage> {
   @override
   void initState() {
     super.initState();
@@ -46,16 +46,15 @@ class _CharacterPageState extends State<CharacterPage> {
             const SizedBox(height: 16),
             Text("Characters", style: headline6),
             const SizedBox(height: 8),
-            Text("List of character available in honkai impact 3",
-                style: bodyText1),
+            Text("List of elf available in honkai impact 3", style: bodyText1),
             const SizedBox(height: 16),
             _dropDownButton(),
             const SizedBox(height: 32),
             _titleContainer(),
             const SizedBox(height: 16),
-            const SearchCharacterField(),
+            const SearchFieldElf(),
             const SizedBox(height: 16),
-            const ListCharacter(),
+            const ListElf(),
             SizedBox(height: height * 0.1),
           ],
         ),
@@ -78,7 +77,7 @@ class _CharacterPageState extends State<CharacterPage> {
                   bottom: BorderSide(color: Colors.blue, width: 3),
                 ),
               ),
-              child: Text("Characters", style: subtitle),
+              child: Text("Elfs", style: subtitle),
             ),
           ),
           Expanded(
@@ -94,8 +93,7 @@ class _CharacterPageState extends State<CharacterPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                    "Showing ${notifier.listCharacters.length} characters",
+                child: Text("Showing ${notifier.listCharacters.length} elfs",
                     style: bodyText2),
               ),
             ),
