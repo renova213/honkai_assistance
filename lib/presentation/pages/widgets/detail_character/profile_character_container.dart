@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:honkai_lab/presentation/providers/detail_character_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../common/style.dart';
 import '../../../../domain/entities/character.dart';
 
-class ProfileCharacter extends StatelessWidget {
-  final Character data;
-  const ProfileCharacter({super.key, required this.data});
+class ProfileCharacterContainer extends StatelessWidget {
+  final String urlImage;
+  final Detail detail;
+  const ProfileCharacterContainer(
+      {super.key, required this.urlImage, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -19,32 +19,30 @@ class ProfileCharacter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Consumer<DetailCharacterProvider>(
-          builder: (context, notifier, _) => Column(
-            children: [
-              SizedBox(
-                height: height * 0.7,
-                width: width,
-                child: CachedNetworkImage(
-                    imageUrl: data.image,
-                    errorWidget: (context, url, error) {
-                      return const Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    fit: BoxFit.cover),
-              ),
-              const SizedBox(height: 16),
-              Text("Biography", style: subtitle),
-              const SizedBox(height: 16),
-              _bioCharacter(width),
-            ],
-          ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * 0.7,
+              width: width,
+              child: CachedNetworkImage(
+                  imageUrl: urlImage,
+                  errorWidget: (context, url, error) {
+                    return const Center(
+                      child: Icon(Icons.error, color: Colors.red),
+                    );
+                  },
+                  placeholder: (context, url) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                  fit: BoxFit.cover),
+            ),
+            const SizedBox(height: 16),
+            Text("Biography", style: subtitle),
+            const SizedBox(height: 16),
+            _bioCharacter(width),
+          ],
         ),
       ),
     );
@@ -64,9 +62,7 @@ class ProfileCharacter extends StatelessWidget {
           children: [
             _titleBio("Battlesuit Details", width),
             const SizedBox(height: 16),
-            Text(
-                "Elysia was the second Flame-Chaser, and the very creator of the group. She was a member of the MOTHs and a very present figure in the Previous Era, helping humanity to fight Herrschers and the Honkai until the bitter end. In the Current Era, Elysia's simulation is responsible for managing the Elysian Realm in the headquarters of World Serpent, guiding most of the successors sent by the organization in their quest to find the truth about the Previous Era.",
-                style: bodyText2),
+            Text(detail.characterProfile.battlesuitDetail, style: bodyText2),
             const SizedBox(height: 16),
             _titleBio("Background Information", width),
             const SizedBox(height: 16),
@@ -98,25 +94,33 @@ class ProfileCharacter extends StatelessWidget {
       children: [
         _itemBackgroundInformation(
             info1: "Date of Birth",
-            info2: "November 11",
+            info2: detail.characterProfile.dateBirth,
             color: Colors.grey.shade600),
         const SizedBox(height: 8),
         _itemBackgroundInformation(
-            info1: "Gender", info2: "Female", color: Colors.grey.shade600),
+            info1: "Gender",
+            info2: detail.characterProfile.gender,
+            color: Colors.grey.shade600),
         const SizedBox(height: 8),
         _itemBackgroundInformation(
             info1: "Organization",
-            info2: "The MOTHs",
+            info2: detail.characterProfile.organization,
             color: Colors.grey.shade600),
         const SizedBox(height: 8),
         _itemBackgroundInformation(
-            info1: "Height", info2: "163 cm", color: Colors.grey.shade600),
+            info1: "Height",
+            info2: detail.characterProfile.height,
+            color: Colors.grey.shade600),
         const SizedBox(height: 8),
         _itemBackgroundInformation(
-            info1: "Weight", info2: "54.8kg", color: Colors.grey.shade600),
+            info1: "Weight",
+            info2: detail.characterProfile.weight,
+            color: Colors.grey.shade600),
         const SizedBox(height: 8),
         _itemBackgroundInformation(
-            info1: "Birthplace", info2: "Unknown", color: Colors.grey.shade600),
+            info1: "Birthplace",
+            info2: detail.characterProfile.birthplace,
+            color: Colors.grey.shade600),
       ],
     );
   }

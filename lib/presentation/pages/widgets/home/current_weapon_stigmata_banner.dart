@@ -186,6 +186,18 @@ class _CurrentWeaponStigmataBannerState
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               urlImage,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
               fit: BoxFit.cover,
             ),
           ),

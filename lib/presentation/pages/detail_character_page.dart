@@ -2,13 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/domain/entities/character.dart';
-import 'package:honkai_lab/presentation/pages/widgets/detail_character/equpment_character.dart';
-import 'package:honkai_lab/presentation/pages/widgets/detail_character/menu_header_character.dart';
-import 'package:honkai_lab/presentation/pages/widgets/detail_character/rank_up_character.dart';
+import 'package:honkai_lab/presentation/pages/widgets/detail_character/character_team_container.dart';
+import 'package:honkai_lab/presentation/pages/widgets/detail_character/elysian_realm_container.dart';
+import 'package:honkai_lab/presentation/pages/widgets/detail_character/equpment_character_container.dart';
+import 'package:honkai_lab/presentation/pages/widgets/detail_character/menu_header_character_container.dart';
+import 'package:honkai_lab/presentation/pages/widgets/detail_character/rank_up_character_container.dart';
 import 'package:honkai_lab/presentation/providers/detail_character_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'widgets/detail_character/profile_character.dart';
+import 'widgets/detail_character/profile_character_container.dart';
 
 class DetailCharacterPage extends StatelessWidget {
   final Character data;
@@ -62,7 +64,7 @@ class DetailCharacterPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const MenuHeaderCharacter(),
+                  const MenuHeaderCharacterContainer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: SingleChildScrollView(
@@ -71,10 +73,21 @@ class DetailCharacterPage extends StatelessWidget {
                         children: [
                           const SizedBox(height: 16),
                           notifier.indexItem == 0
-                              ? ProfileCharacter(data: data)
+                              ? ProfileCharacterContainer(
+                                  urlImage: data.image,
+                                  detail: data.detail,
+                                )
                               : notifier.indexItem == 1
-                                  ? const RankUpCharacter()
-                                  : const EquipmentCharacter(),
+                                  ? RankUpCharacterContainer(
+                                      detail: data.detail)
+                                  : notifier.indexItem == 2
+                                      ? EquipmentCharacterContainer(
+                                          detail: data.detail)
+                                      : notifier.indexItem == 3
+                                          ? CharacterTeamContainer(
+                                              detail: data.detail)
+                                          : ElysianRealmContainer(
+                                              detail: data.detail),
                           const SizedBox(height: 16),
                         ],
                       ),

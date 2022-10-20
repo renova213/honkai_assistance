@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/domain/entities/menu.dart';
 import 'package:honkai_lab/presentation/pages/about_game_page.dart';
-import 'package:honkai_lab/presentation/pages/character.dart';
+import 'package:honkai_lab/presentation/pages/character_page.dart';
 import 'package:honkai_lab/presentation/pages/elf_page.dart';
 import 'package:honkai_lab/presentation/pages/widgets/home/home.dart';
 import 'package:honkai_lab/presentation/pages/tier_list_page.dart';

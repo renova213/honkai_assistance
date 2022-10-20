@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_lab/common/style.dart';
-import 'package:provider/provider.dart';
+import '../../../../domain/entities/character.dart';
 
-import '../../../providers/detail_character_provider.dart';
-
-class RankUpCharacter extends StatelessWidget {
-  const RankUpCharacter({super.key});
+class RankUpCharacterContainer extends StatelessWidget {
+  final Detail detail;
+  const RankUpCharacterContainer({super.key, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -14,52 +13,50 @@ class RankUpCharacter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Consumer<DetailCharacterProvider>(
-          builder: (context, notifier, _) => Container(
-            width: width,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade800,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
+        child: Container(
+          width: width,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade800,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Rank Up Bonus", style: subtitle),
-                  const SizedBox(height: 8),
-                  Text(
-                      "Each character gets a rating based on how good it is in certain game mode. Below you will find a short description of all game modes available in game",
-                      style: bodyText2),
-                  const SizedBox(height: 16),
-                  _customContainer(
-                      mode: "Rank Up",
-                      explanation: "Description",
-                      indexColor: 0,
-                      width: width),
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: notifier.rankUpCharacters.length,
-                    itemBuilder: (context, index) {
-                      int indexColor = 1;
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Rank Up Bonus", style: subtitle),
+                const SizedBox(height: 8),
+                Text(
+                    "Each character gets a rating based on how good it is in certain game mode. Below you will find a short description of all game modes available in game",
+                    style: bodyText2),
+                const SizedBox(height: 16),
+                _customContainer(
+                    rank: "Rank Up",
+                    explanation: "Description",
+                    indexColor: 0,
+                    width: width),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: detail.rankUpLevel.length,
+                  itemBuilder: (context, index) {
+                    int indexColor = 1;
 
-                      final data = notifier.rankUpCharacters[index];
+                    final data = detail.rankUpLevel[index];
 
-                      if (index.isEven) indexColor = 1;
-                      if (index.isOdd) indexColor = 2;
+                    if (index.isEven) indexColor = 1;
+                    if (index.isOdd) indexColor = 2;
 
-                      return _customContainer(
-                          mode: data.rankUp,
-                          explanation: data.description,
-                          indexColor: indexColor,
-                          width: width);
-                    },
-                  ),
-                ],
-              ),
+                    return _customContainer(
+                        rank: data.rankUp,
+                        explanation: data.description,
+                        indexColor: indexColor,
+                        width: width);
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -68,7 +65,7 @@ class RankUpCharacter extends StatelessWidget {
   }
 
   Widget _customContainer(
-      {required String mode,
+      {required String rank,
       required String explanation,
       required int indexColor,
       required double width}) {
@@ -93,7 +90,7 @@ class RankUpCharacter extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                mode,
+                rank,
                 style: bodyText2.copyWith(fontWeight: FontWeight.bold),
               ),
             ),

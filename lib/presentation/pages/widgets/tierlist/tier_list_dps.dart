@@ -28,18 +28,27 @@ class _TierListDpsState extends State<TierListDps> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Consumer<TierListProvider>(
       builder: (context, notifier, _) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _characterList(width, notifier.tierExDpsCharacters, 0),
+          notifier.tierExDpsCharacters.isNotEmpty
+              ? _characterList(width, notifier.tierExDpsCharacters, 0)
+              : const SizedBox(),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierSDpsCharacter, 1),
+          notifier.tierSDpsCharacter.isNotEmpty
+              ? _characterList(width, notifier.tierSDpsCharacter, 1)
+              : const SizedBox(),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierADpsCharacter, 2),
+          notifier.tierADpsCharacter.isNotEmpty
+              ? _characterList(width, notifier.tierADpsCharacter, 2)
+              : const SizedBox(),
           const SizedBox(height: 16),
-          _characterList(width, notifier.tierBDpsCharacter, 3),
-          const SizedBox(height: 16),
+          notifier.tierBDpsCharacter.isNotEmpty
+              ? _characterList(width, notifier.tierBDpsCharacter, 3)
+              : const SizedBox(),
+          SizedBox(height: height * 0.1),
         ],
       ),
     );

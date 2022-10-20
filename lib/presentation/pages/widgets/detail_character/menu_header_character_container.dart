@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 
 import '../../../providers/detail_character_provider.dart';
 
-class MenuHeaderCharacter extends StatelessWidget {
-  const MenuHeaderCharacter({super.key});
+class MenuHeaderCharacterContainer extends StatelessWidget {
+  const MenuHeaderCharacterContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 80,
       child: Consumer<DetailCharacterProvider>(
@@ -27,7 +28,7 @@ class MenuHeaderCharacter extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  width: 90,
+                  width: width * 0.25,
                   height: 90,
                   decoration: BoxDecoration(
                     border: Border(
