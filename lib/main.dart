@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/presentation/pages/spash_screen.dart';
 import 'package:honkai_lab/presentation/providers/about_provider.dart';
 import 'package:honkai_lab/presentation/providers/character_provider.dart';
 import 'package:honkai_lab/presentation/providers/detail_character_provider.dart';
@@ -9,7 +10,6 @@ import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'injector_container.dart';
-import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: SplashScreen(),
       ),
     );
   }
