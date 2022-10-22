@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/style.dart';
 
-class ArmadaPage extends StatelessWidget {
-  const ArmadaPage({super.key});
+class CadetSenseiPage extends StatelessWidget {
+  const CadetSenseiPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,34 +21,33 @@ class ArmadaPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
-                  Text("Armada", style: headline6),
+                  Text("Cadet-Sensei System", style: headline6),
                   const SizedBox(height: 8),
                   Text(
-                      "Armada is like a 'guild', where you can join a community of fellow Captains and help each other out!.",
+                      "Here you can link yourself up with more experienced captains who are able to guide you through your account progression and help you with anything that you're not sure of!.",
                       style: bodyText1),
                   const SizedBox(height: 16),
                   _customWidget(
-                      text: "1. Commissions",
+                      text: "1. Cadet-Sensei Tasks",
                       text2:
-                          "Commissions is an open-donation drive where you can donate items to fellow players to help them out. In exchange, you'll stand a chance to receive awesome rewards such as valk fragments Dorm Supply tickets!.",
+                          "The system provides you with a list of tasks that upon completion, provide you with juicy rewards such as crystals and dorm supply tickets! Your sensei will get a sensei-currency, which is equally valuable, so it's a win-win for everyone :D.",
                       urlImage:
-                          "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/1ed7abcddf3bdd7ce3bb68ce8a9c2db5_1092358677945417011.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
+                          "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/eab406c41c79c4f19dc1e38caf1974e9_5069479155630635614.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
                       width: width),
                   const SizedBox(height: 16),
                   _customWidget(
-                      text: "2. Warehouse",
+                      text: "2. Q&A",
                       text2:
-                          "To give, and to receive... Warehouse is where you get to request specific items from your fellow armada mates, and hopefully they'll fulfill your requests! Request items may vary from valkyrie fragments to upgrading and forging materials.",
+                          "''Ask and you shall receive''. If there's anything that you're not sure of, be-it game mechanics, gear investments or storyline stuff, don't be afraid to hit your sensei up! I'm sure your sensei would be glad to help, and y'all might even become friends! Honkai is so much more fun when there's friends around amirite?",
                       urlImage:
-                          "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/4a8790d9b9a7b8c8bb6c6d493accfa40_7558400299585427862.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
+                          "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/971217ca1d737c7a055af271bb3cbf07_8300800293800786333.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
                       width: width),
                   const SizedBox(height: 16),
                   _customWidget(
-                      text: "3. Sim Battle",
+                      text: "3. Revocation",
                       text2:
-                          "Sim Battle allows you to experience the full capabilities of a whale, I mean of a fully geared team setup. Here you get to rekt bosses like you never could before, and get tempted to empty your wallets to get the good stuff! Very good indeed XD.",
-                      urlImage:
-                          "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/be0aaf94384ac828568f079989b4021c_6451173218978299791.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
+                          "A newly-formed Sensei-Cadet relationship cannot be revoked within the first 24 hours by either side. A Sensei who revokes cannot recruit Cadet(s) within the next 48 hours. The revoked Cadet will not be penalized. A Cadet who revokes cannot send applications to other Senseis within the next 48 hours. The revoked Sensei will not be penalized. If your Sensei or Cadet goes offline for more than 2 days, the relationship can be revoked without penalty. Once the relationship is revoked, you will not receive rewards for the current Examination Stage. A Cadet can resume their mentoring with another Sensei from the Examination Trial stage at revocation (but progress for that stage will be reset).",
+                      urlImage: "https://i.ibb.co/7gCkKtz/Untitled.png",
                       width: width),
                   const SizedBox(height: 16),
                 ],

@@ -56,7 +56,7 @@ class _CharacterPageState extends State<CharacterPage> {
             const SearchCharacterField(),
             const SizedBox(height: 16),
             const ListCharacter(),
-            SizedBox(height: height * 0.1),
+            SizedBox(height: height * 0.3),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:honkai_lab/common/navigator_fade_transition.dart';
 import 'package:honkai_lab/presentation/pages/guide/beginner/reroll_guide.dart';
 import 'package:honkai_lab/presentation/pages/guide/beginner/starter_event_guide.dart';
 import 'package:honkai_lab/presentation/pages/guide/general/armada_page.dart';
+import 'package:honkai_lab/presentation/pages/guide/general/cadet_sensei_page.dart';
 import 'package:honkai_lab/presentation/pages/guide/general/dorm_page.dart';
 
 import '../../../common/style.dart';
@@ -15,6 +16,7 @@ class GuidesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.05),
       child: Scrollbar(
@@ -78,6 +80,15 @@ class GuidesPage extends StatelessWidget {
                 page: const ArmadaPage(),
               ),
               const SizedBox(height: 16),
+              _menuItemContainer(
+                width: width,
+                title: "Cadet-Sensei",
+                urlImage:
+                    "https://img-os-static.hoyolab.com/communityWeb/upload/2dc195f8d7cb464ee8b9486af80790b1.png",
+                context: context,
+                page: const CadetSenseiPage(),
+              ),
+              SizedBox(height: height * 0.1),
             ],
           ),
         ),

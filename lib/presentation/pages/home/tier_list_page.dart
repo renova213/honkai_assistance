@@ -14,7 +14,7 @@ class TierListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
+    final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.05),
       child: Column(
@@ -37,7 +37,7 @@ class TierListPage extends StatelessWidget {
                 ? const TierListDps()
                 : const TierListSupport(),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: height * 0.3),
         ],
       ),
     );
