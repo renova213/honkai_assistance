@@ -3,8 +3,6 @@ name: Dart
 on:
   pull_request:
     branches: ["development"]
-  merge:
-    branches: ["development"]
 
 jobs:
   flutter_test:
