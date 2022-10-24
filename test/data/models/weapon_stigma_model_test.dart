@@ -13,7 +13,7 @@ void main() {
       endDate: "endDate",
       nameWeapon: "nameWeapon",
       nameStigmata: "nameStigmata");
-  test('should be a subclass of ChangeLog entity', () {
+  test('should be a subclass of WeaponStigmataBanner entity', () {
     expect(testWeaponStigmaBannerModel, isA<WeaponStigmataBanner>());
   });
 

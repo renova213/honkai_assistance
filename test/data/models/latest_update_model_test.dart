@@ -13,7 +13,7 @@ void main() {
       description: "description",
       urlImage: "urlImage");
 
-  test('should be a subclass of ChangeLog entity', () {
+  test('should be a subclass of LatestUpdate entity', () {
     expect(testLatestUpdateModel, isA<LatestUpdate>());
   });
 

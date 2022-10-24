@@ -13,7 +13,7 @@ void main() {
       urlImage: "urlImage",
       eventType: "eventType");
 
-  test('should be a subclass of ChangeLog entity', () {
+  test('should be a subclass of EventHonkai entity', () {
     expect(testEventHonkaiModel, isA<EventHonkai>());
   });
 

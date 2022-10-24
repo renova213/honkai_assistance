@@ -11,7 +11,7 @@ import 'package:honkai_lab/data/models/weapon_stigma_banner_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'honkai_lab_repository_test.mocks.dart';
+import 'honkai_lab_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([HonkaiLabRemoteDataSourceImpl])
 void main() {

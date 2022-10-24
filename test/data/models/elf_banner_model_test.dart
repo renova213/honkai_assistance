@@ -10,7 +10,7 @@ void main() {
   const testElfBannerModel = ElfBannerModel(
       urlImage: "urlImage", endDate: "endDate", nameElf: "nameElf");
 
-  test('should be a subclass of ChangeLog entity', () {
+  test('should be a subclass of ElfBanner entity', () {
     expect(testElfBannerModel, isA<ElfBanner>());
   });
 
