@@ -1,105 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/utils/finite_state.dart';
+import '../../blocs/home/redeem_code_bloc/redeem_code_bloc.dart';
 
-class RedeemCode extends StatefulWidget {
+class RedeemCode extends StatelessWidget {
   const RedeemCode({super.key});
-
-  @override
-  State<RedeemCode> createState() => _RedeemCodeState();
-}
-
-class _RedeemCodeState extends State<RedeemCode> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () =>
-          Provider.of<HomeProvider>(context, listen: false).fetchActiveCodes(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Consumer<HomeProvider>(
-      builder: (context, notifier, _) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          notifier.codesSea.isEmpty || notifier.codesGlobal.isEmpty
-              ? _oneServerCode(notifier)
-              : _allServer(notifier),
-          const SizedBox(height: 32),
-          Container(
-            height: 110,
-            width: width,
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-              border: Border(
-                bottom: BorderSide(color: Colors.blue, width: 3),
+      builder: (context, notifier, _) =>
+          BlocBuilder<RedeemCodeBloc, RedeemCodeState>(
+        builder: (context, state) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            state is ActiveCodeState
+                ? state.codesSea.isEmpty || state.codesGlobal.isEmpty
+                    ? _oneServerCode(state)
+                    : _allServer(notifier)
+                : _oneServerCode(state),
+            const SizedBox(height: 32),
+            Container(
+              height: 110,
+              width: width,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                  bottom: BorderSide(color: Colors.blue, width: 3),
+                ),
+              ),
+              child: BlocBuilder<RedeemCodeBloc, RedeemCodeState>(
+                builder: (context, state) {
+                  if (state is LoadingRedeemCode) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is ActiveCodeState) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: notifier.indexServer == 0
+                          ? state.codesSea.length
+                          : state.codesGlobal.length,
+                      itemBuilder: (context, index) {
+                        final data = notifier.indexServer == 0
+                            ? state.codesSea[index]
+                            : state.codesGlobal[index];
+
+                        final length = notifier.indexServer == 0
+                            ? state.codesSea.length
+                            : state.codesGlobal.length;
+
+                        return SizedBox(
+                          width: width * 0.9,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(data.code, style: subtitle),
+                                const SizedBox(height: 16),
+                                Text(data.reward,
+                                    style: bodyText2,
+                                    textAlign: TextAlign.center),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "${index + 1} / $length",
+                                      style: bodyText2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return Center(
+                      child:
+                          Text("Failed get data from server", style: subtitle));
+                },
               ),
             ),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: notifier.indexServer == 0
-                  ? notifier.codesSea.length
-                  : notifier.codesGlobal.length,
-              itemBuilder: (context, index) {
-                final data = notifier.indexServer == 0
-                    ? notifier.codesSea[index]
-                    : notifier.codesGlobal[index];
-
-                final length = notifier.indexServer == 0
-                    ? notifier.codesSea.length
-                    : notifier.codesGlobal.length;
-
-                if (notifier.myState == MyState.loading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (notifier.myState == MyState.failed) {
-                  return Center(
-                    child: Text(
-                      "Failed get this data from server",
-                      style: subtitle,
-                    ),
-                  );
-                }
-                return SizedBox(
-                  width: width * 0.9,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(data.code, style: subtitle),
-                        const SizedBox(height: 16),
-                        Text(data.reward,
-                            style: bodyText2, textAlign: TextAlign.center),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "${index + 1} / $length",
-                              style: bodyText2.copyWith(
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -169,7 +163,7 @@ class _RedeemCodeState extends State<RedeemCode> {
     );
   }
 
-  Widget _oneServerCode(HomeProvider notifier) {
+  Widget _oneServerCode(RedeemCodeState state) {
     return Row(
       children: [
         Expanded(
@@ -198,9 +192,11 @@ class _RedeemCodeState extends State<RedeemCode> {
               ),
             ),
             child: Text(
-                notifier.codesGlobal.isEmpty
-                    ? "Only for the SEA server"
-                    : "Only for the global server",
+                state is ActiveCodeState
+                    ? state.codesGlobal.isEmpty
+                        ? "Only for the SEA server"
+                        : "Only for the global server"
+                    : "Empty",
                 style: bodyText1),
           ),
         ),

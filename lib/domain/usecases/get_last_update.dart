@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:honkai_lab/domain/entities/last_update.dart';
+import 'package:honkai_lab/domain/entities/latest_update.dart';
 
 import '../../common/errors/failure.dart';
 import '../repositories/honkai_lab_repositories.dart';

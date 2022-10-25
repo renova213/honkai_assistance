@@ -13,7 +13,7 @@ import 'package:honkai_lab/domain/entities/changelog.dart' as _i13;
 import 'package:honkai_lab/domain/entities/character.dart' as _i12;
 import 'package:honkai_lab/domain/entities/elf_banner.dart' as _i10;
 import 'package:honkai_lab/domain/entities/event_honkai.dart' as _i7;
-import 'package:honkai_lab/domain/entities/last_update.dart' as _i8;
+import 'package:honkai_lab/domain/entities/latest_update.dart' as _i8;
 import 'package:honkai_lab/domain/entities/weapon_stigmata_banner.dart' as _i11;
 import 'package:honkai_lab/domain/repositories/honkai_lab_repositories.dart'
     as _i3;

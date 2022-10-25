@@ -23,7 +23,7 @@ void main() {
       nameWeapon: "nameWeapon",
       nameStigmata: "nameStigmata");
 
-  test('should get LatestUpdate from the repository', () async {
+  test('should get WeaponStigmataBanner from the repository', () async {
     when(repositories.getWeaponStigmaBanner(any))
         .thenAnswer((_) async => const Right([testWeaponStigmataBanner]));
 

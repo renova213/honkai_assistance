@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:honkai_lab/data/models/latest_update_model.dart';
-import 'package:honkai_lab/domain/entities/last_update.dart';
+import 'package:honkai_lab/domain/entities/latest_update.dart';
 
 import '../../fixtures/fixture_reader.dart';
 

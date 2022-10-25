@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:honkai_lab/domain/entities/last_update.dart';
+import 'package:honkai_lab/domain/entities/latest_update.dart';
 import 'package:honkai_lab/domain/repositories/honkai_lab_repositories.dart';
 import 'package:honkai_lab/domain/usecases/get_last_update.dart';
 import 'package:mockito/annotations.dart';

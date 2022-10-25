@@ -1,27 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:honkai_lab/common/utils/finite_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:honkai_lab/domain/entities/changelog.dart';
+import 'package:honkai_lab/presentation/blocs/tier_list/changelog_bloc/changelog_bloc.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style.dart';
 
-class ChangeLog extends StatefulWidget {
+class ChangeLog extends StatelessWidget {
   const ChangeLog({super.key});
-
-  @override
-  State<ChangeLog> createState() => _ChangelogState();
-}
-
-class _ChangelogState extends State<ChangeLog> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => Provider.of<TierListProvider>(context, listen: false)
-          .fetchChangelog(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,55 +38,62 @@ class _ChangelogState extends State<ChangeLog> {
           padding: const EdgeInsets.all(16),
           child: Container(
             color: Colors.grey.shade900,
-            child: Consumer<TierListProvider>(
-              builder: (context, notifier, _) => SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 60,
-                      width: width,
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade700),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("ChangeLog", style: subtitle),
-                            Material(
-                              color: Colors.transparent,
-                              child: IconButton(
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(Icons.close,
-                                    size: 25, color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60,
+                    width: width,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.grey.shade700),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    Padding(
+                    child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          notifier.changelogs.date.isNotEmpty
-                              ? Text(notifier.changelogs.date, style: subtitle)
-                              : const LinearProgressIndicator(),
-                          const SizedBox(height: 16),
-                          _listChangeLog(width),
+                          Text("ChangeLog", style: subtitle),
+                          Material(
+                            color: Colors.transparent,
+                            child: IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: const Icon(Icons.close,
+                                  size: 25, color: Colors.white),
+                            ),
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: BlocBuilder<ChangelogBloc, ChangelogState>(
+                      builder: (context, state) {
+                        if (state is LoadingChangelog) {
+                          return const CircularProgressIndicator();
+                        }
+                        if (state is LoadedChangelog) {
+                          return Column(
+                            children: [
+                              Text(state.changelogs.date, style: subtitle),
+                              const SizedBox(height: 16),
+                              _listChangeLog(width, state.changelogs),
+                            ],
+                          );
+                        }
+                        return Text("Failed get changelog data from server",
+                            style: subtitle);
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -107,24 +102,14 @@ class _ChangelogState extends State<ChangeLog> {
     );
   }
 
-  Widget _listChangeLog(double width) {
+  Widget _listChangeLog(double width, Changelog data) {
     return Consumer<TierListProvider>(
       builder: (context, notifier, _) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: notifier.changelogs.characterLog.length,
+        itemCount: data.characterLog.length,
         itemBuilder: (context, index) {
-          if (notifier.myState == MyState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (notifier.myState == MyState.failed) {
-            return Text("Failed get data from server", style: subtitle);
-          }
-
-          final data = notifier.changelogs.characterLog[index];
+          final items = data.characterLog[index];
 
           return Container(
             decoration: BoxDecoration(
@@ -141,7 +126,7 @@ class _ChangelogState extends State<ChangeLog> {
                     width: 60,
                     height: 60,
                     child: CachedNetworkImage(
-                        imageUrl: data.urlImage,
+                        imageUrl: items.urlImage,
                         errorWidget: (context, url, error) {
                           return const Center(
                             child: Icon(Icons.error, color: Colors.red),
@@ -156,7 +141,7 @@ class _ChangelogState extends State<ChangeLog> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    data.nameCharacter,
+                    items.nameCharacter,
                     style: bodyText2.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
@@ -164,20 +149,20 @@ class _ChangelogState extends State<ChangeLog> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        color: data.tierBefore == "new"
+                        color: items.tierBefore == "new"
                             ? Colors.blueAccent
-                            : data.tierBefore == "ex"
+                            : items.tierBefore == "ex"
                                 ? Colors.red
-                                : data.tierBefore == "s"
+                                : items.tierBefore == "s"
                                     ? Colors.redAccent
-                                    : data.tierBefore == "a"
+                                    : items.tierBefore == "a"
                                         ? Colors.orange
                                         : Colors.blue,
                         width: 40,
                         height: 40,
                         alignment: Alignment.center,
                         child: Text(
-                          data.tierBefore.toUpperCase(),
+                          items.tierBefore.toUpperCase(),
                           style: bodyText2.copyWith(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
@@ -187,18 +172,18 @@ class _ChangelogState extends State<ChangeLog> {
                           size: 20, color: Colors.white),
                       const SizedBox(width: 8),
                       Container(
-                        color: data.tierCurrent == "ex"
+                        color: items.tierCurrent == "ex"
                             ? Colors.red
-                            : data.tierCurrent == "s"
+                            : items.tierCurrent == "s"
                                 ? Colors.redAccent
-                                : data.tierCurrent == "a"
+                                : items.tierCurrent == "a"
                                     ? Colors.orange
                                     : Colors.blue,
                         width: 40,
                         height: 40,
                         alignment: Alignment.center,
                         child: Text(
-                          data.tierCurrent.toUpperCase(),
+                          items.tierCurrent.toUpperCase(),
                           style: bodyText2.copyWith(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),

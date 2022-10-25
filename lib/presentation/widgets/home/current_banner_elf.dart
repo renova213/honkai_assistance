@@ -1,25 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
-import 'package:honkai_lab/common/utils/finite_state.dart';
-import 'package:honkai_lab/presentation/providers/home_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:honkai_lab/presentation/blocs/home/elf_banner_bloc/elf_banner_bloc.dart';
 
-class CurrentBannerElf extends StatefulWidget {
+class CurrentBannerElf extends StatelessWidget {
   const CurrentBannerElf({super.key});
-
-  @override
-  State<CurrentBannerElf> createState() => _CurrentBannerElfState();
-}
-
-class _CurrentBannerElfState extends State<CurrentBannerElf> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => Provider.of<HomeProvider>(context, listen: false).fetchElfBanner(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,82 +37,86 @@ class _CurrentBannerElfState extends State<CurrentBannerElf> {
   }
 
   Widget _listBannerCharacters(double width) {
-    return Consumer<HomeProvider>(
-      builder: (context, notifier, _) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: notifier.elfBanners.length,
-        itemBuilder: (context, index) {
-          final data = notifier.elfBanners[index];
-
-          if (notifier.myState == MyState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (notifier.myState == MyState.failed) {
-            return Center(
-              child: Text("Failed Get Data From Server", style: subtitle),
-            );
-          }
-
-          return Container(
-            width: width,
-            height: 100,
-            decoration: BoxDecoration(
-              color: index.isEven ? Colors.transparent : Colors.grey.shade800,
-              border: Border.all(color: Colors.grey.shade800, width: 2),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 85,
-                    height: 85,
-                    child: GestureDetector(
-                      onTap: () => _bottomSheet(data.urlImage, width),
-                      child: CachedNetworkImage(
-                        imageUrl: data.urlImage,
-                        errorWidget: (context, url, error) {
-                          return const Center(
-                            child: Icon(Icons.error, color: Colors.red),
-                          );
-                        },
-                        placeholder: (context, url) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        data.nameElf,
-                        style: subtitle,
-                      ),
-                      Text(
-                        "Ends on ${data.endDate}",
-                        style: bodyText2,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+    return BlocBuilder<ElfBannerBloc, ElfBannerState>(
+      builder: (context, state) {
+        if (state is LoadingElfBanner) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+        if (state is LoadedElfBanner) {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: state.elfBanners.length,
+            itemBuilder: (context, index) {
+              final data = state.elfBanners[index];
+
+              return Container(
+                width: width,
+                height: 100,
+                decoration: BoxDecoration(
+                  color:
+                      index.isEven ? Colors.transparent : Colors.grey.shade800,
+                  border: Border.all(color: Colors.grey.shade800, width: 2),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 85,
+                        height: 85,
+                        child: GestureDetector(
+                          onTap: () =>
+                              _bottomSheet(data.urlImage, width, context),
+                          child: CachedNetworkImage(
+                            imageUrl: data.urlImage,
+                            errorWidget: (context, url, error) {
+                              return const Center(
+                                child: Icon(Icons.error, color: Colors.red),
+                              );
+                            },
+                            placeholder: (context, url) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            data.nameElf,
+                            style: subtitle,
+                          ),
+                          Text(
+                            "Ends on ${data.endDate}",
+                            style: bodyText2,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        return Center(
+          child:
+              Text("Failed get elf banner data from server", style: subtitle),
+        );
+      },
     );
   }
 
-  void _bottomSheet(String urlImage, double width) {
+  void _bottomSheet(String urlImage, double width, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {

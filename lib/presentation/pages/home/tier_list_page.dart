@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
+import 'package:honkai_lab/presentation/blocs/tier_list/changelog_bloc/changelog_bloc.dart';
 import 'package:honkai_lab/presentation/widgets/tierlist/changelog.dart';
 import 'package:honkai_lab/presentation/widgets/tierlist/help.dart';
 import 'package:honkai_lab/presentation/widgets/tierlist/tier_list_dps.dart';
@@ -8,8 +10,28 @@ import 'package:honkai_lab/presentation/widgets/tierlist/tier_list_support.dart'
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
-class TierListPage extends StatelessWidget {
+import '../../blocs/tier_list/tier_list_character_bloc/tier_list_character_bloc.dart';
+
+class TierListPage extends StatefulWidget {
   const TierListPage({super.key});
+
+  @override
+  State<TierListPage> createState() => _TierListPageState();
+}
+
+class _TierListPageState extends State<TierListPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      BlocProvider.of<TierListCharacterBloc>(context, listen: false).add(
+        FetchTierListCharacter(),
+      );
+      BlocProvider.of<ChangelogBloc>(context, listen: false).add(
+        FetchChangelog(),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
