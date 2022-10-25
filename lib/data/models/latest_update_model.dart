@@ -1,4 +1,4 @@
-import 'package:honkai_lab/domain/entities/last_update.dart';
+import 'package:honkai_lab/domain/entities/latest_update.dart';
 
 class LatestUpdateModel extends LatestUpdate {
   const LatestUpdateModel(

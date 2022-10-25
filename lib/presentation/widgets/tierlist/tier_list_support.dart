@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:honkai_lab/common/utils/finite_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style.dart';
+import '../../blocs/tier_list/tier_list_character_bloc/tier_list_character_bloc.dart';
 
 class TierListSupport extends StatefulWidget {
   const TierListSupport({super.key});
@@ -15,32 +16,34 @@ class TierListSupport extends StatefulWidget {
 
 class _TierListDpsState extends State<TierListSupport> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      Provider.of<TierListProvider>(context, listen: false)
-          .fetchCharacter("support");
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Consumer<TierListProvider>(
-      builder: (context, notifier, _) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          notifier.tierExSupportCharacters.isNotEmpty
-              ? _characterList(width, notifier.tierExSupportCharacters, 0)
-              : const SizedBox(),
-          const SizedBox(height: 16),
-          notifier.tierSSupportCharacters.isNotEmpty
-              ? _characterList(width, notifier.tierSSupportCharacters, 1)
-              : SizedBox(height: height * 0.3),
-          const SizedBox(height: 16),
-        ],
-      ),
+    return BlocBuilder<TierListCharacterBloc, TierListCharacterState>(
+      builder: (context, state) {
+        if (state is LoadingTierListCharacter) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is LoadedTierListCharacter) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              state.tierExSupportCharacters.isNotEmpty
+                  ? _characterList(width, state.tierExSupportCharacters, 0)
+                  : const SizedBox(),
+              const SizedBox(height: 16),
+              state.tierSSupportCharacters.isNotEmpty
+                  ? _characterList(width, state.tierSSupportCharacters, 1)
+                  : SizedBox(height: height * 0.3),
+              const SizedBox(height: 16),
+            ],
+          );
+        }
+        return Text("Failed get tier list character data from server",
+            style: subtitle);
+      },
     );
   }
 
@@ -84,19 +87,6 @@ class _TierListDpsState extends State<TierListSupport> {
                             crossAxisCount: 3),
                     itemBuilder: (context, index) {
                       final items = data[index];
-
-                      if (notifier.myState == MyState.loading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      if (notifier.myState == MyState.failed) {
-                        return Center(
-                          child: Text("Failed get data from server",
-                              style: subtitle),
-                        );
-                      }
 
                       notifier.changeBottomBorderColor(items.element);
 

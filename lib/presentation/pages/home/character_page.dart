@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/character_bloc/character_bloc.dart';
 import 'package:honkai_lab/presentation/widgets/character/list_character.dart';
 import 'package:honkai_lab/presentation/widgets/character/search_character_field.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +22,9 @@ class _CharacterPageState extends State<CharacterPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<CharacterProvider>(context, listen: false)
-          .fetchCharacter(""),
+      () => BlocProvider.of<CharacterBloc>(context, listen: false).add(
+        const FetchCharacter(value: ""),
+      ),
     );
   }
 
@@ -94,9 +97,15 @@ class _CharacterPageState extends State<CharacterPage> {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 16),
-                child: Text(
-                    "Showing ${notifier.listCharacters.length} characters",
-                    style: bodyText2),
+                child: BlocBuilder<CharacterBloc, CharacterState>(
+                  builder: (context, state) {
+                    return Text(
+                        state is LoadedCharacter
+                            ? "Showing ${state.characters.length} characters"
+                            : "Showing 0 characters",
+                        style: bodyText2);
+                  },
+                ),
               ),
             ),
           ),
@@ -146,7 +155,12 @@ class _CharacterPageState extends State<CharacterPage> {
                 value: notifier.value,
                 onChanged: (value) {
                   notifier.changeValueButton(value as String);
-                  notifier.sortList();
+                  context.read<CharacterBloc>().add(
+                        SortAscending(value: value),
+                      );
+                  context.read<CharacterBloc>().add(
+                        SortDescending(value: value),
+                      );
                 },
               ),
             ),

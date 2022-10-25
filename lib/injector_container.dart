@@ -10,10 +10,15 @@ import 'package:honkai_lab/domain/usecases/get_event_honkai.dart';
 import 'package:honkai_lab/domain/usecases/get_last_update.dart';
 import 'package:honkai_lab/domain/usecases/get_character.dart';
 import 'package:honkai_lab/domain/usecases/get_weapon_stigma_banner.dart';
-import 'package:honkai_lab/presentation/providers/character_provider.dart';
-import 'package:honkai_lab/presentation/providers/home_provider.dart';
-
-import 'presentation/providers/tier_list_provider.dart';
+import 'package:honkai_lab/presentation/blocs/character_bloc/character_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/banner_character_bloc/banner_character_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/elf_banner_bloc/elf_banner_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/event_honkai_bloc/event_honkai_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/redeem_code_bloc/redeem_code_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/update_bloc/update_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/home/weapon_stigmata_bloc/weapon_stigmata_bloc_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/tier_list/changelog_bloc/changelog_bloc.dart';
+import 'package:honkai_lab/presentation/blocs/tier_list/tier_list_character_bloc/tier_list_character_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -26,25 +31,17 @@ void setUp() {
       () => HonkaiLabRepositoriesImpl(remoteDataSource: sl()));
 
   sl.registerLazySingleton<GetActiveCodes>(
-    () => GetActiveCodes(
-      repositories: sl(),
-    ),
+    () => GetActiveCodes(repositories: sl()),
   );
 
   sl.registerLazySingleton<GetEventHonkai>(
-    () => GetEventHonkai(
-      repositories: sl(),
-    ),
+    () => GetEventHonkai(repositories: sl()),
   );
   sl.registerLazySingleton<GetLatestUpdate>(
-    () => GetLatestUpdate(
-      repositories: sl(),
-    ),
+    () => GetLatestUpdate(repositories: sl()),
   );
   sl.registerLazySingleton<GetBannerCharacter>(
-    () => GetBannerCharacter(
-      repositories: sl(),
-    ),
+    () => GetBannerCharacter(repositories: sl()),
   );
   sl.registerLazySingleton<GetElfBanner>(
     () => GetElfBanner(
@@ -52,42 +49,42 @@ void setUp() {
     ),
   );
   sl.registerLazySingleton<GetWeaponStigmaBanner>(
-    () => GetWeaponStigmaBanner(
-      repositories: sl(),
-    ),
+    () => GetWeaponStigmaBanner(repositories: sl()),
   );
   sl.registerLazySingleton<GetCharacter>(
-    () => GetCharacter(
-      repositories: sl(),
-    ),
+    () => GetCharacter(repositories: sl()),
   );
   sl.registerLazySingleton<GetChangelog>(
-    () => GetChangelog(
-      repositories: sl(),
-    ),
+    () => GetChangelog(repositories: sl()),
   );
 
-  //provider
-  sl.registerLazySingleton<HomeProvider>(
-    () => HomeProvider(
-      getWeaponStigmaBanner: sl(),
-      getBannerCharacter: sl(),
-      getActiveCodes: sl(),
-      getEventHonkai: sl(),
-      getLastUpdate: sl(),
-      getElfBanner: sl(),
-    ),
+  //bloc
+  sl.registerFactory<RedeemCodeBloc>(
+    () => RedeemCodeBloc(getActiveCodes: sl()),
   );
 
-  sl.registerLazySingleton<TierListProvider>(
-    () => TierListProvider(
-      character: sl(),
-      changelog: sl(),
-    ),
+  sl.registerFactory<EventHonkaiBloc>(
+    () => EventHonkaiBloc(getEventHonkai: sl()),
   );
-  sl.registerLazySingleton<CharacterProvider>(
-    () => CharacterProvider(
-      character: sl(),
-    ),
+  sl.registerFactory<UpdateBloc>(
+    () => UpdateBloc(getLatestUpdate: sl()),
+  );
+  sl.registerFactory<ElfBannerBloc>(
+    () => ElfBannerBloc(getElfBanner: sl()),
+  );
+  sl.registerFactory<BannerCharacterBloc>(
+    () => BannerCharacterBloc(getBannerCharacter: sl()),
+  );
+  sl.registerFactory<WeaponStigmataBloc>(
+    () => WeaponStigmataBloc(getWeaponStigmaBanner: sl()),
+  );
+  sl.registerFactory<CharacterBloc>(
+    () => CharacterBloc(getCharacter: sl()),
+  );
+  sl.registerFactory<TierListCharacterBloc>(
+    () => TierListCharacterBloc(getCharacter: sl()),
+  );
+  sl.registerFactory<ChangelogBloc>(
+    () => ChangelogBloc(getChangelog: sl()),
   );
 }

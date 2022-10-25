@@ -1,62 +1,65 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:honkai_lab/common/utils/finite_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:honkai_lab/common/navigator_fade_transition.dart';
+import 'package:honkai_lab/presentation/pages/detail_character/detail_character_page.dart';
 import 'package:honkai_lab/presentation/providers/tier_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style.dart';
+import '../../../domain/entities/character.dart';
+import '../../blocs/tier_list/tier_list_character_bloc/tier_list_character_bloc.dart';
 
-class TierListDps extends StatefulWidget {
+class TierListDps extends StatelessWidget {
   const TierListDps({super.key});
-
-  @override
-  State<TierListDps> createState() => _TierListDpsState();
-}
-
-class _TierListDpsState extends State<TierListDps> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () {
-        Provider.of<TierListProvider>(context, listen: false)
-            .fetchCharacter("dps");
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    return Consumer<TierListProvider>(
-      builder: (context, notifier, _) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          notifier.tierExDpsCharacters.isNotEmpty
-              ? _characterList(width, notifier.tierExDpsCharacters, 0)
-              : const SizedBox(),
-          const SizedBox(height: 16),
-          notifier.tierSDpsCharacter.isNotEmpty
-              ? _characterList(width, notifier.tierSDpsCharacter, 1)
-              : const SizedBox(),
-          const SizedBox(height: 16),
-          notifier.tierADpsCharacter.isNotEmpty
-              ? _characterList(width, notifier.tierADpsCharacter, 2)
-              : const SizedBox(),
-          const SizedBox(height: 16),
-          notifier.tierBDpsCharacter.isNotEmpty
-              ? _characterList(width, notifier.tierBDpsCharacter, 3)
-              : const SizedBox(),
-          SizedBox(height: height * 0.1),
-        ],
-      ),
+    return BlocBuilder<TierListCharacterBloc, TierListCharacterState>(
+      builder: (
+        context,
+        state,
+      ) {
+        if (state is LoadingTierListCharacter) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is LoadedTierListCharacter) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              state.tierExDpsCharacters.isNotEmpty
+                  ? _characterList(width, state.tierExDpsCharacters, 0)
+                  : const SizedBox(),
+              const SizedBox(height: 16),
+              state.tierSDpsCharacter.isNotEmpty
+                  ? _characterList(width, state.tierSDpsCharacter, 1)
+                  : const SizedBox(),
+              const SizedBox(height: 16),
+              state.tierADpsCharacter.isNotEmpty
+                  ? _characterList(width, state.tierADpsCharacter, 2)
+                  : const SizedBox(),
+              const SizedBox(height: 16),
+              state.tierBDpsCharacter.isNotEmpty
+                  ? _characterList(width, state.tierBDpsCharacter, 3)
+                  : const SizedBox(),
+              SizedBox(height: height * 0.1),
+            ],
+          );
+        }
+
+        return Text("failed get tier list character data from server",
+            style: subtitle);
+      },
     );
   }
 
-  Widget _characterList(double width, dynamic data, int indexTier) {
+  Widget _characterList(double width, List<Character> data, int indexTier) {
     return Consumer<TierListProvider>(
-      builder: (context, notifier, _) => Container(
+      builder: (context, state, _) => Container(
         decoration: BoxDecoration(
             color: indexTier == 0
                 ? Colors.red
@@ -83,7 +86,7 @@ class _TierListDpsState extends State<TierListDps> {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Consumer<TierListProvider>(
-                  builder: (context, notifier, _) => GridView.builder(
+                  builder: (context, state, _) => GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     shrinkWrap: true,
@@ -95,34 +98,42 @@ class _TierListDpsState extends State<TierListDps> {
                     itemBuilder: (context, index) {
                       final items = data[index];
 
-                      if (notifier.myState == MyState.loading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
+                      state.changeBottomBorderColor(items.element);
 
-                      if (notifier.myState == MyState.failed) {
-                        return Center(
-                          child: Text("Failed get data from server",
-                              style: subtitle),
-                        );
-                      }
-
-                      notifier.changeBottomBorderColor(items.element);
-
-                      return Stack(
-                        children: [
-                          Container(
-                            height: 90,
-                            width: 55,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                    color: notifier.colorBottom, width: 3),
+                      return GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          NavigatorFadeTransition(
+                            child: DetailCharacterPage(data: items),
+                          ),
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 90,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                      color: state.colorBottom, width: 3),
+                                ),
                               ),
+                              child: CachedNetworkImage(
+                                  imageUrl: items.imageChibi,
+                                  errorWidget: (context, url, error) {
+                                    return const Center(
+                                      child:
+                                          Icon(Icons.error, color: Colors.red),
+                                    );
+                                  },
+                                  placeholder: (context, url) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                                  fit: BoxFit.cover),
                             ),
-                            child: CachedNetworkImage(
-                                imageUrl: items.imageChibi,
+                            CachedNetworkImage(
+                                imageUrl: items.elementImage,
                                 errorWidget: (context, url, error) {
                                   return const Center(
                                     child: Icon(Icons.error, color: Colors.red),
@@ -133,23 +144,10 @@ class _TierListDpsState extends State<TierListDps> {
                                     child: CircularProgressIndicator(),
                                   );
                                 },
-                                fit: BoxFit.cover),
-                          ),
-                          CachedNetworkImage(
-                              imageUrl: items.elementImage,
-                              errorWidget: (context, url, error) {
-                                return const Center(
-                                  child: Icon(Icons.error, color: Colors.red),
-                                );
-                              },
-                              placeholder: (context, url) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
-                              height: 20,
-                              width: 20),
-                        ],
+                                height: 20,
+                                width: 20),
+                          ],
+                        ),
                       );
                     },
                   ),

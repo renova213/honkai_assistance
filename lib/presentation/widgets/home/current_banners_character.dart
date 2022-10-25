@@ -1,26 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
-import 'package:honkai_lab/common/utils/finite_state.dart';
-import 'package:honkai_lab/presentation/providers/home_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:honkai_lab/presentation/blocs/home/banner_character_bloc/banner_character_bloc.dart';
 
-class CurrentBannerCharacter extends StatefulWidget {
+class CurrentBannerCharacter extends StatelessWidget {
   const CurrentBannerCharacter({super.key});
-
-  @override
-  State<CurrentBannerCharacter> createState() => _CurrentBannerCharacterState();
-}
-
-class _CurrentBannerCharacterState extends State<CurrentBannerCharacter> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => Provider.of<HomeProvider>(context, listen: false)
-          .fetchBannerCharacter(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,81 +37,86 @@ class _CurrentBannerCharacterState extends State<CurrentBannerCharacter> {
   }
 
   Widget _listBannerCharacters(double width) {
-    return Consumer<HomeProvider>(
-      builder: (context, notifier, _) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: notifier.bannerCharacters.length,
-        itemBuilder: (context, index) {
-          final data = notifier.bannerCharacters[index];
-
-          if (notifier.myState == MyState.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (notifier.myState == MyState.failed) {
-            return Center(
-              child: Text("Failed Get Data From Server", style: subtitle),
-            );
-          }
-          return Container(
-            width: width,
-            height: 100,
-            decoration: BoxDecoration(
-              color: index.isEven ? Colors.transparent : Colors.grey.shade800,
-              border: Border.all(color: Colors.grey.shade800, width: 2),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 85,
-                    height: 85,
-                    child: GestureDetector(
-                      onTap: () => _bottomSheet(data.urlImage, width),
-                      child: CachedNetworkImage(
-                        imageUrl: data.urlImage,
-                        errorWidget: (context, url, error) {
-                          return const Center(
-                            child: Icon(Icons.error, color: Colors.red),
-                          );
-                        },
-                        placeholder: (context, url) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        data.nameCharacter,
-                        style: subtitle,
-                      ),
-                      Text(
-                        "Ends on ${data.endDate}",
-                        style: bodyText2,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+    return BlocBuilder<BannerCharacterBloc, BannerCharacterState>(
+      builder: (context, state) {
+        if (state is LoadingBannerCharacter) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+        if (state is LoadedBannerCharacter) {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: state.characterBanners.length,
+            itemBuilder: (context, index) {
+              final data = state.characterBanners[index];
+
+              return Container(
+                width: width,
+                height: 100,
+                decoration: BoxDecoration(
+                  color:
+                      index.isEven ? Colors.transparent : Colors.grey.shade800,
+                  border: Border.all(color: Colors.grey.shade800, width: 2),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 85,
+                        height: 85,
+                        child: GestureDetector(
+                          onTap: () =>
+                              _bottomSheet(data.urlImage, width, context),
+                          child: CachedNetworkImage(
+                            imageUrl: data.urlImage,
+                            errorWidget: (context, url, error) {
+                              return const Center(
+                                child: Icon(Icons.error, color: Colors.red),
+                              );
+                            },
+                            placeholder: (context, url) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            data.nameCharacter,
+                            style: subtitle,
+                          ),
+                          Text(
+                            "Ends on ${data.endDate}",
+                            style: bodyText2,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        return Center(
+          child: Text("Failed get character banner data from server",
+              style: subtitle),
+        );
+      },
     );
   }
 
-  void _bottomSheet(String urlImage, double width) {
+  void _bottomSheet(String urlImage, double width, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
