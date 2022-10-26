@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916519528879",
+    "project_id": "honkailab-135c7",
+    "storage_bucket": "honkailab-135c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916519528879:android:f99a665ea753147b62e75a",
+        "android_client_info": {
+          "package_name": "com.example.honkai_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916519528879-lljr7m0f1jcu6cuf9rijs3puvm2m4lo7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAoNt6Ed8FdDk19QC6VBXuOEkv7ZnFMcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916519528879-lljr7m0f1jcu6cuf9rijs3puvm2m4lo7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
