@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/style.dart';
 import '../../../domain/entities/character.dart';
+import '../../../responsive_layout.dart';
 
 class CharacterTeamContainer extends StatelessWidget {
   final Detail detail;
@@ -34,62 +35,68 @@ class CharacterTeamContainer extends StatelessWidget {
   }
 
   Widget _listTeam(double width) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: detail.characterTeam.length,
-      itemBuilder: (context, index) {
-        final indexData = detail.characterTeam[index];
-        return Column(
-          children: [
-            _titleContainer(indexData.nameTeam, width),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: width,
-              height: 150,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                physics: const BouncingScrollPhysics(),
-                itemCount: 3,
-                separatorBuilder: (context, index) => const SizedBox(width: 16),
-                itemBuilder: (context, index) {
-                  final data = indexData.characterTeam[index];
-                  return SizedBox(
-                    width: 100,
-                    height: 150,
-                    child: Column(
-                      children: [
-                        CachedNetworkImage(
-                            imageUrl: data.urlImage,
-                            errorWidget: (context, url, error) {
-                              return const Center(
-                                child: Icon(Icons.error, color: Colors.red),
-                              );
-                            },
-                            placeholder: (context, url) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.fill),
-                        const SizedBox(height: 8),
-                        Text(
-                          data.nameCharacter,
-                          style: bodyText2.copyWith(
-                              overflow: TextOverflow.ellipsis),
-                        )
-                      ],
-                    ),
-                  );
-                },
+    return Center(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: detail.characterTeam.length,
+        itemBuilder: (context, index) {
+          final indexData = detail.characterTeam[index];
+          return Column(
+            children: [
+              _titleContainer(indexData.nameTeam, width),
+              const SizedBox(height: 16),
+              Center(
+                child: SizedBox(
+                  width:
+                      ResponsiveLayout.isMobile(context) ? width : width * 0.5,
+                  height: 150,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 3,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 16),
+                    itemBuilder: (context, index) {
+                      final data = indexData.characterTeam[index];
+                      return SizedBox(
+                        width: 100,
+                        height: 150,
+                        child: Column(
+                          children: [
+                            CachedNetworkImage(
+                                imageUrl: data.urlImage,
+                                errorWidget: (context, url, error) {
+                                  return const Center(
+                                    child: Icon(Icons.error, color: Colors.red),
+                                  );
+                                },
+                                placeholder: (context, url) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.fill),
+                            const SizedBox(height: 8),
+                            Text(
+                              data.nameCharacter,
+                              style: bodyText2.copyWith(
+                                  overflow: TextOverflow.ellipsis),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }

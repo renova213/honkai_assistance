@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/style.dart';
 import '../../../domain/entities/character.dart';
+import '../../../responsive_layout.dart';
 
 class ProfileCharacterContainer extends StatelessWidget {
   final String urlImage;
@@ -23,7 +24,9 @@ class ProfileCharacterContainer extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: height * 0.7,
+                height: ResponsiveLayout.isMobile(context)
+                    ? height * 0.7
+                    : height * 1.3,
                 width: width,
                 child: CachedNetworkImage(
                     imageUrl: urlImage,

@@ -239,7 +239,7 @@ class ElysianRealmContainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: indexColor == 0
                   ? Colors.grey.shade600
-                  : indexColor == 1
+                  : indexColor.isOdd
                       ? Colors.grey.shade700
                       : Colors.transparent,
               border: Border.all(
@@ -264,7 +264,7 @@ class ElysianRealmContainer extends StatelessWidget {
             decoration: BoxDecoration(
               color: indexColor == 0
                   ? Colors.grey.shade600
-                  : indexColor == 1
+                  : indexColor.isOdd
                       ? Colors.grey.shade700
                       : Colors.transparent,
               border: Border.all(

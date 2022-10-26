@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 
 import '../../../../common/style.dart';
 
@@ -33,7 +34,8 @@ class DormPage extends StatelessWidget {
                             "What makes a true valkyrie is of course, CHORES... Dorm errands is where you can send your valks off to do some cleaning, shopping and groceries, which provide you good rewards. Doing chores uses a different form of stamina called Onigiri, as the doing chores make your valks hungry~.",
                         urlImage:
                             "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/936ab0438e7bda194a8c4b91238baf83_1825108628567889960.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _customWidget(
                         text: "2. Dorm Expedition",
@@ -41,7 +43,8 @@ class DormPage extends StatelessWidget {
                             "Not enough time to play Honkai? Dorm Expedition is just for you! It allows valks to clear story stages off-screen and you'll be able to collect the rewards after you're back from a busy day. In the beginning where you're doing a lot of story stages, you will not really need to do Dorm expeditions, thus saving stamina. However, once you're busy or have played through all the story stages, then doing dorm expeditions to fulfill your daily task is the way to go!.",
                         urlImage:
                             "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/515ca5a30c7b252b0a83a4e3f03252b0_54661603295521680.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _customWidget(
                         text: "3. Dorm Misc",
@@ -49,14 +52,16 @@ class DormPage extends StatelessWidget {
                             "The dorm has 2 machines that generate coins and store excess stamina. Do remember to collect your coins daily and excess stamina whenever you are in need of them!.",
                         urlImage:
                             "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/47fdb5520fa0a725e51b7f87a75f28be_4533113488401630427.jpg?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,jpg",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _customWidget(
                         text: "4. Valkyrie Dorm",
                         text2:
                             "It's a place where you can express your own style, or enjoy the cute interactions between the Chibis. It however, also has a level system, required materials and a Tier system based on comfort.",
                         urlImage: "https://i.ibb.co/LS49VFC/Untitled.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                   ]),
             ),
@@ -99,7 +104,8 @@ class DormPage extends StatelessWidget {
       {required String text,
       required String text2,
       required String urlImage,
-      required double width}) {
+      required double width,
+      required BuildContext context}) {
     return Column(
       children: [
         _titleContainer(text),
@@ -107,7 +113,7 @@ class DormPage extends StatelessWidget {
         Text(text2, style: bodyText2),
         const SizedBox(height: 16),
         SizedBox(
-          height: 150,
+          height: ResponsiveLayout.isMobile(context) ? 150 : 200,
           width: width * 0.7,
           child: CachedNetworkImage(
             imageUrl: urlImage,

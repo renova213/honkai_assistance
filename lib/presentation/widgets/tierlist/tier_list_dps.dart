@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../common/style.dart';
 import '../../../domain/entities/character.dart';
+import '../../../responsive_layout.dart';
 import '../../blocs/tier_list/tier_list_character_bloc/tier_list_character_bloc.dart';
 
 class TierListDps extends StatelessWidget {
@@ -90,11 +91,11 @@ class TierListDps extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 8,
-                            crossAxisSpacing: 8,
-                            crossAxisCount: 3),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        crossAxisCount:
+                            ResponsiveLayout.isMobile(context) ? 3 : 6),
                     itemBuilder: (context, index) {
                       final items = data[index];
 

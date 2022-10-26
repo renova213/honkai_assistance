@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 
 import '../../../../common/style.dart';
 
@@ -74,49 +75,56 @@ You will get an S rank battlesuit within every 100 pulls and the pity counter wi
                         text2:
                             "In this story stage, you will introduced to many characters, there are Raiden Mei, Bronya Zaychik, Fu Hua, Himeko Murata and many others. In this stage, you can see the struggle of Kiana and her friends to stop Honkai together.",
                         urlImage: "https://i.ibb.co/1Gm4xKT/1.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "2. Chronicles",
                         text2:
                             "Chronicles are side-stories about past events, or side stories that happen alongside the main story, but aren't featured. For example, one of the Chronicles shows Theresa's past and upbringing, were we can learn about her origin and backstory.",
                         urlImage: "https://i.ibb.co/3M65gxD/2.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "3. Open world",
                         text2:
                             "Open World is a large place, you can walk around in these places. Open World also has quests that are no less interesting. But it requires a lot of stamina. In Open World, there are 3 map variants that you can choose from. There are Sakura Samsara, Schicksal HQ, and APHO (A Post Honkai Odyssey).",
                         urlImage: "https://i.ibb.co/7YRxzDM/3.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "4. Daily Material Stages",
                         text2:
                             "Here is where you can perform daily stages to get upgrade materials and fulfill your daily task requirements. The stages here are pretty straightforward, and there's a instant-clear button for stages that you've completed before. Super convenient for everyone.",
                         urlImage: "https://i.ibb.co/FDSmMKp/4.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "5. Infinity Abyss",
                         text2:
                             "The first 'PVP' element, where you compete against other other valkyries in completing as many stages as fast as possible. Infinity Abyss puts your valkyries to the test, as you attempt to clear stages that become progressively more difficult. This mode runs twice a week, Monday and Friday, where you'll be able to earn crystals from trying at the stage at least once!.",
                         urlImage: "https://i.ibb.co/LpCNq0H/5.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "6. Memorial Arena",
                         text2:
                             "The next 'PVP' element, where you'll be given 3 bosses to fight. The catch is that your valkyries and equipment can only be used once per boss, thus putting your team composition skills to the test. In the beginning you may have a lack of valkyries to clear all the bosses efficiently, but my advice to do at least 10 attempts each week to clear the weekly attempts reward.",
                         urlImage: "https://i.ibb.co/TvfptBH/6.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "7. Universal Mirage",
                         text2:
                             "Universal Mirage provides you with crafting materials that allow you forge valkyrie-specific Weapons and Stigmatas for your valkyries to use. There are 4 elements to choose from (Ice, Fire, Lightning and Physical), and each section consists of 6 levels that get progressively more difficult, but provide better rewards.",
                         urlImage: "https://i.ibb.co/2MVbYsF/7.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "8. Coop Stage",
@@ -124,7 +132,8 @@ You will get an S rank battlesuit within every 100 pulls and the pity counter wi
                             "Coop Raid is a stage where you can get divine keys or materials according to the stage you choose. For the divine key stage, you can choose the left one. If you choose material, you can choose the right one. You can complete this stage if there are 3 people in your party, if there are less than 3 people then you have to wait for someone else to enter your party.",
                         urlImage:
                             "https://i.ytimg.com/vi/fNhJMzhp0as/maxresdefault.jpg",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _titleContainer("Cadet-Sensei System"),
                     const SizedBox(height: 16),
@@ -134,7 +143,8 @@ You will get an S rank battlesuit within every 100 pulls and the pity counter wi
                             "Coop Raid is a stage where you can get divine keys or materials according to the stage you choose. For the divine key stage, you can choose the left one. If you choose material, you can choose the right one. You can complete this stage if there are 3 people in your party, if there are less than 3 people then you have to wait for someone else to enter your party.",
                         urlImage:
                             "https://preview.redd.it/6ynejba41ad41.jpg?auto=webp&s=bd5cb7de7d4db24abd021042369347f20da51442",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _gameplay(
                         text: "2. Q&A",
@@ -142,7 +152,8 @@ You will get an S rank battlesuit within every 100 pulls and the pity counter wi
                             "''Ask and you shall receive''. If there's anything that you're not sure of, be-it game mechanics, gear investments or storyline stuff, don't be afraid to hit your sensei up! I'm sure your sensei would be glad to help, and y'all might even become friends! Honkai is so much more fun when there's friends around amirite?",
                         urlImage:
                             "https://interfaceingame.com/wp-content/uploads/honkai-impact-3rd/honkai-impact-3rd-sensei-cadet.png",
-                        width: width),
+                        width: width,
+                        context: context),
                     const SizedBox(height: 16),
                     _titleContainer("Additional"),
                     const SizedBox(height: 16),
@@ -242,13 +253,14 @@ You will get an S rank battlesuit within every 100 pulls and the pity counter wi
       {required String text,
       required String text2,
       required String urlImage,
-      required double width}) {
+      required double width,
+      required BuildContext context}) {
     return Column(
       children: [
         _customText(text, text2),
         const SizedBox(height: 8),
         SizedBox(
-          height: 150,
+          height: ResponsiveLayout.isMobile(context) ? 150 : 200,
           width: width * 0.7,
           child: CachedNetworkImage(
             imageUrl: urlImage,

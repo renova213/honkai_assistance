@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/navigator_fade_transition.dart';
 import 'package:honkai_lab/presentation/blocs/character_bloc/character_bloc.dart';
 import 'package:honkai_lab/presentation/providers/character_provider.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style.dart';
@@ -27,8 +28,10 @@ class ListCharacter extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: state.characters.length,
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 8, crossAxisSpacing: 8, crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  crossAxisCount: ResponsiveLayout.isMobile(context) ? 2 : 4),
               itemBuilder: (context, index) {
                 final data = state.characters[index];
 

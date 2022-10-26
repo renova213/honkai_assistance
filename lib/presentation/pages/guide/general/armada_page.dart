@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 
 import '../../../../common/style.dart';
 
@@ -33,7 +34,8 @@ class ArmadaPage extends StatelessWidget {
                           "Commissions is an open-donation drive where you can donate items to fellow players to help them out. In exchange, you'll stand a chance to receive awesome rewards such as valk fragments Dorm Supply tickets!.",
                       urlImage:
                           "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/1ed7abcddf3bdd7ce3bb68ce8a9c2db5_1092358677945417011.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
-                      width: width),
+                      width: width,
+                      context: context),
                   const SizedBox(height: 16),
                   _customWidget(
                       text: "2. Warehouse",
@@ -41,7 +43,8 @@ class ArmadaPage extends StatelessWidget {
                           "To give, and to receive... Warehouse is where you get to request specific items from your fellow armada mates, and hopefully they'll fulfill your requests! Request items may vary from valkyrie fragments to upgrading and forging materials.",
                       urlImage:
                           "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/4a8790d9b9a7b8c8bb6c6d493accfa40_7558400299585427862.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
-                      width: width),
+                      width: width,
+                      context: context),
                   const SizedBox(height: 16),
                   _customWidget(
                       text: "3. Sim Battle",
@@ -49,7 +52,8 @@ class ArmadaPage extends StatelessWidget {
                           "Sim Battle allows you to experience the full capabilities of a whale, I mean of a fully geared team setup. Here you get to rekt bosses like you never could before, and get tempted to empty your wallets to get the good stuff! Very good indeed XD.",
                       urlImage:
                           "https://upload-os-bbs.hoyolab.com/upload/2021/12/13/5434195/be0aaf94384ac828568f079989b4021c_6451173218978299791.png?x-oss-process=image/resize,s_740/quality,q_80/auto-orient,0/interlace,1/format,png",
-                      width: width),
+                      width: width,
+                      context: context),
                   const SizedBox(height: 16),
                 ],
               ),
@@ -93,7 +97,8 @@ class ArmadaPage extends StatelessWidget {
       {required String text,
       required String text2,
       required String urlImage,
-      required double width}) {
+      required double width,
+      required BuildContext context}) {
     return Column(
       children: [
         _titleContainer(text),
@@ -101,7 +106,7 @@ class ArmadaPage extends StatelessWidget {
         Text(text2, style: bodyText2),
         const SizedBox(height: 16),
         SizedBox(
-          height: 150,
+          height: ResponsiveLayout.isMobile(context) ? 150 : 200,
           width: width * 0.7,
           child: CachedNetworkImage(
             imageUrl: urlImage,
