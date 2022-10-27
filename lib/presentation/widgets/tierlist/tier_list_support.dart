@@ -39,6 +39,10 @@ class _TierListDpsState extends State<TierListSupport> {
                   ? _characterList(width, state.tierSSupportCharacters, 1)
                   : SizedBox(height: height * 0.3),
               const SizedBox(height: 16),
+              state.tierASupportCharacters.isNotEmpty
+                  ? _characterList(width, state.tierSSupportCharacters, 1)
+                  : SizedBox(height: height * 0.3),
+              const SizedBox(height: 16),
             ],
           );
         }

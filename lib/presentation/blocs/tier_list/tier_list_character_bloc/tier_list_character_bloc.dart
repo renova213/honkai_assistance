@@ -33,6 +33,7 @@ class TierListCharacterBloc
             List<Character> tierBDpsCharacter = [];
             List<Character> tierExSupportCharacters = [];
             List<Character> tierSSupportCharacters = [];
+            List<Character> tierASupportCharacters = [];
 
             for (var i in tierListCharacter) {
               if (i.tier == "ex" &&
@@ -67,6 +68,11 @@ class TierListCharacterBloc
                   !tierSSupportCharacters.contains(i)) {
                 tierSSupportCharacters.add(i);
               }
+              if (i.role == "support" &&
+                  i.tier == "a" &&
+                  !tierASupportCharacters.contains(i)) {
+                tierASupportCharacters.add(i);
+              }
             }
             emit(
               LoadedTierListCharacter(
@@ -75,7 +81,8 @@ class TierListCharacterBloc
                   tierADpsCharacter: tierADpsCharacter,
                   tierBDpsCharacter: tierBDpsCharacter,
                   tierExSupportCharacters: tierExSupportCharacters,
-                  tierSSupportCharacters: tierSSupportCharacters),
+                  tierSSupportCharacters: tierSSupportCharacters,
+                  tierASupportCharacters: tierASupportCharacters),
             );
           },
         );

@@ -18,6 +18,7 @@ class LoadedTierListCharacter extends TierListCharacterState {
   final List<Character> tierBDpsCharacter;
   final List<Character> tierExSupportCharacters;
   final List<Character> tierSSupportCharacters;
+  final List<Character> tierASupportCharacters;
 
   const LoadedTierListCharacter(
       {this.tierExDpsCharacters = const [],
@@ -25,7 +26,8 @@ class LoadedTierListCharacter extends TierListCharacterState {
       this.tierADpsCharacter = const [],
       this.tierBDpsCharacter = const [],
       this.tierExSupportCharacters = const [],
-      this.tierSSupportCharacters = const []});
+      this.tierSSupportCharacters = const [],
+      this.tierASupportCharacters = const []});
   @override
   List<Object> get props => [
         tierExDpsCharacters,
@@ -33,7 +35,8 @@ class LoadedTierListCharacter extends TierListCharacterState {
         tierADpsCharacter,
         tierBDpsCharacter,
         tierExSupportCharacters,
-        tierSSupportCharacters
+        tierSSupportCharacters,
+        tierASupportCharacters
       ];
 }
 

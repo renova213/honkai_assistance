@@ -147,6 +147,11 @@ class HonkaiLabRemoteDataSourceImpl implements HonkaiLabRemoteDataSource {
               i.data(),
             ),
           );
+          characters.sort(
+            (a, b) => a.nameCharacter.toLowerCase().compareTo(
+                  b.nameCharacter.toLowerCase(),
+                ),
+          );
         }
       },
     );

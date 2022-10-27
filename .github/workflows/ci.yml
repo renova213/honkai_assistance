@@ -3,6 +3,9 @@ name: Dart
 on:
   pull_request:
     branches: ["main", "development"]
+on:
+  push:
+    branches: ["main"]
 
 jobs:
   flutter_test:
