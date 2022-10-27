@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/blocs/home/banner_character_bloc/banner_character_bloc.dart';
 
+import '../../../responsive_layout.dart';
+
 class CurrentBannerCharacter extends StatelessWidget {
   const CurrentBannerCharacter({super.key});
 
@@ -54,7 +56,7 @@ class CurrentBannerCharacter extends StatelessWidget {
 
               return Container(
                 width: width,
-                height: 100,
+                height: ResponsiveLayout.isMobile(context) ? 100 : 120,
                 decoration: BoxDecoration(
                   color:
                       index.isEven ? Colors.transparent : Colors.grey.shade800,
@@ -66,8 +68,8 @@ class CurrentBannerCharacter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: 85,
-                        height: 85,
+                        width: ResponsiveLayout.isMobile(context) ? 85 : 100,
+                        height: ResponsiveLayout.isMobile(context) ? 85 : 100,
                         child: GestureDetector(
                           onTap: () =>
                               _bottomSheet(data.urlImage, width, context),
@@ -91,9 +93,13 @@ class CurrentBannerCharacter extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            data.nameCharacter,
-                            style: subtitle,
+                          Container(
+                            alignment: Alignment.centerRight,
+                            width: width * 0.5,
+                            child: Text(
+                              data.nameCharacter,
+                              style: subtitle,
+                            ),
                           ),
                           Text(
                             "Ends on ${data.endDate}",

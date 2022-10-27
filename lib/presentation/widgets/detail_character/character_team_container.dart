@@ -64,6 +64,7 @@ class CharacterTeamContainer extends StatelessWidget {
                         width: 100,
                         height: 150,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CachedNetworkImage(
                                 imageUrl: data.urlImage,
@@ -81,10 +82,12 @@ class CharacterTeamContainer extends StatelessWidget {
                                 height: 100,
                                 fit: BoxFit.fill),
                             const SizedBox(height: 8),
-                            Text(
-                              data.nameCharacter,
-                              style: bodyText2.copyWith(
-                                  overflow: TextOverflow.ellipsis),
+                            Center(
+                              child: Text(
+                                data.nameCharacter,
+                                style: bodyText2.copyWith(
+                                    overflow: TextOverflow.ellipsis),
+                              ),
                             )
                           ],
                         ),
@@ -93,6 +96,9 @@ class CharacterTeamContainer extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              )
             ],
           );
         },

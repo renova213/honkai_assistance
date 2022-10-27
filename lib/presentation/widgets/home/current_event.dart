@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/blocs/home/event_honkai_bloc/event_honkai_bloc.dart';
 import 'package:honkai_lab/presentation/providers/home_provider.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 import 'package:provider/provider.dart';
 
 class CurrentEvent extends StatelessWidget {
@@ -63,7 +64,7 @@ class CurrentEvent extends StatelessWidget {
                   ),
                   Container(
                     width: width,
-                    height: 200,
+                    height: ResponsiveLayout.isMobile(context) ? 200 : 220,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue, width: 3),
                     ),

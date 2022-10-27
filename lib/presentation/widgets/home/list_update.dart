@@ -5,6 +5,8 @@ import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/blocs/home/update_bloc/update_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../responsive_layout.dart';
+
 class ListUpdate extends StatelessWidget {
   const ListUpdate({super.key});
 
@@ -44,7 +46,7 @@ class ListUpdate extends StatelessWidget {
                     onTap: () => _launchUrl(data.urlWeb),
                     child: Container(
                       width: width,
-                      height: 200,
+                      height: ResponsiveLayout.isMobile(context) ? 200 : 220,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.blue, width: 3),
                       ),

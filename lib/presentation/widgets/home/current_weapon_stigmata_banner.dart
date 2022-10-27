@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:honkai_lab/common/style.dart';
 import 'package:honkai_lab/presentation/blocs/home/weapon_stigmata_bloc/weapon_stigmata_bloc_bloc.dart';
+import 'package:honkai_lab/responsive_layout.dart';
 
 class CurrentWeaponStigmataBanner extends StatelessWidget {
   const CurrentWeaponStigmataBanner({super.key});
@@ -58,7 +59,7 @@ class CurrentWeaponStigmataBanner extends StatelessWidget {
 
               return Container(
                 width: width,
-                height: 200,
+                height: ResponsiveLayout.isMobile(context) ? 200 : 220,
                 decoration: BoxDecoration(
                   color:
                       index.isEven ? Colors.transparent : Colors.grey.shade800,
@@ -72,8 +73,10 @@ class CurrentWeaponStigmataBanner extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 85,
-                            height: 85,
+                            width:
+                                ResponsiveLayout.isMobile(context) ? 85 : 100,
+                            height:
+                                ResponsiveLayout.isMobile(context) ? 85 : 100,
                             child: GestureDetector(
                               onTap: () => _bottomSheet(
                                   data.urlImageWeapon, width, context),
@@ -110,8 +113,10 @@ class CurrentWeaponStigmataBanner extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 85,
-                            height: 85,
+                            width:
+                                ResponsiveLayout.isMobile(context) ? 85 : 100,
+                            height:
+                                ResponsiveLayout.isMobile(context) ? 85 : 100,
                             child: GestureDetector(
                               onTap: () => _bottomSheet(
                                   data.urlImageStigmata, width, context),
@@ -134,9 +139,13 @@ class CurrentWeaponStigmataBanner extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
-                                data.nameStigmata,
-                                style: subtitle,
+                              Container(
+                                alignment: Alignment.centerRight,
+                                width: width * 0.5,
+                                child: Text(
+                                  data.nameStigmata,
+                                  style: subtitle,
+                                ),
                               ),
                               const SizedBox(height: 32),
                               Text(
