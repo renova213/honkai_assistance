@@ -12,9 +12,15 @@ class CharacterTeamContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: _listTeam(width),
+      child: Column(
+        children: [
+          _listTeam(width),
+          SizedBox(height: height * 0.1),
+        ],
+      ),
     );
   }
 
@@ -96,9 +102,6 @@ class CharacterTeamContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
-              )
             ],
           );
         },
