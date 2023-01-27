@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045662111330",
+    "project_id": "honkaiassistance",
+    "storage_bucket": "honkaiassistance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045662111330:android:1165a59135a3ea7b90233b",
+        "android_client_info": {
+          "package_name": "com.example.honkai_assistance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045662111330-nm77j4uf51pnme07kvnkc8bg6rvcidjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYvJHZ2vMgskMq3hSwC4N_PAQOKeyqmIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045662111330-nm77j4uf51pnme07kvnkc8bg6rvcidjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
