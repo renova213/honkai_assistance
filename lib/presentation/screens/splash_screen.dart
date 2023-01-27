@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   SizedBox(height: 8.h),
                   Text("Honkai Impact 3 Guide & Tier List",
-                      style: AppFont.bodyText2),
+                      style: AppFont.smallText),
                 ],
               ),
             ),

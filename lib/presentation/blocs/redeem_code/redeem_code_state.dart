@@ -12,8 +12,8 @@ class EmptyRedeemCode extends RedeemCodeState {}
 class LoadingRedeemCode extends RedeemCodeState {}
 
 class LoadedRedeemCode extends RedeemCodeState {
-  final List<RedeemCode> redeemCodesSea;
-  final List<RedeemCode> redeemCodesGlobal;
+  final List<RedeemCodeEntity> redeemCodesSea;
+  final List<RedeemCodeEntity> redeemCodesGlobal;
 
   const LoadedRedeemCode(
       {required this.redeemCodesSea, required this.redeemCodesGlobal});

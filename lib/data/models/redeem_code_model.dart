@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:honkai_assistance/domain/entities/redeem_code.dart';
+import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 
-class RedeemCodeModel extends RedeemCode {
+class RedeemCodeModel extends RedeemCodeEntity {
   const RedeemCodeModel(
       {required super.code,
       required super.reward,

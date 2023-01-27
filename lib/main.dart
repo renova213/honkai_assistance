@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/common/constant.dart';
 
+import 'common/style/style.dart';
+import 'common/util/state_management_helper.dart';
 import 'injection_container.dart';
 import 'presentation/screens/splash_screen.dart';
 
@@ -23,10 +24,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(360, 640),
-      builder: (context, _) => MultiBlocProviders.blocs(
+      builder: (context, _) => StateManagementHelper.providers(
         MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(useMaterial3: true),
+          theme: ThemeData(
+              scaffoldBackgroundColor: AppColor.primaryColor,
+              useMaterial3: true),
           home: const SplashScreen(),
         ),
       ),
