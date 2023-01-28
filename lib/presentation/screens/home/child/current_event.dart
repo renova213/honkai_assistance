@@ -16,6 +16,7 @@ class CurrentEvent extends StatelessWidget {
     return Column(
       children: [
         const TitleLine(title: "Curent Event"),
+        SizedBox(height: 16.h),
         _listEvents(),
       ],
     );

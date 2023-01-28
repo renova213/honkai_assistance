@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:honkai_assistance/data/datasources/home_remote_data_source.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
+import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
@@ -57,9 +58,9 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<CharacterBannerEntity>>>
-      getCharacterBanner() async {
+      getCharacterBanners() async {
     try {
-      final characterBanners = await homeRemoteDataSource.getCharacterBanner();
+      final characterBanners = await homeRemoteDataSource.getCharacterBanners();
 
       return Right(characterBanners);
     } on SocketException {
@@ -71,11 +72,24 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<EquipmentBannerEntity>>>
-      getEquipmentBanner() async {
+      getEquipmentBanners() async {
     try {
-      final equipmentBanners = await homeRemoteDataSource.getEquipmentBanner();
+      final equipmentBanners = await homeRemoteDataSource.getEquipmentBanners();
 
       return Right(equipmentBanners);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ElfBannerEntity>>> getElfBanners() async {
+    try {
+      final elfBanners = await homeRemoteDataSource.getElfBanners();
+
+      return Right(elfBanners);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

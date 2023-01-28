@@ -83,8 +83,36 @@ class CharacterBanner extends StatelessWidget {
             ),
           );
         }
-        return const SizedBox();
+        return _loading();
       },
+    );
+  }
+
+  Widget _loading() {
+    return Container(
+      width: double.maxFinite,
+      height: 100.h,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: Colors.grey.shade800, width: 2),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Loading(width: 85, height: 85, borderRadius: 0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Loading(width: 150, height: 15, borderRadius: 0),
+                Loading(width: 150, height: 15, borderRadius: 0),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

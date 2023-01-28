@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
+import 'package:honkai_assistance/presentation/screens/menu_screen.dart';
 
 import '../../common/style/style.dart';
-import 'home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
       () => Navigator.of(context).pushReplacement(
         NavigatorFadeHelper(
-          child: const HomeScreen(),
+          child: const MenuScreen(),
         ),
       ),
     );

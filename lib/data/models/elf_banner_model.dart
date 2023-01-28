@@ -1,23 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 
-class ElfBannerModel {
-  final String? id;
-  final String urlImage;
-  final String title;
-  final String endDate;
-
-  ElfBannerModel(
-      {required this.urlImage,
-      required this.title,
-      required this.endDate,
-      this.id});
-
-  factory ElfBannerModel.fromDoc(DocumentSnapshot doc) => ElfBannerModel(
-      id: doc.id,
-      urlImage: (doc.data() as Map)['urlImage'],
-      title: (doc.data() as Map)['title'],
-      endDate: (doc.data() as Map)['endDate']);
-
-  Map<String, dynamic> toJson() =>
-      {'urlImage': urlImage, 'title': title, 'endDate': endDate};
+class ElfBannerModel extends ElfBannerEntity {
+  const ElfBannerModel(
+      {required super.urlImage, required super.title, required super.endDate});
+  factory ElfBannerModel.fromMap(Map<String, dynamic> map) => ElfBannerModel(
+      urlImage: map['urlImage'], title: map['title'], endDate: map['endDate']);
 }

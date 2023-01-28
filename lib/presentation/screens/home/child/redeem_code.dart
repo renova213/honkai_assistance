@@ -67,7 +67,7 @@ class RedeemCode extends StatelessWidget {
                 child: Text("SEA",
                     style: notifier.indexServer == 0
                         ? AppFont.subtitle
-                        : AppFont.largeText1),
+                        : AppFont.largeText),
               ),
             ),
           ),
@@ -89,7 +89,7 @@ class RedeemCode extends StatelessWidget {
                 child: Text("Global",
                     style: notifier.indexServer == 1
                         ? AppFont.subtitle
-                        : AppFont.largeText1),
+                        : AppFont.largeText),
               ),
             ),
           ),

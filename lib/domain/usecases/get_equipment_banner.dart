@@ -9,7 +9,7 @@ class GetEquipmentBanner {
   GetEquipmentBanner({required this.homeRepository});
 
   Future<Either<Failure, List<EquipmentBannerEntity>>> call() async {
-    final equipmentBanners = await homeRepository.getEquipmentBanner();
+    final equipmentBanners = await homeRepository.getEquipmentBanners();
 
     return equipmentBanners;
   }

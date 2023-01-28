@@ -9,7 +9,7 @@ class GetCharacterBanner {
   GetCharacterBanner({required this.homeRepository});
 
   Future<Either<Failure, List<CharacterBannerEntity>>> call() async {
-    final characterBanners = await homeRepository.getCharacterBanner();
+    final characterBanners = await homeRepository.getCharacterBanners();
 
     return characterBanners;
   }

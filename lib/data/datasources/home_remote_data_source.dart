@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
+import 'package:honkai_assistance/data/models/elf_banner_model.dart';
 import 'package:honkai_assistance/data/models/equipment_banner_model.dart';
 import 'package:honkai_assistance/data/models/event_model.dart';
 import 'package:honkai_assistance/data/models/news_update_model.dart';
@@ -9,8 +10,9 @@ abstract class HomeRemoteDataSource {
   Future<List<RedeemCodeModel>> getRedeemCodes();
   Future<List<NewsUpdateModel>> getNewsUpdate();
   Future<List<EventModel>> getEvents();
-  Future<List<CharacterBannerModel>> getCharacterBanner();
-  Future<List<EquipmentBannerModel>> getEquipmentBanner();
+  Future<List<CharacterBannerModel>> getCharacterBanners();
+  Future<List<EquipmentBannerModel>> getEquipmentBanners();
+  Future<List<ElfBannerModel>> getElfBanners();
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -56,7 +58,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<List<CharacterBannerModel>> getCharacterBanner() async {
+  Future<List<CharacterBannerModel>> getCharacterBanners() async {
     List<CharacterBannerModel> characterBanners = [];
     await firestoreService.collection('character_banner').get().then(
       (value) {
@@ -69,7 +71,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<List<EquipmentBannerModel>> getEquipmentBanner() async {
+  Future<List<EquipmentBannerModel>> getEquipmentBanners() async {
     List<EquipmentBannerModel> equipmentBanners = [];
     await firestoreService.collection('equipment_banner').get().then(
       (value) {
@@ -79,5 +81,18 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       },
     );
     return equipmentBanners;
+  }
+
+  @override
+  Future<List<ElfBannerModel>> getElfBanners() async {
+    List<ElfBannerModel> elfBanners = [];
+    await firestoreService.collection('elf_banner').get().then(
+      (value) {
+        for (var i in value.docs) {
+          elfBanners.add(ElfBannerModel.fromMap(i.data()));
+        }
+      },
+    );
+    return elfBanners;
   }
 }

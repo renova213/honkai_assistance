@@ -17,6 +17,7 @@ class NewsUpdate extends StatelessWidget {
     return Column(
       children: [
         const TitleLine(title: "News Update"),
+        SizedBox(height: 16.h),
         _listUpdate(),
       ],
     );
