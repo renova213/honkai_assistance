@@ -8,15 +8,17 @@ part 'redeem_code_state.dart';
 
 class RedeemCodeBloc extends Bloc<RedeemCodeEvent, RedeemCodeState> {
   final GetRedeemCode getRedeemCode;
-  RedeemCodeBloc({required this.getRedeemCode}) : super(EmptyRedeemCode()) {
-    on<RedeemCodeEvent>(
+  RedeemCodeBloc({required this.getRedeemCode})
+      : super(EmptyRedeemCodeState()) {
+    on<GetRedeemCodeEvent>(
       (event, emit) async {
-        emit(LoadingRedeemCode());
+        emit(LoadingRedeemCodeState());
 
-        final failureOrRedeemCodes = await getRedeemCode('redeem_code');
+        final failureOrRedeemCodes = await getRedeemCode();
 
         failureOrRedeemCodes.fold(
-          (failure) => ErrorRedeemCode(errorMessage: failure.message),
+          (failure) =>
+              emit(ErrorRedeemCodeState(errorMessage: failure.message)),
           (redeemCodes) {
             List<RedeemCodeEntity> redeemCodesSea = [];
             List<RedeemCodeEntity> redeemCodesGlobal = [];
@@ -30,7 +32,7 @@ class RedeemCodeBloc extends Bloc<RedeemCodeEvent, RedeemCodeState> {
                   !redeemCodesSea.contains(i)) {
                 redeemCodesSea.add(i);
               }
-              emit(LoadedRedeemCode(
+              emit(LoadedRedeemCodeState(
                   redeemCodesGlobal: redeemCodesGlobal,
                   redeemCodesSea: redeemCodesSea));
             }

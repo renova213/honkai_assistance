@@ -7,24 +7,24 @@ abstract class RedeemCodeState extends Equatable {
   List<Object> get props => [];
 }
 
-class EmptyRedeemCode extends RedeemCodeState {}
+class EmptyRedeemCodeState extends RedeemCodeState {}
 
-class LoadingRedeemCode extends RedeemCodeState {}
+class LoadingRedeemCodeState extends RedeemCodeState {}
 
-class LoadedRedeemCode extends RedeemCodeState {
+class LoadedRedeemCodeState extends RedeemCodeState {
   final List<RedeemCodeEntity> redeemCodesSea;
   final List<RedeemCodeEntity> redeemCodesGlobal;
 
-  const LoadedRedeemCode(
+  const LoadedRedeemCodeState(
       {required this.redeemCodesSea, required this.redeemCodesGlobal});
   @override
   List<Object> get props => [redeemCodesSea, redeemCodesGlobal];
 }
 
-class ErrorRedeemCode extends RedeemCodeState {
+class ErrorRedeemCodeState extends RedeemCodeState {
   final String errorMessage;
 
-  const ErrorRedeemCode({required this.errorMessage});
+  const ErrorRedeemCodeState({required this.errorMessage});
   @override
   List<Object> get props => [errorMessage];
 }

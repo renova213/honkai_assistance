@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
+import 'package:honkai_assistance/presentation/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
@@ -15,7 +16,7 @@ class RedeemCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<RedeemCodeBloc, RedeemCodeState>(
       builder: (context, state) {
-        if (state is LoadedRedeemCode) {
+        if (state is LoadedRedeemCodeState) {
           return Column(
             children: [
               _allServer(),
@@ -28,7 +29,7 @@ class RedeemCode extends StatelessWidget {
             ],
           );
         }
-        return const CircularProgressIndicator();
+        return _loading();
       },
     );
   }
@@ -101,46 +102,64 @@ class RedeemCode extends StatelessWidget {
     return SizedBox(
       height: 110.h,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: redeemCodes.length,
-          itemBuilder: (context, index) {
-            final data = redeemCodes[index];
-            return Padding(
-              padding: EdgeInsets.only(top: 20.h),
-              child: Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: AppColor.blue, width: 3),
-                  ),
-                ),
-                width: 320.w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(data.code, style: AppFont.subtitle),
-                    SizedBox(height: 8.h),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(data.reward,
-                          maxLines: 1,
-                          style: AppFont.smallText
-                              .copyWith(fontWeight: FontWeight.bold)),
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text("${index + 1}/${redeemCodes.length}",
-                            style: AppFont.mediumText
-                                .copyWith(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ],
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: redeemCodes.length,
+        itemBuilder: (context, index) {
+          final data = redeemCodes[index];
+          return Padding(
+            padding: EdgeInsets.only(top: 20.h),
+            child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: AppColor.blue, width: 3),
                 ),
               ),
-            );
-          }),
+              width: 320.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(data.code, style: AppFont.subtitle),
+                  SizedBox(height: 8.h),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(data.reward,
+                        maxLines: 1,
+                        style: AppFont.smallText
+                            .copyWith(fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text("${index + 1}/${redeemCodes.length}",
+                          style: AppFont.mediumText
+                              .copyWith(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _loading() {
+    return Column(
+      children: [
+        _allServer(),
+        SizedBox(height: 24.h),
+        const Loading(width: 120, height: 20, borderRadius: 0),
+        SizedBox(height: 20.h),
+        const Loading(width: 150, height: 15, borderRadius: 0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [Text("0/0", style: AppFont.mediumText)],
+        ),
+        const Divider(thickness: 3, color: AppColor.blue)
+      ],
     );
   }
 }

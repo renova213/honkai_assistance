@@ -1,36 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 
-class EquipmentBannerModel {
-  final String? id;
-  final String urlWeaponImage;
-  final String urlStigmataImage;
-  final String weaponName;
-  final String stigmataName;
-  final String endDate;
+class EquipmentBannerModel extends EquipmentBannerEntity {
+  const EquipmentBannerModel(
+      {required super.urlWeaponImage,
+      required super.urlStigmataImage,
+      required super.weaponName,
+      required super.stigmataName,
+      required super.endDate});
 
-  EquipmentBannerModel(
-      {this.id,
-      required this.urlWeaponImage,
-      required this.urlStigmataImage,
-      required this.weaponName,
-      required this.stigmataName,
-      required this.endDate});
-
-  factory EquipmentBannerModel.fromDoc(DocumentSnapshot doc) =>
+  factory EquipmentBannerModel.fromMap(Map<String, dynamic> map) =>
       EquipmentBannerModel(
-        id: doc.id,
-        urlWeaponImage: (doc.data() as Map)['urlWeaponImage'],
-        urlStigmataImage: (doc.data() as Map)['urlStigmataImage'],
-        weaponName: (doc.data() as Map)['weaponName'],
-        stigmataName: (doc.data() as Map)['stigmataName'],
-        endDate: (doc.data() as Map)['endDate'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'urlWeaponImage': urlWeaponImage,
-        'urlStigmataImage': urlStigmataImage,
-        'weaponName': weaponName,
-        'stigmataName': stigmataName,
-        'endDate': endDate
-      };
+          urlWeaponImage: map['urlWeaponImage'],
+          urlStigmataImage: map['urlStigmataImage'],
+          weaponName: map['weaponName'],
+          stigmataName: map['stigmataName'],
+          endDate: map['endDate']);
 }

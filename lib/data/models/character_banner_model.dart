@@ -1,24 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 
-class CharacterBannerModel {
-  final String? id;
-  final String urlImage;
-  final String title;
-  final String endDate;
+class CharacterBannerModel extends CharacterBannerEntity {
+  const CharacterBannerModel(
+      {required super.urlImage, required super.title, required super.endDate});
 
-  CharacterBannerModel(
-      {required this.urlImage,
-      required this.title,
-      required this.endDate,
-      this.id});
-
-  factory CharacterBannerModel.fromDoc(DocumentSnapshot doc) =>
+  factory CharacterBannerModel.fromMap(Map<String, dynamic> map) =>
       CharacterBannerModel(
-          id: doc.id,
-          urlImage: (doc.data() as Map)['urlImage'],
-          title: (doc.data() as Map)['title'],
-          endDate: (doc.data() as Map)['endDate']);
-
-  Map<String, dynamic> toJson() =>
-      {'urlImage': urlImage, 'title': title, 'endDate': endDate};
+          urlImage: map['urlImage'],
+          title: map['title'],
+          endDate: map['endDate']);
 }

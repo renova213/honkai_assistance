@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
           const SizedBox(width: 16),
           Image.asset('assets/images/crystal.png', width: 40, height: 40),
           Text(
-            "Honkai Lab",
+            "HonkaiAssistance",
             style: AppFont.headline6,
           ),
           const Spacer(),

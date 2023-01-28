@@ -9,10 +9,9 @@ class GetRedeemCode {
 
   GetRedeemCode({required this.homeRepository});
 
-  Future<Either<Failure, List<RedeemCodeEntity>>> call(
-      String collectionName) async {
+  Future<Either<Failure, List<RedeemCodeEntity>>> call() async {
     Either<Failure, List<RedeemCodeEntity>> redeemCodes =
-        await homeRepository.getRedeemCodes(collectionName);
+        await homeRepository.getRedeemCodes();
 
     return redeemCodes;
   }

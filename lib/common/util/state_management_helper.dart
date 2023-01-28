@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:honkai_assistance/presentation/blocs/character_banner/character_banner_bloc.dart';
+import 'package:honkai_assistance/presentation/blocs/equipment_banner/equipment_banner_bloc.dart';
+import 'package:honkai_assistance/presentation/blocs/event/event_bloc.dart';
+import 'package:honkai_assistance/presentation/blocs/news_update/news_update_bloc.dart';
 import 'package:honkai_assistance/presentation/providers/custom_sidebar_provider.dart';
 import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +17,12 @@ class StateManagementHelper {
       providers: [
         //bloc
         BlocProvider<RedeemCodeBloc>(create: (_) => sl<RedeemCodeBloc>()),
+        BlocProvider<NewsUpdateBloc>(create: (_) => sl<NewsUpdateBloc>()),
+        BlocProvider<EventBloc>(create: (_) => sl<EventBloc>()),
+        BlocProvider<CharacterBannerBloc>(
+            create: (_) => sl<CharacterBannerBloc>()),
+        BlocProvider<EquipmentBannerBloc>(
+            create: (_) => sl<EquipmentBannerBloc>()),
 
         //provider
         ChangeNotifierProvider(create: (_) => CustomSidebarProvider()),

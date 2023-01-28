@@ -1,16 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 
 class RedeemCodeModel extends RedeemCodeEntity {
   const RedeemCodeModel(
-      {required super.code,
-      required super.reward,
-      required super.server,
-      super.id});
+      {required super.code, required super.reward, required super.server});
 
-  factory RedeemCodeModel.fromDoc(DocumentSnapshot doc) => RedeemCodeModel(
-      code: (doc.data() as Map)['code'],
-      reward: (doc.data() as Map)['reward'],
-      server: (doc.data() as Map)['server'],
-      id: doc.id);
+  factory RedeemCodeModel.fromMap(Map<String, dynamic> map) => RedeemCodeModel(
+      code: map['code'], reward: map['reward'], server: map['server']);
 }
