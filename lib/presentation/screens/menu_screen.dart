@@ -18,29 +18,25 @@ class MenuScreen extends StatelessWidget {
           content: Text('Tap back again to exit'),
         ),
         child: SafeArea(
-          child: Container(
-            color: Colors.black87,
-            child: Consumer<CustomSidebarProvider>(
-              builder: (context, notifier, _) => GestureDetector(
-                onTap: () {
-                  notifier.isExpanded(false);
-                  notifier.index(0);
-                },
-                child: Scrollbar(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const CustomAppBar(),
-                        Stack(
+          child: GestureDetector(
+            child: Container(
+              color: Colors.black87,
+              child: Consumer<CustomSidebarProvider>(
+                builder: (context, notifier, _) => GestureDetector(
+                  onTap: () {
+                    notifier.isExpanded(false);
+                    notifier.index(0);
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CustomAppBar(),
+                      Expanded(
+                        child: Stack(
                           children: [
                             Padding(
                                 padding: const EdgeInsets.only(
-                                        left: 20,
-                                        right: 20,
-                                        top: 24,
-                                        bottom: 24)
+                                        left: 20, right: 20, bottom: 24)
                                     .r,
                                 child: notifier.pages[notifier.indexPage]),
                             Row(
@@ -51,8 +47,8 @@ class MenuScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

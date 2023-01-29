@@ -7,6 +7,7 @@ import 'package:honkai_assistance/presentation/blocs/event/event_bloc.dart';
 import 'package:honkai_assistance/presentation/blocs/news_update/news_update_bloc.dart';
 import 'package:honkai_assistance/presentation/providers/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/providers/custom_sidebar_provider.dart';
+import 'package:honkai_assistance/presentation/providers/database_provider.dart';
 import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,7 @@ class StateManagementHelper {
         ChangeNotifierProvider(create: (_) => CustomSidebarProvider()),
         ChangeNotifierProvider(create: (_) => RedeemCodeProvider()),
         ChangeNotifierProvider(create: (_) => AboutGameProvider()),
+        ChangeNotifierProvider(create: (_) => DatabaseProvider()),
       ],
       child: widget,
     );

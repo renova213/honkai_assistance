@@ -28,6 +28,11 @@ class MyApp extends StatelessWidget {
         MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                elevation: 0,
+                color: Colors.black,
+                iconTheme: IconThemeData(color: Colors.white),
+              ),
               scaffoldBackgroundColor: AppColor.primaryColor,
               useMaterial3: true),
           home: const SplashScreen(),

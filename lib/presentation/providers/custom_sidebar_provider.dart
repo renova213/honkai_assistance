@@ -3,6 +3,7 @@ import 'package:honkai_assistance/presentation/screens/about/about_game_screen.d
 import 'package:honkai_assistance/presentation/screens/home/home_screen.dart';
 
 import '../../domain/entities/menu.dart';
+import '../screens/database/database_screen.dart';
 
 class CustomSidebarProvider extends ChangeNotifier {
   bool _isExpand = false;
@@ -17,7 +18,7 @@ class CustomSidebarProvider extends ChangeNotifier {
   List<Widget> pages = [
     const HomeScreen(),
     const AboutGameScreen(),
-    const HomeScreen(),
+    const DatabaseScreen(),
     const HomeScreen(),
     const HomeScreen(),
   ];
