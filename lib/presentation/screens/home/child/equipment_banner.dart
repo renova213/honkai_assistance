@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/equipment_banner/equipment_banner_bloc.dart';
+import 'package:honkai_assistance/presentation/providers/equipment_banner_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/title_banner.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/enum_state.dart';
 import '../../../widgets/loading.dart';
 
 class EquipmentBanner extends StatelessWidget {
@@ -23,14 +24,14 @@ class EquipmentBanner extends StatelessWidget {
   }
 
   Widget _listEquipmentBanner() {
-    return BlocBuilder<EquipmentBannerBloc, EquipmentBannerState>(
-      builder: (context, state) {
-        if (state is LoadedEquipmentBannerState) {
+    return Consumer<EquipmentBannerProvider>(
+      builder: (context, notifier, _) {
+        if (notifier.appstate == AppState.loaded) {
           return Column(
             children: List.generate(
-              state.equipmentBanners.length,
+              notifier.equipmentBanners.length,
               (index) {
-                final data = state.equipmentBanners[index];
+                final data = notifier.equipmentBanners[index];
                 return Container(
                   width: double.maxFinite,
                   height: 200.h,

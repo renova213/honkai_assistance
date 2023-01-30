@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../domain/entities/redeem_code_entity.dart';
-import '../../../blocs/redeem_code/redeem_code_bloc.dart';
 
 class RedeemCode extends StatelessWidget {
   const RedeemCode({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RedeemCodeBloc, RedeemCodeState>(
-      builder: (context, state) {
-        if (state is LoadedRedeemCodeState) {
+    return Consumer<RedeemCodeProvider>(
+      builder: (context, notifier, _) {
+        if (notifier.appState == AppState.loaded) {
           return Column(
             children: [
               _allServer(),
               Consumer<RedeemCodeProvider>(
                 builder: (context, notifier, _) => _listRedeemCode(
                     notifier.indexServer == 0
-                        ? state.redeemCodesSea
-                        : state.redeemCodesGlobal),
+                        ? notifier.redeemCodesSea
+                        : notifier.redeemCodesGlobal),
               ),
             ],
           );

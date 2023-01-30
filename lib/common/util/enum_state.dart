@@ -1,6 +1,6 @@
-enum MyState {
+enum AppState {
   loading,
-  hasData,
+  loaded,
   noData,
   failed,
 }

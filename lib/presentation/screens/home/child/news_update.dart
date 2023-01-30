@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/news_update/news_update_bloc.dart';
+import 'package:honkai_assistance/presentation/providers/news_update_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/loading.dart';
 import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/utils.dart';
 
 class NewsUpdate extends StatelessWidget {
   const NewsUpdate({super.key});
@@ -24,17 +25,18 @@ class NewsUpdate extends StatelessWidget {
   }
 
   Widget _listUpdate() {
-    return BlocBuilder<NewsUpdateBloc, NewsUpdateState>(
-      builder: (context, state) {
-        if (state is LoadedNewsUpdateState) {
+    return Consumer<NewsUpdateProvider>(
+      builder: (context, notifier, _) {
+        if (notifier.appstate == AppState.loaded) {
           return ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount:
-                state.newsUpdates.length <= 3 ? state.newsUpdates.length : 3,
+            itemCount: notifier.newsUpdates.length <= 3
+                ? notifier.newsUpdates.length
+                : 3,
             separatorBuilder: (context, index) => const SizedBox(height: 32),
             itemBuilder: (context, index) {
-              final data = state.newsUpdates[index];
+              final data = notifier.newsUpdates[index];
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

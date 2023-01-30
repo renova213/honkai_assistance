@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/event/event_bloc.dart';
+import 'package:honkai_assistance/presentation/providers/event_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/utils.dart';
 import '../../../widgets/loading.dart';
 
 class CurrentEvent extends StatelessWidget {
@@ -23,15 +24,15 @@ class CurrentEvent extends StatelessWidget {
   }
 
   Widget _listEvents() {
-    return BlocBuilder<EventBloc, EventState>(builder: (context, state) {
-      if (state is LoadedEventState) {
+    return Consumer<EventProvider>(builder: (context, notifier, _) {
+      if (notifier.appstate == AppState.loaded) {
         return ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: state.events.length <= 3 ? state.events.length : 3,
+          itemCount: notifier.events.length <= 3 ? notifier.events.length : 3,
           separatorBuilder: (context, index) => const SizedBox(height: 32),
           itemBuilder: (context, index) {
-            final data = state.events[index];
+            final data = notifier.events[index];
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,

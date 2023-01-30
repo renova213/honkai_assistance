@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:honkai_assistance/data/datasources/home_remote_data_source.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
@@ -8,19 +7,20 @@ import 'package:honkai_assistance/domain/entities/event_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 import 'package:dartz/dartz.dart';
-import 'package:honkai_assistance/domain/repositories/home_repository.dart';
 
 import '../../common/constant.dart';
 import '../../common/error/error.dart';
+import '../../domain/repositories/home_repository.dart';
+import '../datasources/remote_data_source.dart';
 
-class HomeRepositoryImpl implements HomeRepository {
-  final HomeRemoteDataSource homeRemoteDataSource;
-  HomeRepositoryImpl({required this.homeRemoteDataSource});
+class RepositoryImpl implements HomeRepository {
+  final RemoteDataSource remoteDataSource;
+  RepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCodes() async {
     try {
-      final redeemCodes = await homeRemoteDataSource.getRedeemCodes();
+      final redeemCodes = await remoteDataSource.getRedeemCodes();
 
       return Right(redeemCodes);
     } on SocketException {
@@ -33,7 +33,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdates() async {
     try {
-      final newsUpdates = await homeRemoteDataSource.getNewsUpdate();
+      final newsUpdates = await remoteDataSource.getNewsUpdate();
 
       return Right(newsUpdates);
     } on SocketException {
@@ -46,7 +46,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<EventEntity>>> getEvents() async {
     try {
-      final events = await homeRemoteDataSource.getEvents();
+      final events = await remoteDataSource.getEvents();
 
       return Right(events);
     } on SocketException {
@@ -60,7 +60,7 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<CharacterBannerEntity>>>
       getCharacterBanners() async {
     try {
-      final characterBanners = await homeRemoteDataSource.getCharacterBanners();
+      final characterBanners = await remoteDataSource.getCharacterBanners();
 
       return Right(characterBanners);
     } on SocketException {
@@ -74,7 +74,7 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<Either<Failure, List<EquipmentBannerEntity>>>
       getEquipmentBanners() async {
     try {
-      final equipmentBanners = await homeRemoteDataSource.getEquipmentBanners();
+      final equipmentBanners = await remoteDataSource.getEquipmentBanners();
 
       return Right(equipmentBanners);
     } on SocketException {
@@ -87,7 +87,7 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<Either<Failure, List<ElfBannerEntity>>> getElfBanners() async {
     try {
-      final elfBanners = await homeRemoteDataSource.getElfBanners();
+      final elfBanners = await remoteDataSource.getElfBanners();
 
       return Right(elfBanners);
     } on SocketException {

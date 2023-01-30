@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
-import 'package:honkai_assistance/presentation/screens/battlesuit/child/list_button_battlesuit.dart';
+import 'package:honkai_assistance/presentation/providers/character_provider.dart';
+import 'package:honkai_assistance/presentation/screens/battlesuit/child/dropdown_button_battlesuit.dart';
+import 'package:honkai_assistance/presentation/screens/battlesuit/child/grid_battlesuit.dart';
 import 'package:honkai_assistance/presentation/widgets/search_field.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/title_line_2.dart';
 
-class BattlesuitScreen extends StatelessWidget {
+class BattlesuitScreen extends StatefulWidget {
   const BattlesuitScreen({super.key});
+
+  @override
+  State<BattlesuitScreen> createState() => _BattlesuitScreenState();
+}
+
+class _BattlesuitScreenState extends State<BattlesuitScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () {
+        Provider.of<CharacterProvider>(context, listen: false).getCharacters();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +53,24 @@ class BattlesuitScreen extends StatelessWidget {
                 Text("List of battlesuit available on Honkai Impact 3",
                     style: AppFont.largeText),
                 SizedBox(height: 24.h),
-                const TitleLine2(
-                    title: "Battlesuits", title2: "Showing 9 battlesuits"),
+                Consumer<CharacterProvider>(
+                  builder: (context, notifier, _) {
+                    return TitleLine2(
+                        title: "Battlesuits",
+                        title2:
+                            "Showing ${notifier.battlesuits.length} battlesuits");
+                  },
+                ),
                 SizedBox(height: 12.h),
-                const ListButtonBattlesuit(),
+                const DropdownButtonBattlesuit(),
                 SizedBox(height: 8.h),
                 SearchField(
                     width: double.maxFinite,
                     hintText: "Search Battlesuit ...",
                     controller: TextEditingController(),
-                    onSubmit: (value) {})
+                    onSubmit: (value) {}),
+                SizedBox(height: 16.h),
+                const GridBattlesuit(),
               ],
             ),
           ),

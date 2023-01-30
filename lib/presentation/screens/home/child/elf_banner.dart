@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/elf_banner/elf_banner_bloc.dart';
+import 'package:honkai_assistance/presentation/providers/elf_banner_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/title_banner.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/enum_state.dart';
 import '../../../widgets/loading.dart';
 
 class ElfBanner extends StatelessWidget {
@@ -22,14 +23,14 @@ class ElfBanner extends StatelessWidget {
   }
 
   Widget _listElfBanner() {
-    return BlocBuilder<ElfBannerBloc, ElfBannerState>(
-      builder: (context, state) {
-        if (state is LoadedElfBannerState) {
+    return Consumer<ElfBannerProvider>(
+      builder: (context, notifier, _) {
+        if (notifier.appstate == AppState.loaded) {
           return Column(
             children: List.generate(
-              state.elfBanners.length,
+              notifier.elfBanners.length,
               (index) {
-                final data = state.elfBanners[index];
+                final data = notifier.elfBanners[index];
 
                 return Container(
                   width: double.maxFinite,

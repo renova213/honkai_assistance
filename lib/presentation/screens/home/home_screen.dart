@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/character_banner/character_banner_bloc.dart';
-import 'package:honkai_assistance/presentation/blocs/elf_banner/elf_banner_bloc.dart';
-import 'package:honkai_assistance/presentation/blocs/equipment_banner/equipment_banner_bloc.dart';
-import 'package:honkai_assistance/presentation/blocs/event/event_bloc.dart';
-import 'package:honkai_assistance/presentation/blocs/news_update/news_update_bloc.dart';
-import 'package:honkai_assistance/presentation/screens/home/child/character_banner.dart';
-import 'package:honkai_assistance/presentation/screens/home/child/current_event.dart';
-import 'package:honkai_assistance/presentation/screens/home/child/elf_banner.dart';
-import 'package:honkai_assistance/presentation/screens/home/child/news_update.dart';
-import 'package:honkai_assistance/presentation/screens/home/child/redeem_code.dart';
-import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:honkai_assistance/presentation/providers/character_banner_provider.dart';
+import 'package:honkai_assistance/presentation/providers/elf_banner_provider.dart';
+import 'package:honkai_assistance/presentation/providers/equipment_banner_provider.dart';
+import 'package:honkai_assistance/presentation/providers/event_provider.dart';
 
-import '../../blocs/redeem_code/redeem_code_bloc.dart';
-import 'child/equipment_banner.dart';
+import 'package:honkai_assistance/presentation/providers/news_update_provider.dart';
+import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
+import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:provider/provider.dart';
+
+import 'child/home_childs.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,14 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      BlocProvider.of<RedeemCodeBloc>(context).add(GetRedeemCodeEvent());
-      BlocProvider.of<NewsUpdateBloc>(context).add(GetNewsUpdateEvent());
-      BlocProvider.of<EventBloc>(context).add(GetEventEvent());
-      BlocProvider.of<CharacterBannerBloc>(context)
-          .add(GetCharacterBannerEvent());
-      BlocProvider.of<EquipmentBannerBloc>(context)
-          .add(GetEquipmentBannerEvent());
-      BlocProvider.of<ElfBannerBloc>(context).add(GetElfBannerEvent());
+      Provider.of<RedeemCodeProvider>(context, listen: false).getRedeemCodes();
+      Provider.of<NewsUpdateProvider>(context, listen: false).getNewsUpdates();
+      Provider.of<EventProvider>(context, listen: false).getEvents();
+      Provider.of<CharacterBannerProvider>(context, listen: false)
+          .getCharacterBanners();
+      Provider.of<EquipmentBannerProvider>(context, listen: false)
+          .getEquipmentBanners();
+      Provider.of<ElfBannerProvider>(context, listen: false).getElfBanners();
     });
   }
 

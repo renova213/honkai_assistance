@@ -4,7 +4,6 @@ import 'package:honkai_assistance/domain/entities/about_content.dart';
 import '../../domain/entities/official_link.dart';
 
 class AboutGameProvider extends ChangeNotifier {
-  int _indexHeader = 0;
   final List<AboutContent> _aboutContents = const [
     AboutContent(
         title: "Valkyrie",
@@ -32,6 +31,7 @@ class AboutGameProvider extends ChangeNotifier {
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quam nisi, gravida vel ultricies quis, ornare in quam."),
   ];
+  int _indexHeader = 0;
   List<AboutContent> get aboutContents => _aboutContents;
   int get indexHeader => _indexHeader;
 

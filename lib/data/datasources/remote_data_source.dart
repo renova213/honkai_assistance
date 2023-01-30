@@ -1,23 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
+import 'package:honkai_assistance/data/models/character_model.dart';
 import 'package:honkai_assistance/data/models/elf_banner_model.dart';
 import 'package:honkai_assistance/data/models/equipment_banner_model.dart';
 import 'package:honkai_assistance/data/models/event_model.dart';
 import 'package:honkai_assistance/data/models/news_update_model.dart';
 import 'package:honkai_assistance/data/models/redeem_code_model.dart';
 
-abstract class HomeRemoteDataSource {
+abstract class RemoteDataSource {
   Future<List<RedeemCodeModel>> getRedeemCodes();
   Future<List<NewsUpdateModel>> getNewsUpdate();
   Future<List<EventModel>> getEvents();
   Future<List<CharacterBannerModel>> getCharacterBanners();
   Future<List<EquipmentBannerModel>> getEquipmentBanners();
   Future<List<ElfBannerModel>> getElfBanners();
+  Future<List<CharacterModel>> getCharacters();
 }
 
-class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
+class RemoteDataSourceImpl implements RemoteDataSource {
   final FirebaseFirestore firestoreService;
-  HomeRemoteDataSourceImpl({required this.firestoreService});
+  RemoteDataSourceImpl({required this.firestoreService});
   @override
   Future<List<RedeemCodeModel>> getRedeemCodes() async {
     List<RedeemCodeModel> redeemCodes = [];
@@ -94,5 +96,18 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       },
     );
     return elfBanners;
+  }
+
+  @override
+  Future<List<CharacterModel>> getCharacters() async {
+    List<CharacterModel> characters = [];
+    await firestoreService.collection('character').get().then(
+      (value) {
+        for (var i in value.docs) {
+          characters.add(CharacterModel.fromMap(i.data()));
+        }
+      },
+    );
+    return characters;
   }
 }

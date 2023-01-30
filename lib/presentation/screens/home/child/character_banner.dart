@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/blocs/character_banner/character_banner_bloc.dart';
+import 'package:honkai_assistance/presentation/providers/character_banner_provider.dart';
 import 'package:honkai_assistance/presentation/widgets/title_banner.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/enum_state.dart';
 import '../../../widgets/loading.dart';
 
 class CharacterBanner extends StatelessWidget {
@@ -22,14 +23,14 @@ class CharacterBanner extends StatelessWidget {
   }
 
   Widget _listBannerCharacters() {
-    return BlocBuilder<CharacterBannerBloc, CharacterBannerState>(
-      builder: (context, state) {
-        if (state is LoadedCharacterBannerState) {
+    return Consumer<CharacterBannerProvider>(
+      builder: (context, notifier, _) {
+        if (notifier.appstate == AppState.loaded) {
           return Column(
             children: List.generate(
-              state.characterBanners.length,
+              notifier.characterBanners.length,
               (index) {
-                final data = state.characterBanners[index];
+                final data = notifier.characterBanners[index];
 
                 return Container(
                   width: double.maxFinite,

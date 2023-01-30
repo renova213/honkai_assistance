@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/providers/about_game_provider.dart';
-import 'package:honkai_assistance/presentation/screens/about/child/about_container.dart';
-import 'package:honkai_assistance/presentation/screens/about/child/official_links.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style/font_style.dart';
 import '../../widgets/explanatory_container.dart';
+import 'child/about_childs.dart';
 
 class AboutGameScreen extends StatelessWidget {
   const AboutGameScreen({super.key});
