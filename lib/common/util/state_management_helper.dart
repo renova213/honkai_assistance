@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/presentation/providers/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/providers/character_banner_provider.dart';
-import 'package:honkai_assistance/presentation/providers/character_provider.dart';
+import 'package:honkai_assistance/presentation/providers/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/providers/custom_sidebar_provider.dart';
 import 'package:honkai_assistance/presentation/providers/database_provider.dart';
 import 'package:honkai_assistance/presentation/providers/elf_banner_provider.dart';
@@ -33,8 +33,8 @@ class StateManagementHelper {
         ChangeNotifierProvider(create: (_) => CustomSidebarProvider()),
         ChangeNotifierProvider(create: (_) => AboutGameProvider()),
         ChangeNotifierProvider(create: (_) => DatabaseProvider()),
-        ChangeNotifierProvider<CharacterProvider>(
-            create: (_) => sl<CharacterProvider>()),
+        ChangeNotifierProvider<BattlesuitProvider>(
+            create: (_) => sl<BattlesuitProvider>()),
         ChangeNotifierProvider(create: (_) => GlossaryProvider()),
       ],
       child: widget,

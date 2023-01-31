@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
-import 'package:honkai_assistance/presentation/providers/character_provider.dart';
+import 'package:honkai_assistance/presentation/providers/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/dropdown_button_battlesuit.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/grid_battlesuit.dart';
 import 'package:honkai_assistance/presentation/widgets/search_field.dart';
@@ -18,12 +18,21 @@ class BattlesuitScreen extends StatefulWidget {
 }
 
 class _BattlesuitScreenState extends State<BattlesuitScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     Future.microtask(
       () {
-        Provider.of<CharacterProvider>(context, listen: false).getCharacters();
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .getBattlesuits();
       },
     );
   }
@@ -53,7 +62,7 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
                 Text("List of battlesuit available on Honkai Impact 3",
                     style: AppFont.largeText),
                 SizedBox(height: 24.h),
-                Consumer<CharacterProvider>(
+                Consumer<BattlesuitProvider>(
                   builder: (context, notifier, _) {
                     return TitleLine2(
                         title: "Battlesuits",
@@ -62,13 +71,19 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
                   },
                 ),
                 SizedBox(height: 12.h),
-                const DropdownButtonBattlesuit(),
+                DropdownButtonBattlesuit(searchController: _searchController),
                 SizedBox(height: 8.h),
-                SearchField(
+                Consumer<BattlesuitProvider>(
+                  builder: (context, notifier, _) => SearchField(
                     width: double.maxFinite,
                     hintText: "Search Battlesuit ...",
-                    controller: TextEditingController(),
-                    onSubmit: (value) {}),
+                    controller: _searchController,
+                    onSubmit: (value) {
+                      notifier.searchBattlesuit(value);
+                      _searchController.clear();
+                    },
+                  ),
+                ),
                 SizedBox(height: 16.h),
                 const GridBattlesuit(),
               ],

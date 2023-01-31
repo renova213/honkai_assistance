@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../providers/character_provider.dart';
+import '../../../providers/battlesuit_provider.dart';
 import '../../../widgets/grid_loading.dart';
 import '../detail_battlesuit_scree.dart';
 
@@ -14,7 +14,7 @@ class GridBattlesuit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterProvider>(
+    return Consumer<BattlesuitProvider>(
       builder: (context, notifier, _) {
         if (notifier.appState == AppState.loaded) {
           return GridView.builder(
@@ -33,7 +33,7 @@ class GridBattlesuit extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    Consumer<CharacterProvider>(
+                    Consumer<BattlesuitProvider>(
                       builder: (context, notifier, _) {
                         notifier.changeBottomColor(data.characterTypeATK);
                         return InkWell(

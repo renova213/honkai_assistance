@@ -3,16 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/character_provider.dart';
+import '../../../providers/battlesuit_provider.dart';
 import '../../../widgets/button_widget.dart';
 import '../../../widgets/custom_dropdown_button.dart';
 
 class DropdownButtonBattlesuit extends StatelessWidget {
-  const DropdownButtonBattlesuit({super.key});
+  final TextEditingController searchController;
+  const DropdownButtonBattlesuit({super.key, required this.searchController});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterProvider>(
+    return Consumer<BattlesuitProvider>(
       builder: (context, notifier, _) => Column(
         children: [
           Row(
@@ -36,7 +37,7 @@ class DropdownButtonBattlesuit extends StatelessWidget {
                     height: 35,
                     width: double.maxFinite,
                     value: notifier.role,
-                    items: const ["DPS", "Support"]),
+                    items: const ["Any Role", "DPS", "Support"]),
               ),
             ],
           ),
@@ -45,11 +46,19 @@ class DropdownButtonBattlesuit extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomDropdownButton(
-                    changeValue: (value) => () {},
+                    changeValue: (value) {
+                      notifier.changeTypeATK(value);
+                    },
                     height: 35,
                     width: double.maxFinite,
-                    value: "Sort By A-Z",
-                    items: const ["Sort By A-Z", "Sort By Z-A"]),
+                    value: notifier.typeATK,
+                    items: const [
+                      "Any ATK",
+                      "Physical",
+                      "Ice",
+                      "Fire",
+                      "Lightning"
+                    ]),
               ),
               SizedBox(width: 16.w),
               Expanded(
@@ -57,7 +66,9 @@ class DropdownButtonBattlesuit extends StatelessWidget {
                     height: 35,
                     width: double.maxFinite,
                     text: Text("Reset", style: AppFont.smallText),
-                    onTap: () {}),
+                    onTap: () {
+                      notifier.resetButton(searchController);
+                    }),
               ),
             ],
           ),

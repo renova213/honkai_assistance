@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/common/error/error.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
-import 'package:honkai_assistance/domain/repositories/home_repository.dart';
+import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
 class GetElfBanner {
-  final HomeRepository homeRepository;
+  final RemoteRepository remoteRepository;
 
-  GetElfBanner({required this.homeRepository});
+  GetElfBanner({required this.remoteRepository});
 
   Future<Either<Failure, List<ElfBannerEntity>>> call() async {
-    final elfBanners = await homeRepository.getElfBanners();
+    final elfBanners = await remoteRepository.getElfBanners();
 
     return elfBanners;
   }

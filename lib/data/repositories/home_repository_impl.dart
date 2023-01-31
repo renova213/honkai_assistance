@@ -10,12 +10,13 @@ import 'package:dartz/dartz.dart';
 
 import '../../common/constant.dart';
 import '../../common/error/error.dart';
-import '../../domain/repositories/home_repository.dart';
+import '../../domain/entities/character_entity.dart';
+import '../../domain/repositories/remote_repository.dart';
 import '../datasources/remote_data_source.dart';
 
-class RepositoryImpl implements HomeRepository {
+class RemoteRepositoryImpl implements RemoteRepository {
   final RemoteDataSource remoteDataSource;
-  RepositoryImpl({required this.remoteDataSource});
+  RemoteRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCodes() async {
@@ -90,6 +91,19 @@ class RepositoryImpl implements HomeRepository {
       final elfBanners = await remoteDataSource.getElfBanners();
 
       return Right(elfBanners);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CharacterEntity>>> getCharacters() async {
+    try {
+      final characters = await remoteDataSource.getCharacters();
+
+      return Right(characters);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

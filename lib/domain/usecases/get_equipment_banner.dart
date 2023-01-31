@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/common/error/error.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
-import 'package:honkai_assistance/domain/repositories/home_repository.dart';
+import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
 class GetEquipmentBanner {
-  final HomeRepository homeRepository;
+  final RemoteRepository remoteRepository;
 
-  GetEquipmentBanner({required this.homeRepository});
+  GetEquipmentBanner({required this.remoteRepository});
 
   Future<Either<Failure, List<EquipmentBannerEntity>>> call() async {
-    final equipmentBanners = await homeRepository.getEquipmentBanners();
+    final equipmentBanners = await remoteRepository.getEquipmentBanners();
 
     return equipmentBanners;
   }
