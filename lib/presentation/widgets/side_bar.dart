@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/providers/custom_sidebar_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
@@ -55,22 +53,10 @@ class SideBar extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  CachedNetworkImage(
-                                      imageUrl: header.listMenu[index].urlImage,
-                                      errorWidget: (context, url, error) {
-                                        return const Center(
-                                          child: Icon(Icons.error,
-                                              color: AppColor.red),
-                                        );
-                                      },
-                                      placeholder: (context, url) {
-                                        return const Loading(
-                                            width: 35,
-                                            height: 30,
-                                            borderRadius: 0);
-                                      },
+                                  Image.asset(header.listMenu[index].assetImage,
                                       width: 35.w,
-                                      height: 30.h),
+                                      height: 30.h,
+                                      fit: BoxFit.fill),
                                   SizedBox(width: 8.w),
                                   Text(
                                     header.listMenu[index].menu,

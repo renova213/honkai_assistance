@@ -24,20 +24,11 @@ class CustomSidebarProvider extends ChangeNotifier {
   ];
 
   final List<Menu> _listMenu = const [
-    Menu(
-        menu: "Home",
-        urlImage: 'https://i.ibb.co/1srJ0Jk/2-removebg-preview.png'),
-    Menu(menu: "About The Game", urlImage: 'https://i.ibb.co/LvrC14q/4.png'),
-    Menu(
-        menu: "Database",
-        urlImage: "https://i.ibb.co/3pkBjtC/1-removebg-preview.png"),
-    Menu(
-        menu: "Tier List",
-        urlImage: "https://i.ibb.co/BzNykVR/asf-removebg-preview.png"),
-    Menu(
-        menu: "Guides",
-        urlImage:
-            "https://i.ibb.co/Y8g3YfQ/ezgif-4-2067b74ea5-removebg-preview.png")
+    Menu(menu: "Home", assetImage: 'assets/images/menu_1.png'),
+    Menu(menu: "About The Game", assetImage: 'assets/images/menu_2.png'),
+    Menu(menu: "Database", assetImage: "assets/images/menu_3.png"),
+    Menu(menu: "Tier List", assetImage: "assets/images/menu_4.png"),
+    Menu(menu: "Guides", assetImage: "assets/images/menu_5.png")
   ];
   List<Menu> get listMenu => _listMenu;
 

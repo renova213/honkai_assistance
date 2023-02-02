@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 
 class Menu extends Equatable {
   final String menu;
-  final String urlImage;
+  final String assetImage;
 
-  const Menu({required this.menu, required this.urlImage});
+  const Menu({required this.menu, required this.assetImage});
 
   @override
-  List<Object> get props => [menu, urlImage];
+  List<Object> get props => [menu, assetImage];
 }

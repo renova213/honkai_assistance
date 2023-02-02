@@ -9,6 +9,8 @@ class BattlesuitProvider extends ChangeNotifier {
   BattlesuitProvider({required this.getCharacter});
 
   List<CharacterEntity> _battlesuits = [];
+  List<CharacterWeaponEntity> _recommendedWeapons = [];
+  List<CharacterWeaponEntity> _otherOptionWeapons = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
@@ -17,6 +19,8 @@ class BattlesuitProvider extends ChangeNotifier {
   String _typeATK = 'Any ATK';
 
   List<CharacterEntity> get battlesuits => _battlesuits;
+  List<CharacterWeaponEntity> get recommendedWeapons => _recommendedWeapons;
+  List<CharacterWeaponEntity> get otherOptionWeapons => _otherOptionWeapons;
   AppState get appState => _appState;
   Color get bottomColor => _bottomColor;
   String get sortValue => _sortValue;
@@ -48,6 +52,19 @@ class BattlesuitProvider extends ChangeNotifier {
         changeAppState(AppState.loaded);
       },
     );
+  }
+
+  Future<void> filterRecommendedWeapon(
+      List<CharacterWeaponEntity> battlesuitWeapons) async {
+    _recommendedWeapons = battlesuitWeapons
+        .where((e) => e.priority.toLowerCase() == 'recommended')
+        .toList();
+    _recommendedWeapons.sort((a, b) => b.star.compareTo(a.star));
+    _otherOptionWeapons = battlesuitWeapons
+        .where((e) => e.priority.toLowerCase() == 'other option')
+        .toList();
+    _otherOptionWeapons.sort((a, b) => b.star.compareTo(a.star));
+    notifyListeners();
   }
 
   Future<void> searchBattlesuit(String value) async {

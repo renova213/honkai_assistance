@@ -15,7 +15,7 @@ class OfficialLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleLine(title: "Official Links"),
+        const TitleLine(title: "Official Links", fontSize: 16, height: 40),
         SizedBox(height: 24.h),
         _listMenu(),
         SizedBox(height: 12.h),

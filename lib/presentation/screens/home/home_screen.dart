@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 32.h),
             const CurrentEvent(),
             SizedBox(height: 32.h),
-            const TitleLine(title: "Curent Banner"),
+            const TitleLine(title: "Current Banner", fontSize: 16, height: 40),
             SizedBox(height: 16.h),
             const CharacterBanner(),
             SizedBox(height: 32.h),

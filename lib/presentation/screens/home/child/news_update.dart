@@ -17,7 +17,7 @@ class NewsUpdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleLine(title: "News Update"),
+        const TitleLine(title: "News Update", fontSize: 16, height: 40),
         SizedBox(height: 16.h),
         _listUpdate(),
       ],

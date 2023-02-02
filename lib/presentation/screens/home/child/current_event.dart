@@ -16,7 +16,7 @@ class CurrentEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const TitleLine(title: "Curent Event"),
+        const TitleLine(title: "Current Event", fontSize: 16, height: 40),
         SizedBox(height: 16.h),
         _listEvents(),
       ],

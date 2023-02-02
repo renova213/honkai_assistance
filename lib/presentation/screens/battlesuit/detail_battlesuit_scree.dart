@@ -11,24 +11,35 @@ class DetailBattlesuitScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          DetailBattlesuitAppbar(character: character),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 20, right: 20, bottom: 24, top: 24)
-                    .r,
-            child: Column(
-              children: [
-                BattlesuitSpeciality(
-                    battlesuitSpecialities:
-                        character.characterSpeciality != null
-                            ? character.characterSpeciality!
-                            : []),
-              ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            DetailBattlesuitAppbar(character: character),
+            Padding(
+              padding: const EdgeInsets.only(
+                      left: 20, right: 20, bottom: 24, top: 24)
+                  .r,
+              child: Column(
+                children: [
+                  BattlesuitSpeciality(
+                      battlesuitSpecialities: character.characterSpeciality!),
+                  SizedBox(height: 24.h),
+                  BattlesuitBiography(
+                      battlesuitBiography: character.characterBiography!),
+                  SizedBox(height: 24.h),
+                  BattlesuitWeapon(
+                      battlesuitWeapons: character.characterWeapon!),
+                  SizedBox(height: 24.h),
+                  BattlesuitStigmata(
+                      battlesuitStigmatas: character.characterStigmata!),
+                  SizedBox(height: 24.h),
+                  BattlesuitTeam(battlesuitTeams: character.characterTeam!),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

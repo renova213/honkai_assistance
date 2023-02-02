@@ -14,7 +14,7 @@ class ExplanatoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TitleLine(title: title),
+        TitleLine(title: title, fontSize: 16, height: 40),
         SizedBox(height: 12.h),
         Text(description,
             style: AppFont.smallText, textAlign: TextAlign.justify)
