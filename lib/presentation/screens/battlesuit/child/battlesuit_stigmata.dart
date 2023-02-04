@@ -108,7 +108,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
       color: Colors.transparent,
       child: InkWell(
         onTap: () => changedIndex(containerIndex),
-        child: Container(
+        child: Ink(
           width: 50.w,
           height: 40.h,
           decoration: BoxDecoration(
@@ -123,11 +123,12 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                   width: 3),
             ),
           ),
-          alignment: Alignment.center,
-          child: Text(text,
-              style: index == containerIndex
-                  ? AppFont.subtitle
-                  : AppFont.largeText),
+          child: Center(
+            child: Text(text,
+                style: index == containerIndex
+                    ? AppFont.subtitle
+                    : AppFont.largeText),
+          ),
         ),
       ),
     );

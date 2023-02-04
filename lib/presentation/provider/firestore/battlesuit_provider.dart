@@ -120,6 +120,13 @@ class BattlesuitProvider extends ChangeNotifier {
             e.priority.toLowerCase() == 'other option' &&
             e.typeStigmata.toLowerCase() == 'b')
         .toList();
+
+    _recommendedTStigmatas.sort((a, b) => b.star.compareTo(a.star));
+    _recommendedMStigmatas.sort((a, b) => b.star.compareTo(a.star));
+    _recommendedBStigmatas.sort((a, b) => b.star.compareTo(a.star));
+    _otherOptionTStigmatas.sort((a, b) => b.star.compareTo(a.star));
+    _otherOptionMStigmatas.sort((a, b) => b.star.compareTo(a.star));
+    _otherOptionBStigmatas.sort((a, b) => b.star.compareTo(a.star));
     notifyListeners();
   }
 
