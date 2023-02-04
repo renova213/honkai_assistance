@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../providers/battlesuit_provider.dart';
-import '../../../widgets/grid_loading.dart';
+import '../../../provider/firestore/battlesuit/battlesuit_provider.dart';
+import '../../../components/grid_loading.dart';
 import '../detail_battlesuit_scree.dart';
 
 class GridBattlesuit extends StatelessWidget {

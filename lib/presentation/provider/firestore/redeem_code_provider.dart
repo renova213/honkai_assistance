@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
-import 'package:honkai_assistance/domain/usecases/get_redeem_code.dart';
 
-import '../../common/util/utils.dart';
+import '../../../common/util/enum_state.dart';
+import '../../../domain/usecases/remote/get_redeem_code.dart';
 
 class RedeemCodeProvider extends ChangeNotifier {
   final GetRedeemCode getRedeemCode;
@@ -12,13 +12,9 @@ class RedeemCodeProvider extends ChangeNotifier {
   final List<RedeemCodeEntity> _redeemCodesGlobal = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
-  int _indexServer = 0;
-  int get indexServer => _indexServer;
 
   List<RedeemCodeEntity> get redeemCodesSea => _redeemCodesSea;
   List<RedeemCodeEntity> get redeemCodesGlobal => _redeemCodesGlobal;
-  int _indexEvent = 0;
-  int get indexEvent => _indexEvent;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
 
@@ -45,16 +41,6 @@ class RedeemCodeProvider extends ChangeNotifier {
         }
       },
     );
-  }
-
-  void changeIndexServer(int index) {
-    _indexServer = index;
-    notifyListeners();
-  }
-
-  void changeIndexEvent(int index) {
-    _indexEvent = index;
-    notifyListeners();
   }
 
   changeAppState(AppState state) {

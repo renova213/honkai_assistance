@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
-import 'package:honkai_assistance/domain/usecases/get_character_banner.dart';
 
-import '../../common/util/enum_state.dart';
+import '../../../common/util/enum_state.dart';
+import '../../../domain/usecases/remote/get_character_banner.dart';
 
 class CharacterBannerProvider extends ChangeNotifier {
   final GetCharacterBanner getCharacterBanner;

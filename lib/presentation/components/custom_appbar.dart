@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/providers/custom_sidebar_provider.dart';
+import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
@@ -23,8 +23,8 @@ class CustomAppBar extends StatelessWidget {
             style: AppFont.headline6,
           ),
           const Spacer(),
-          Consumer<CustomSidebarProvider>(
-            builder: (context, header, _) => IconButton(
+          Consumer<SidebarButtonProvider>(
+            builder: (context, sidebarButton, _) => IconButton(
               icon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (child, anim) => RotationTransition(
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
                       : Tween<double>(begin: 0.75, end: 1).animate(anim),
                   child: ScaleTransition(scale: anim, child: child),
                 ),
-                child: header.currentIndex == 0
+                child: sidebarButton.currentIndex == 0
                     ? const Icon(
                         Icons.menu,
                         color: Colors.white,
@@ -46,10 +46,12 @@ class CustomAppBar extends StatelessWidget {
                       ),
               ),
               onPressed: () {
-                header.currentIndex == 0 ? header.index(1) : header.index(0);
-                header.isExpand == false
-                    ? header.isExpanded(true)
-                    : header.isExpanded(false);
+                sidebarButton.currentIndex == 0
+                    ? sidebarButton.index(1)
+                    : sidebarButton.index(0);
+                sidebarButton.isExpand == false
+                    ? sidebarButton.isExpanded(true)
+                    : sidebarButton.isExpanded(false);
               },
             ),
           )

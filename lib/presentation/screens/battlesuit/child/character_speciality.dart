@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
-import 'package:honkai_assistance/presentation/widgets/help.dart';
+import 'package:honkai_assistance/presentation/components/help.dart';
 
 import '../../../../common/style/style.dart';
-import '../../../widgets/loading.dart';
+import '../../../components/loading.dart';
 
 class BattlesuitSpeciality extends StatelessWidget {
   final List<CharacterSpecialityEntity> battlesuitSpecialities;

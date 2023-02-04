@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/providers/event_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../widgets/loading.dart';
+import '../../../provider/firestore/event_provider.dart';
+import '../../../components/loading.dart';
 
 class CurrentEvent extends StatelessWidget {
   const CurrentEvent({super.key});

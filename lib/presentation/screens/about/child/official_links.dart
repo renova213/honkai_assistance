@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:honkai_assistance/presentation/providers/about_game_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../provider/button/about_game_button_provider.dart';
+import '../../../provider/local/about_game_provider.dart';
 
 class OfficialLinks extends StatelessWidget {
   const OfficialLinks({super.key});
@@ -25,7 +26,7 @@ class OfficialLinks extends StatelessWidget {
   }
 
   Widget _listMenu() {
-    return Consumer<AboutGameProvider>(
+    return Consumer<AboutGameButtonProvider>(
       builder: (context, notifier, _) => Row(
         children: [
           Expanded(
@@ -76,23 +77,25 @@ class OfficialLinks extends StatelessWidget {
   }
 
   Widget _listLinkOfficialServer() {
-    return Consumer<AboutGameProvider>(
-      builder: (context, notifier, _) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: notifier.indexHeader == 0
-            ? notifier.officialLinksSea.length
-            : notifier.officialLinksGlobal.length,
-        itemBuilder: (context, index) {
-          final data = notifier.indexHeader == 0
-              ? notifier.officialLinksSea[index]
-              : notifier.officialLinksGlobal[index];
+    return Consumer<AboutGameButtonProvider>(
+      builder: (context, button, _) => Consumer<AboutGameProvider>(
+        builder: (context, notifier, _) => ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: button.indexHeader == 0
+              ? notifier.officialLinksSea.length
+              : notifier.officialLinksGlobal.length,
+          itemBuilder: (context, index) {
+            final data = button.indexHeader == 0
+                ? notifier.officialLinksSea[index]
+                : notifier.officialLinksGlobal[index];
 
-          return _officialLinkItems(
-              assetIcon: data.assetIcon,
-              platform: data.platform,
-              url: data.url);
-        },
+            return _officialLinkItems(
+                assetIcon: data.assetIcon,
+                platform: data.platform,
+                url: data.url);
+          },
+        ),
       ),
     );
   }

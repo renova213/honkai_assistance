@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/providers/glossary_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
+import '../provider/local/glossary_provider.dart';
 
 class Help extends StatelessWidget {
   const Help({super.key});
@@ -127,11 +127,11 @@ class Help extends StatelessWidget {
       builder: (context, notifier, _) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: notifier.listModeGame.length,
+        itemCount: notifier.gameModes.length,
         itemBuilder: (context, index) {
           int indexColor = 1;
 
-          final data = notifier.listModeGame[index];
+          final data = notifier.gameModes[index];
 
           if (index.isEven) indexColor = 1;
           if (index.isOdd) indexColor = 2;
@@ -150,14 +150,14 @@ class Help extends StatelessWidget {
       builder: (context, notifier, _) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: notifier.rankGlossaries.length,
+        itemCount: notifier.glossaryRanks.length,
         itemBuilder: (context, index) {
           int indexColor = 1;
 
           if (index.isEven) indexColor = 1;
           if (index.isOdd) indexColor = 2;
 
-          final data = notifier.rankGlossaries[index];
+          final data = notifier.glossaryRanks[index];
 
           return _table(
               title: data.title,
@@ -173,14 +173,14 @@ class Help extends StatelessWidget {
       builder: (context, notifier, _) => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: notifier.specialities.length,
+        itemCount: notifier.glossarySpecialities.length,
         itemBuilder: (context, index) {
           int indexColor = 1;
 
           if (index.isEven) indexColor = 1;
           if (index.isOdd) indexColor = 2;
 
-          final data = notifier.specialities[index];
+          final data = notifier.glossarySpecialities[index];
 
           return _table(
               title: data.title,

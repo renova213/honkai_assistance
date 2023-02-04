@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/enum_state.dart';
-import 'package:honkai_assistance/domain/usecases/get_character.dart';
 
-import '../../domain/entities/character_entity.dart';
+import '../../../../domain/entities/character_entity.dart';
+import '../../../../domain/usecases/remote/get_character.dart';
 
 class BattlesuitProvider extends ChangeNotifier {
   final GetCharacter getCharacter;

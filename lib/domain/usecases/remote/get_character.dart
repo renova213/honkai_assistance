@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/common/error/error.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
-import '../entities/character_entity.dart';
+import '../../entities/character_entity.dart';
 
 class GetCharacter {
   final RemoteRepository remoteRepository;

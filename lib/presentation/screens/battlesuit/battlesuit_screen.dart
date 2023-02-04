@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
-import 'package:honkai_assistance/presentation/providers/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/battlesuit/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/dropdown_button_battlesuit.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/grid_battlesuit.dart';
-import 'package:honkai_assistance/presentation/widgets/search_field.dart';
+import 'package:honkai_assistance/presentation/components/search_field.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/title_line_2.dart';
+import '../../components/title_line_2.dart';
 
 class BattlesuitScreen extends StatefulWidget {
   const BattlesuitScreen({super.key});

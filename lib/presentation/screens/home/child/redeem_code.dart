@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
-import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/loading.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/redeem_code_provider.dart';
+import 'package:honkai_assistance/presentation/components/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../domain/entities/redeem_code_entity.dart';
+import '../../../provider/button/redeem_code_button_provider.dart';
 
 class RedeemCode extends StatelessWidget {
   const RedeemCode({super.key});
@@ -14,16 +15,16 @@ class RedeemCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<RedeemCodeProvider>(
-      builder: (context, notifier, _) {
-        if (notifier.appState == AppState.loaded) {
+      builder: (context, redeemCode, _) {
+        if (redeemCode.appState == AppState.loaded) {
           return Column(
             children: [
               _allServer(),
-              Consumer<RedeemCodeProvider>(
-                builder: (context, notifier, _) => _listRedeemCode(
-                    notifier.indexServer == 0
-                        ? notifier.redeemCodesSea
-                        : notifier.redeemCodesGlobal),
+              Consumer<RedeemCodeButtonProvider>(
+                builder: (context, redeemCodeButton, _) => _listRedeemCode(
+                    redeemCodeButton.indexServer == 0
+                        ? redeemCode.redeemCodesSea
+                        : redeemCode.redeemCodesGlobal),
               ),
             ],
           );
@@ -34,8 +35,8 @@ class RedeemCode extends StatelessWidget {
   }
 
   Consumer _allServer() {
-    return Consumer<RedeemCodeProvider>(
-      builder: (context, notifier, _) => Row(
+    return Consumer<RedeemCodeButtonProvider>(
+      builder: (context, redeemCodeButton, _) => Row(
         children: [
           Container(
             alignment: Alignment.center,
@@ -51,20 +52,20 @@ class RedeemCode extends StatelessWidget {
           Expanded(
             flex: 1,
             child: InkWell(
-              onTap: () => notifier.changeIndexServer(0),
+              onTap: () => redeemCodeButton.changeIndexServer(0),
               child: Container(
                 alignment: Alignment.center,
                 height: 40.h,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border(
-                    bottom: notifier.indexServer == 0
+                    bottom: redeemCodeButton.indexServer == 0
                         ? const BorderSide(color: AppColor.red, width: 3)
                         : const BorderSide(color: AppColor.lineColor, width: 1),
                   ),
                 ),
                 child: Text("SEA",
-                    style: notifier.indexServer == 0
+                    style: redeemCodeButton.indexServer == 0
                         ? AppFont.subtitle
                         : AppFont.largeText),
               ),
@@ -73,20 +74,20 @@ class RedeemCode extends StatelessWidget {
           Expanded(
             flex: 1,
             child: InkWell(
-              onTap: () => notifier.changeIndexServer(1),
+              onTap: () => redeemCodeButton.changeIndexServer(1),
               child: Container(
                 alignment: Alignment.center,
                 height: 40.h,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border(
-                    bottom: notifier.indexServer == 1
+                    bottom: redeemCodeButton.indexServer == 1
                         ? const BorderSide(color: AppColor.red, width: 3)
                         : const BorderSide(color: AppColor.lineColor, width: 1),
                   ),
                 ),
                 child: Text("Global",
-                    style: notifier.indexServer == 1
+                    style: redeemCodeButton.indexServer == 1
                         ? AppFont.subtitle
                         : AppFont.largeText),
               ),

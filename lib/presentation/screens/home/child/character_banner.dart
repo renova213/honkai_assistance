@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/providers/character_banner_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/title_banner.dart';
+import 'package:honkai_assistance/presentation/components/title_banner.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/enum_state.dart';
-import '../../../widgets/loading.dart';
+import '../../../provider/firestore/character_banner_provider.dart';
+import '../../../components/loading.dart';
 
 class CharacterBanner extends StatelessWidget {
   const CharacterBanner({super.key});

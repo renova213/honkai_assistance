@@ -3,20 +3,25 @@ import 'package:get_it/get_it.dart';
 import 'package:honkai_assistance/data/datasources/remote_data_source.dart';
 import 'package:honkai_assistance/data/repositories/home_repository_impl.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
-import 'package:honkai_assistance/domain/usecases/get_character.dart';
-import 'package:honkai_assistance/domain/usecases/get_character_banner.dart';
-import 'package:honkai_assistance/domain/usecases/get_elf_banner.dart';
-import 'package:honkai_assistance/domain/usecases/get_equipment_banner.dart';
-import 'package:honkai_assistance/domain/usecases/get_event.dart';
-import 'package:honkai_assistance/domain/usecases/get_news_update.dart';
-import 'package:honkai_assistance/domain/usecases/get_redeem_code.dart';
-import 'package:honkai_assistance/presentation/providers/character_banner_provider.dart';
-import 'package:honkai_assistance/presentation/providers/battlesuit_provider.dart';
-import 'package:honkai_assistance/presentation/providers/elf_banner_provider.dart';
-import 'package:honkai_assistance/presentation/providers/equipment_banner_provider.dart';
-import 'package:honkai_assistance/presentation/providers/event_provider.dart';
-import 'package:honkai_assistance/presentation/providers/news_update_provider.dart';
-import 'package:honkai_assistance/presentation/providers/redeem_code_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/battlesuit/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/database_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/glossary_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/sidebar_provider.dart';
+
+import 'domain/usecases/remote/get_character.dart';
+import 'domain/usecases/remote/get_character_banner.dart';
+import 'domain/usecases/remote/get_elf_banner.dart';
+import 'domain/usecases/remote/get_equipment_banner.dart';
+import 'domain/usecases/remote/get_event.dart';
+import 'domain/usecases/remote/get_news_update.dart';
+import 'domain/usecases/remote/get_redeem_code.dart';
+import 'presentation/provider/firestore/character_banner_provider.dart';
+import 'presentation/provider/firestore/elf_banner_provider.dart';
+import 'presentation/provider/firestore/equipment_banner_provider.dart';
+import 'presentation/provider/firestore/event_provider.dart';
+import 'presentation/provider/firestore/news_update_provider.dart';
+import 'presentation/provider/firestore/redeem_code_provider.dart';
 
 final sl = GetIt.instance;
 
@@ -56,9 +61,19 @@ void setUp() {
       () => EquipmentBannerProvider(getEquipmentBanner: sl()));
   sl.registerFactory<ElfBannerProvider>(
       () => ElfBannerProvider(getElfBanner: sl()));
-
   sl.registerFactory<BattlesuitProvider>(
       () => BattlesuitProvider(getCharacter: sl()));
+
+  //local
+  sl.registerFactory<AboutGameProvider>(() => AboutGameProvider(
+      aboutContentUsecase: sl(),
+      officialLinkSeaUsecase: sl(),
+      officialLinkGlobalUsecase: sl()));
+  sl.registerFactory<SidebarProvider>(() => SidebarProvider(sidebarMenu: sl()));
+  sl.registerFactory<DatabaseProvider>(
+      () => DatabaseProvider(menuDatabaseUsecase: sl()));
+  sl.registerFactory<GlossaryProvider>(() => GlossaryProvider(
+      gameMode: sl(), glossaryRank: sl(), glossarySpeciality: sl()));
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

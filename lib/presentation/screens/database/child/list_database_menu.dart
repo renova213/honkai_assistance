@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/database_provider.dart';
-import '../../../widgets/menu_item_container.dart';
+import '../../../provider/local/database_provider.dart';
+import '../../../components/menu_item_container.dart';
 
 class ListDatabaseMenu extends StatelessWidget {
   const ListDatabaseMenu({super.key});

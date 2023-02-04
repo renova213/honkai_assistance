@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/providers/news_update_provider.dart';
-import 'package:honkai_assistance/presentation/widgets/loading.dart';
-import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:honkai_assistance/presentation/components/loading.dart';
+import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
+import '../../../provider/firestore/news_update_provider.dart';
 
 class NewsUpdate extends StatelessWidget {
   const NewsUpdate({super.key});

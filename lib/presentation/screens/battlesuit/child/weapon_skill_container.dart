@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
-import 'package:honkai_assistance/presentation/widgets/title_line.dart';
+import 'package:honkai_assistance/presentation/components/title_line.dart';
 
 import '../../../../common/style/style.dart';
 

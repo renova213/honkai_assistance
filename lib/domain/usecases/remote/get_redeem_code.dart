@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
-import '../../common/error/error.dart';
+import '../../../common/error/failure.dart';
 
 class GetRedeemCode {
   final RemoteRepository remoteRepository;
