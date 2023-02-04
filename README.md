@@ -1,4 +1,4 @@
-# HonkaiLab
+# HonkaiAssistance
 
 HonkaiLab is guide apps to help you understand more about honkai impact 3.
 
