@@ -3,7 +3,15 @@ import 'package:get_it/get_it.dart';
 import 'package:honkai_assistance/data/datasources/remote_data_source.dart';
 import 'package:honkai_assistance/data/repositories/home_repository_impl.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/battlesuit/battlesuit_provider.dart';
+import 'package:honkai_assistance/domain/usecases/local/about_content_usecase.dart';
+import 'package:honkai_assistance/domain/usecases/local/game_mode.dart';
+import 'package:honkai_assistance/domain/usecases/local/glossary_rank.dart';
+import 'package:honkai_assistance/domain/usecases/local/glossary_speciality.dart';
+import 'package:honkai_assistance/domain/usecases/local/menu_database_usecase.dart';
+import 'package:honkai_assistance/domain/usecases/local/official_link_global_usecase.dart';
+import 'package:honkai_assistance/domain/usecases/local/official_link_sea_usecase.dart';
+import 'package:honkai_assistance/domain/usecases/local/sidebar_menu.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/database_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/glossary_provider.dart';
@@ -34,7 +42,7 @@ void setUp() {
   sl.registerLazySingleton<RemoteRepository>(
       () => RemoteRepositoryImpl(remoteDataSource: sl()));
 
-  //usecase
+  //usecase remote
   sl.registerLazySingleton<GetRedeemCode>(
       () => GetRedeemCode(remoteRepository: sl()));
   sl.registerLazySingleton<GetNewsUpdate>(
@@ -48,6 +56,18 @@ void setUp() {
       () => GetElfBanner(remoteRepository: sl()));
   sl.registerLazySingleton<GetCharacter>(
       () => GetCharacter(remoteRepository: sl()));
+
+  //usecase local
+  sl.registerLazySingleton<AboutContentUsecase>(() => AboutContentUsecase());
+  sl.registerLazySingleton<OfficialLinkSeaUsecase>(
+      () => OfficialLinkSeaUsecase());
+  sl.registerLazySingleton<OfficialLinkGlobalUsecase>(
+      () => OfficialLinkGlobalUsecase());
+  sl.registerLazySingleton<SidebarMenu>(() => SidebarMenu());
+  sl.registerLazySingleton<MenuDatabaseUsecase>(() => MenuDatabaseUsecase());
+  sl.registerLazySingleton<GameMode>(() => GameMode());
+  sl.registerLazySingleton<GlossaryRank>(() => GlossaryRank());
+  sl.registerLazySingleton<GlossarySpeciality>(() => GlossarySpeciality());
 
   //provider
   sl.registerFactory<RedeemCodeProvider>(

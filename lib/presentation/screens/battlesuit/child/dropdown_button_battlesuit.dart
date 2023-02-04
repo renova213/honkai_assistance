@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/firestore/battlesuit/battlesuit_provider.dart';
+import '../../../provider/firestore/battlesuit_provider.dart';
 import '../../../components/button_widget.dart';
 import '../../../components/custom_dropdown_button.dart';
 

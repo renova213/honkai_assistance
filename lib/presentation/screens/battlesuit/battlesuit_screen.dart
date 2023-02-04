@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/battlesuit/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/dropdown_button_battlesuit.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/grid_battlesuit.dart';
 import 'package:honkai_assistance/presentation/components/search_field.dart';

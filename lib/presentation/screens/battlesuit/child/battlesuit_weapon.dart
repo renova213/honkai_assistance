@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/battlesuit/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/battlesuit_childs.dart';
 import 'package:honkai_assistance/presentation/components/rating_star.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,7 @@ class _BattlesuitWeaponState extends State<BattlesuitWeapon> {
     super.initState();
     Future.microtask(
       () => Provider.of<BattlesuitProvider>(context, listen: false)
-          .filterRecommendedWeapon(widget.battlesuitWeapons),
+          .filterWeapon(widget.battlesuitWeapons),
     );
   }
 

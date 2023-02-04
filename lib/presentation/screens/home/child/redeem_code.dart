@@ -100,7 +100,7 @@ class RedeemCode extends StatelessWidget {
 
   SizedBox _listRedeemCode(List<RedeemCodeEntity> redeemCodes) {
     return SizedBox(
-      height: 110.h,
+      height: 130.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -121,13 +121,12 @@ class RedeemCode extends StatelessWidget {
                 children: [
                   Text(data.code, style: AppFont.subtitle),
                   SizedBox(height: 8.h),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(data.reward,
-                        maxLines: 1,
-                        style: AppFont.smallText
-                            .copyWith(fontWeight: FontWeight.bold)),
-                  ),
+                  Text(data.reward,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: AppFont.smallText
+                          .copyWith(fontWeight: FontWeight.bold)),
                   SizedBox(height: 8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../provider/firestore/battlesuit/battlesuit_provider.dart';
+import '../../../provider/firestore/battlesuit_provider.dart';
 import '../../../components/grid_loading.dart';
 import '../detail_battlesuit_scree.dart';
 

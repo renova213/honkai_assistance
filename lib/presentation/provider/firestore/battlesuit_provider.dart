@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/enum_state.dart';
 
-import '../../../../domain/entities/character_entity.dart';
-import '../../../../domain/usecases/remote/get_character.dart';
+import '../../../domain/entities/character_entity.dart';
+import '../../../domain/usecases/remote/get_character.dart';
 
 class BattlesuitProvider extends ChangeNotifier {
   final GetCharacter getCharacter;
@@ -11,6 +11,12 @@ class BattlesuitProvider extends ChangeNotifier {
   List<CharacterEntity> _battlesuits = [];
   List<CharacterWeaponEntity> _recommendedWeapons = [];
   List<CharacterWeaponEntity> _otherOptionWeapons = [];
+  List<CharacterStigmataEntity> _recommendedTStigmatas = [];
+  List<CharacterStigmataEntity> _recommendedMStigmatas = [];
+  List<CharacterStigmataEntity> _recommendedBStigmatas = [];
+  List<CharacterStigmataEntity> _otherOptionTStigmatas = [];
+  List<CharacterStigmataEntity> _otherOptionMStigmatas = [];
+  List<CharacterStigmataEntity> _otherOptionBStigmatas = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
@@ -21,6 +27,18 @@ class BattlesuitProvider extends ChangeNotifier {
   List<CharacterEntity> get battlesuits => _battlesuits;
   List<CharacterWeaponEntity> get recommendedWeapons => _recommendedWeapons;
   List<CharacterWeaponEntity> get otherOptionWeapons => _otherOptionWeapons;
+  List<CharacterStigmataEntity> get recommendedTStigmatas =>
+      _recommendedTStigmatas;
+  List<CharacterStigmataEntity> get recommendedMStigmatas =>
+      _recommendedMStigmatas;
+  List<CharacterStigmataEntity> get recommendedBStigmatas =>
+      _recommendedBStigmatas;
+  List<CharacterStigmataEntity> get otherOptionTStigmatas =>
+      _otherOptionTStigmatas;
+  List<CharacterStigmataEntity> get otherOptionMStigmatas =>
+      _otherOptionMStigmatas;
+  List<CharacterStigmataEntity> get otherOptionBStigmatas =>
+      _otherOptionBStigmatas;
   AppState get appState => _appState;
   Color get bottomColor => _bottomColor;
   String get sortValue => _sortValue;
@@ -54,7 +72,7 @@ class BattlesuitProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> filterRecommendedWeapon(
+  Future<void> filterWeapon(
       List<CharacterWeaponEntity> battlesuitWeapons) async {
     _recommendedWeapons = battlesuitWeapons
         .where((e) => e.priority.toLowerCase() == 'recommended')
@@ -64,6 +82,44 @@ class BattlesuitProvider extends ChangeNotifier {
         .where((e) => e.priority.toLowerCase() == 'other option')
         .toList();
     _otherOptionWeapons.sort((a, b) => b.star.compareTo(a.star));
+    notifyListeners();
+  }
+
+  Future<void> filterStigmata(
+      List<CharacterStigmataEntity> battlesuitStimatas) async {
+    //recommended stigmata
+    _recommendedTStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'recommended' &&
+            e.typeStigmata.toLowerCase() == 't')
+        .toList();
+    _recommendedMStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'recommended' &&
+            e.typeStigmata.toLowerCase() == 'm')
+        .toList();
+    _recommendedBStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'recommended' &&
+            e.typeStigmata.toLowerCase() == 'b')
+        .toList();
+
+    //other option stigmata
+    _otherOptionTStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'other option' &&
+            e.typeStigmata.toLowerCase() == 't')
+        .toList();
+    _otherOptionMStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'other option' &&
+            e.typeStigmata.toLowerCase() == 'm')
+        .toList();
+    _otherOptionBStigmatas = battlesuitStimatas
+        .where((e) =>
+            e.priority.toLowerCase() == 'other option' &&
+            e.typeStigmata.toLowerCase() == 'b')
+        .toList();
     notifyListeners();
   }
 
@@ -193,11 +249,6 @@ class BattlesuitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeAppState(AppState state) {
-    _appState = state;
-    notifyListeners();
-  }
-
   void resetButton(TextEditingController controller) {
     _role = 'Any Role';
     _typeATK = 'Any ATK';
@@ -224,5 +275,10 @@ class BattlesuitProvider extends ChangeNotifier {
       default:
         _bottomColor = Colors.amber;
     }
+  }
+
+  void changeAppState(AppState state) {
+    _appState = state;
+    notifyListeners();
   }
 }
