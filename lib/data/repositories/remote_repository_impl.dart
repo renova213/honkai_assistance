@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
+import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
@@ -104,6 +105,19 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final characters = await remoteDataSource.getCharacters();
 
       return Right(characters);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ElfEntity>>> getElfs() async {
+    try {
+      final elfs = await remoteDataSource.getElfs();
+
+      return Right(elfs);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

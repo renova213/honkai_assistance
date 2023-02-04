@@ -1,4 +1,5 @@
 import 'package:honkai_assistance/domain/entities/menu_database.dart';
+import 'package:honkai_assistance/presentation/screens/elf/elf_screen.dart';
 
 import '../../../presentation/screens/battlesuit/battlesuit_screen.dart';
 
@@ -12,7 +13,7 @@ class MenuDatabaseUsecase {
       MenuDatabase(
           title: "Elf",
           assetImage: 'assets/images/elf.png',
-          widget: BattlesuitScreen()),
+          widget: ElfScreen()),
       MenuDatabase(
           title: "Stigmata",
           assetImage: 'assets/images/stigmata.png',

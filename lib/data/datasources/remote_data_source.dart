@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
 import 'package:honkai_assistance/data/models/character_model.dart';
 import 'package:honkai_assistance/data/models/elf_banner_model.dart';
+import 'package:honkai_assistance/data/models/elf_model.dart';
 import 'package:honkai_assistance/data/models/equipment_banner_model.dart';
 import 'package:honkai_assistance/data/models/event_model.dart';
 import 'package:honkai_assistance/data/models/news_update_model.dart';
@@ -15,6 +16,7 @@ abstract class RemoteDataSource {
   Future<List<EquipmentBannerModel>> getEquipmentBanners();
   Future<List<ElfBannerModel>> getElfBanners();
   Future<List<CharacterModel>> getCharacters();
+  Future<List<ElfModel>> getElfs();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -109,5 +111,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return characters;
+  }
+
+  @override
+  Future<List<ElfModel>> getElfs() async {
+    List<ElfModel> elfs = [];
+    await firestoreService.collection('elf').get().then(
+      (value) {
+        for (var i in value.docs) {
+          elfs.add(ElfModel.fromMap(i.data()));
+        }
+      },
+    );
+    return elfs;
   }
 }

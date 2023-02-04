@@ -43,6 +43,12 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Battlesuit", style: AppFont.headline6),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
         child: GestureDetector(
@@ -71,7 +77,7 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
                   },
                 ),
                 SizedBox(height: 12.h),
-                DropdownButtonBattlesuit(searchController: _searchController),
+                const DropdownButtonBattlesuit(),
                 SizedBox(height: 8.h),
                 Consumer<BattlesuitProvider>(
                   builder: (context, notifier, _) => SearchField(

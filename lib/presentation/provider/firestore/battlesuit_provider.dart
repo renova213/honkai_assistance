@@ -20,7 +20,6 @@ class BattlesuitProvider extends ChangeNotifier {
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
-  String _sortValue = 'Sort By A-Z';
   String _role = 'Any Role';
   String _typeATK = 'Any ATK';
 
@@ -41,7 +40,6 @@ class BattlesuitProvider extends ChangeNotifier {
       _otherOptionBStigmatas;
   AppState get appState => _appState;
   Color get bottomColor => _bottomColor;
-  String get sortValue => _sortValue;
   String get role => _role;
   String get typeATK => _typeATK;
   String get failureMessage => _failureMessage;
@@ -58,15 +56,11 @@ class BattlesuitProvider extends ChangeNotifier {
       },
       (character) {
         _battlesuits = character;
-        if (_sortValue == "Sort By A-Z") {
-          battlesuits.sort(
-            (a, b) => a.characterName.compareTo(b.characterName),
-          );
-        } else {
-          _battlesuits.sort(
-            (a, b) => b.characterName.compareTo(a.characterName),
-          );
-        }
+
+        battlesuits.sort(
+          (a, b) => a.characterName.compareTo(b.characterName),
+        );
+
         changeAppState(AppState.loaded);
       },
     );
@@ -135,7 +129,6 @@ class BattlesuitProvider extends ChangeNotifier {
       await getBattlesuits();
       await changeRole('Any Role');
       await changeTypeATK('Any ATK');
-      await changeSortValue('Sort By A-Z');
 
       _battlesuits = _battlesuits
           .where((e) =>
@@ -143,21 +136,6 @@ class BattlesuitProvider extends ChangeNotifier {
           .toList();
     } else {
       await getBattlesuits();
-    }
-    notifyListeners();
-  }
-
-  Future<void> changeSortValue(String value) async {
-    _sortValue = value;
-
-    if (value == "Sort By A-Z") {
-      _battlesuits.sort(
-        (a, b) => a.characterName.compareTo(b.characterName),
-      );
-    } else {
-      _battlesuits.sort(
-        (a, b) => b.characterName.compareTo(a.characterName),
-      );
     }
     notifyListeners();
   }
@@ -254,15 +232,6 @@ class BattlesuitProvider extends ChangeNotifier {
     }
     _typeATK = value;
     notifyListeners();
-  }
-
-  void resetButton(TextEditingController controller) {
-    _role = 'Any Role';
-    _typeATK = 'Any ATK';
-    _sortValue = 'Sort By A-Z';
-    controller.clear();
-
-    getBattlesuits();
   }
 
   void changeBottomColor(String typeATK) {

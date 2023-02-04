@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:honkai_assistance/data/datasources/remote_data_source.dart';
-import 'package:honkai_assistance/data/repositories/home_repository_impl.dart';
+import 'package:honkai_assistance/data/repositories/remote_repository_impl.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 import 'package:honkai_assistance/domain/usecases/local/about_content_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/game_mode.dart';
@@ -11,7 +11,9 @@ import 'package:honkai_assistance/domain/usecases/local/menu_database_usecase.da
 import 'package:honkai_assistance/domain/usecases/local/official_link_global_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/official_link_sea_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/sidebar_menu.dart';
+import 'package:honkai_assistance/domain/usecases/remote/get_elf.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/database_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/glossary_provider.dart';
@@ -56,6 +58,7 @@ void setUp() {
       () => GetElfBanner(remoteRepository: sl()));
   sl.registerLazySingleton<GetCharacter>(
       () => GetCharacter(remoteRepository: sl()));
+  sl.registerLazySingleton<GetElf>(() => GetElf(remoteRepository: sl()));
 
   //usecase local
   sl.registerLazySingleton<AboutContentUsecase>(() => AboutContentUsecase());
@@ -83,6 +86,7 @@ void setUp() {
       () => ElfBannerProvider(getElfBanner: sl()));
   sl.registerFactory<BattlesuitProvider>(
       () => BattlesuitProvider(getCharacter: sl()));
+  sl.registerFactory<ElfProvider>(() => ElfProvider(getElf: sl()));
 
   //local
   sl.registerFactory<AboutGameProvider>(() => AboutGameProvider(

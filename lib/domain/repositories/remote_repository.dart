@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
+import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
@@ -17,4 +18,5 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<EquipmentBannerEntity>>> getEquipmentBanners();
   Future<Either<Failure, List<ElfBannerEntity>>> getElfBanners();
   Future<Either<Failure, List<CharacterEntity>>> getCharacters();
+  Future<Either<Failure, List<ElfEntity>>> getElfs();
 }
