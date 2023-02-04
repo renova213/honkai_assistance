@@ -1,6 +1,6 @@
 # HonkaiAssistance
 
-HonkaiLab is guide apps to help you understand more about honkai impact 3.
+HonkaiAssistance is guide apps to help you understand more about honkai impact 3.
 
 ## Features
 
