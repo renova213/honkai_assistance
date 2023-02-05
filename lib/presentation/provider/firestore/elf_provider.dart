@@ -62,6 +62,9 @@ class ElfProvider extends ChangeNotifier {
 
   Future<void> changeTypeATK(String value) async {
     if (_typeATK != value) {
+      _typeATK = value;
+      notifyListeners();
+
       switch (value) {
         case 'Physical':
           await getElfs();
@@ -83,7 +86,7 @@ class ElfProvider extends ChangeNotifier {
           await getElfs();
       }
     }
-    _typeATK = value;
+
     notifyListeners();
   }
 

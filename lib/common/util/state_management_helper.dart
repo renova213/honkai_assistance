@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/presentation/provider/button/about_game_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/battlesuit_button_provider.dart';
+import 'package:honkai_assistance/presentation/provider/button/elf_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/redeem_code_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
@@ -64,6 +65,7 @@ class StateManagementHelper {
         ChangeNotifierProvider(create: (_) => SidebarButtonProvider()),
         ChangeNotifierProvider(create: (_) => RedeemCodeButtonProvider()),
         ChangeNotifierProvider(create: (_) => BattlesuitButtonProvider()),
+        ChangeNotifierProvider(create: (_) => ElfButtonProvider()),
       ],
       child: widget,
     );

@@ -30,13 +30,11 @@ class ElfSkillModel extends ElfSkillEntity {
   const ElfSkillModel(
       {required super.urlImage,
       required super.skillName,
-      required super.titleSkill,
       required super.descriptionSkill});
 
   factory ElfSkillModel.fromMap(Map<String, dynamic> map) => ElfSkillModel(
       urlImage: map['urlImage'],
       skillName: map['skillName'],
-      titleSkill: map['titleSkill'],
       descriptionSkill: map['descriptionSkill']);
 }
 

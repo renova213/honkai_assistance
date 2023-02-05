@@ -5,8 +5,27 @@ import 'package:provider/provider.dart';
 import '../../common/style/style.dart';
 import '../provider/local/glossary_provider.dart';
 
-class Help extends StatelessWidget {
+class Help extends StatefulWidget {
   const Help({super.key});
+
+  @override
+  State<Help> createState() => _HelpState();
+}
+
+class _HelpState extends State<Help> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () {
+        Provider.of<GlossaryProvider>(context, listen: false).getGameModes();
+        Provider.of<GlossaryProvider>(context, listen: false)
+            .getGlossaryRanks();
+        Provider.of<GlossaryProvider>(context, listen: false)
+            .getGlossarySpecialities();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -142,6 +142,8 @@ class BattlesuitProvider extends ChangeNotifier {
 
   Future<void> changeRole(String value) async {
     if (_role != value) {
+      _role = value;
+      notifyListeners();
       switch (value) {
         case 'DPS':
           await getBattlesuits();
@@ -172,12 +174,13 @@ class BattlesuitProvider extends ChangeNotifier {
       }
     }
 
-    _role = value;
     notifyListeners();
   }
 
   Future<void> changeTypeATK(String value) async {
     if (_typeATK != value) {
+      _typeATK = value;
+      notifyListeners();
       switch (value) {
         case 'Physical':
           await getBattlesuits();
@@ -230,7 +233,7 @@ class BattlesuitProvider extends ChangeNotifier {
               .toList();
       }
     }
-    _typeATK = value;
+
     notifyListeners();
   }
 
