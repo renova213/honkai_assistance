@@ -99,7 +99,7 @@ class _BattlesuitScreenState extends State<ElfScreen> {
                             hintText: "Search Elf ...",
                             controller: _searchController,
                             onSubmit: (value) {
-                              notifier.searchBattlesuit(value);
+                              notifier.searchElf(value);
                               _searchController.clear();
                             },
                           ),

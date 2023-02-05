@@ -7,6 +7,7 @@ import 'package:honkai_assistance/data/models/equipment_banner_model.dart';
 import 'package:honkai_assistance/data/models/event_model.dart';
 import 'package:honkai_assistance/data/models/news_update_model.dart';
 import 'package:honkai_assistance/data/models/redeem_code_model.dart';
+import 'package:honkai_assistance/data/models/stigmata_model.dart';
 
 abstract class RemoteDataSource {
   Future<List<RedeemCodeModel>> getRedeemCodes();
@@ -17,6 +18,7 @@ abstract class RemoteDataSource {
   Future<List<ElfBannerModel>> getElfBanners();
   Future<List<CharacterModel>> getCharacters();
   Future<List<ElfModel>> getElfs();
+  Future<List<StigmataModel>> getStigmata();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -124,5 +126,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return elfs;
+  }
+
+  @override
+  Future<List<StigmataModel>> getStigmata() async {
+    List<StigmataModel> stigmatas = [];
+    await firestoreService.collection('stigmata').get().then(
+      (value) {
+        for (var i in value.docs) {
+          stigmatas.add(StigmataModel.fromMap(i.data()));
+        }
+      },
+    );
+    return stigmatas;
   }
 }

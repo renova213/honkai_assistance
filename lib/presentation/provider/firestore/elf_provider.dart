@@ -90,7 +90,7 @@ class ElfProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchBattlesuit(String value) async {
+  Future<void> searchElf(String value) async {
     if (value.isNotEmpty) {
       await getElfs();
       await changeTypeATK('Any ATK');
