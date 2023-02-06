@@ -28,6 +28,9 @@ class GridWeapon extends StatelessWidget {
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
               final weapon = notifier.weapons[index];
+
+              notifier.changeBottomColor(weapon.rank);
+
               return SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
@@ -47,8 +50,9 @@ class GridWeapon extends StatelessWidget {
                               image:
                                   CachedNetworkImageProvider(weapon.urlImage),
                               fit: BoxFit.fill),
-                          border: const Border(
-                            bottom: BorderSide(width: 3, color: Colors.purple),
+                          border: Border(
+                            bottom: BorderSide(
+                                width: 3, color: notifier.bottomColor),
                           ),
                         ),
                       ),

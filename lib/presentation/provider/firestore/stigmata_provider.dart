@@ -11,10 +11,12 @@ class StigmataProvider extends ChangeNotifier {
   List<StigmataEntity> _stigmatas = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
+  late Color _bottomColor;
 
   List<StigmataEntity> get stigmatas => _stigmatas;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
+  Color get bottomColor => _bottomColor;
 
   Future<void> getStigmatas() async {
     changeAppState(AppState.loading);
@@ -49,6 +51,17 @@ class StigmataProvider extends ChangeNotifier {
       await getStigmatas();
     }
     notifyListeners();
+  }
+
+  void changeBottomColor(String star) {
+    switch (star) {
+      case '4.0':
+        _bottomColor = Colors.purple;
+        break;
+
+      default:
+        _bottomColor = Colors.blue;
+    }
   }
 
   changeAppState(AppState state) {

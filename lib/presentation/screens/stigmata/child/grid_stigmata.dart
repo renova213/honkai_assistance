@@ -28,6 +28,10 @@ class GridStigmata extends StatelessWidget {
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
               final data = notifier.stigmatas[index];
+
+              notifier.changeBottomColor(data.stigmataItems!.isEmpty
+                  ? '1.0'
+                  : data.stigmataItems!.first.star!);
               return SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
@@ -49,8 +53,9 @@ class GridStigmata extends StatelessWidget {
                               image: CachedNetworkImageProvider(
                                   data.stigmataImage),
                               fit: BoxFit.fill),
-                          border: const Border(
-                            bottom: BorderSide(width: 3, color: Colors.purple),
+                          border: Border(
+                            bottom: BorderSide(
+                                width: 3, color: notifier.bottomColor),
                           ),
                         ),
                       ),

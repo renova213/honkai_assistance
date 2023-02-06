@@ -1,5 +1,6 @@
 import 'package:honkai_assistance/domain/entities/menu_database.dart';
 import 'package:honkai_assistance/presentation/screens/elf/elf_screen.dart';
+import 'package:honkai_assistance/presentation/screens/outfit/outfit_screen.dart';
 import 'package:honkai_assistance/presentation/screens/weapon/weapon_screen.dart';
 
 import '../../../presentation/screens/battlesuit/battlesuit_screen.dart';
@@ -27,7 +28,7 @@ class MenuDatabaseUsecase {
       MenuDatabase(
           title: "outfit",
           assetImage: 'assets/images/outfit.png',
-          widget: BattlesuitScreen()),
+          widget: OutfitScreen()),
     ];
 
     return menuDatabases;

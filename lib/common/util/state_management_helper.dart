@@ -6,6 +6,7 @@ import 'package:honkai_assistance/presentation/provider/button/redeem_code_butto
 import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
 
@@ -47,6 +48,8 @@ class StateManagementHelper {
             create: (_) => sl<StigmataProvider>()),
         ChangeNotifierProvider<WeaponProvider>(
             create: (_) => sl<WeaponProvider>()),
+        ChangeNotifierProvider<OutfitProvider>(
+            create: (_) => sl<OutfitProvider>()),
 
         //local
         ChangeNotifierProvider(
