@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
+import 'package:honkai_assistance/presentation/screens/stigmata/detail_stigmata_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
@@ -34,11 +35,11 @@ class GridStigmata extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        // Navigator.of(context).push(
-                        //   NavigatorFadeHelper(
-                        //     child: DetailElfScreen(elf: data),
-                        //   ),
-                        // );
+                        Navigator.of(context).push(
+                          NavigatorFadeHelper(
+                            child: DetailStigmataScreen(stigmata: data),
+                          ),
+                        );
                       },
                       child: Ink(
                         width: 95.w,

@@ -5,17 +5,19 @@ import 'package:honkai_assistance/presentation/components/title_line.dart';
 
 import '../../../../common/style/style.dart';
 
-class StigmataEffectContainer extends StatefulWidget {
+class BattlesuitStigmataEffectContainer extends StatefulWidget {
   final bool onTap;
   final List<CharacterStigmataEffectEntity> stigmataEffects;
-  const StigmataEffectContainer(
+  const BattlesuitStigmataEffectContainer(
       {super.key, required this.onTap, required this.stigmataEffects});
 
   @override
-  State<StigmataEffectContainer> createState() => _WeaponSkillContainerState();
+  State<BattlesuitStigmataEffectContainer> createState() =>
+      _WeaponSkillContainerState();
 }
 
-class _WeaponSkillContainerState extends State<StigmataEffectContainer> {
+class _WeaponSkillContainerState
+    extends State<BattlesuitStigmataEffectContainer> {
   bool? onTap;
   @override
   void initState() {

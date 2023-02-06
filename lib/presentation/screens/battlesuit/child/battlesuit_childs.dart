@@ -7,4 +7,4 @@ export 'battlesuit_weapon.dart';
 export 'battlesuit_stigmata.dart';
 export 'battlesuit_team.dart';
 export 'weapon_skill_container.dart';
-export 'stigmata_effect_container.dart';
+export 'battlesuit_stigmata_effect_container.dart';
