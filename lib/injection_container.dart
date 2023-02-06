@@ -13,6 +13,7 @@ import 'package:honkai_assistance/domain/usecases/local/official_link_sea_usecas
 import 'package:honkai_assistance/domain/usecases/local/sidebar_menu.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_elf.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_stigmata.dart';
+import 'package:honkai_assistance/domain/usecases/remote/get_weapon.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
@@ -34,6 +35,7 @@ import 'presentation/provider/firestore/equipment_banner_provider.dart';
 import 'presentation/provider/firestore/event_provider.dart';
 import 'presentation/provider/firestore/news_update_provider.dart';
 import 'presentation/provider/firestore/redeem_code_provider.dart';
+import 'presentation/provider/firestore/weapon_provider.dart';
 
 final sl = GetIt.instance;
 
@@ -63,6 +65,7 @@ void setUp() {
   sl.registerLazySingleton<GetElf>(() => GetElf(remoteRepository: sl()));
   sl.registerLazySingleton<GetStigmata>(
       () => GetStigmata(remoteRepository: sl()));
+  sl.registerLazySingleton<GetWeapon>(() => GetWeapon(remoteRepository: sl()));
 
   //usecase local
   sl.registerLazySingleton<AboutContentUsecase>(() => AboutContentUsecase());
@@ -93,6 +96,7 @@ void setUp() {
   sl.registerFactory<ElfProvider>(() => ElfProvider(getElf: sl()));
   sl.registerFactory<StigmataProvider>(
       () => StigmataProvider(getStigmata: sl()));
+  sl.registerFactory<WeaponProvider>(() => WeaponProvider(getWeapon: sl()));
 
   //local
   sl.registerFactory<AboutGameProvider>(() => AboutGameProvider(

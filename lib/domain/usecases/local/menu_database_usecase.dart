@@ -1,8 +1,9 @@
 import 'package:honkai_assistance/domain/entities/menu_database.dart';
 import 'package:honkai_assistance/presentation/screens/elf/elf_screen.dart';
-import 'package:honkai_assistance/presentation/screens/stigmata/stigmata_screen.dart';
+import 'package:honkai_assistance/presentation/screens/weapon/weapon_screen.dart';
 
 import '../../../presentation/screens/battlesuit/battlesuit_screen.dart';
+import '../../../presentation/screens/stigmata/stigmata_screen.dart';
 
 class MenuDatabaseUsecase {
   Future<List<MenuDatabase>> call() async {
@@ -22,7 +23,7 @@ class MenuDatabaseUsecase {
       MenuDatabase(
           title: "Weapon",
           assetImage: 'assets/images/weapon.png',
-          widget: BattlesuitScreen()),
+          widget: WeaponScreen()),
       MenuDatabase(
           title: "outfit",
           assetImage: 'assets/images/outfit.png',

@@ -9,6 +9,7 @@ import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
+import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
 
 import '../../common/constant.dart';
 import '../../common/error/error.dart';
@@ -132,6 +133,19 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final stigmatas = await remoteDataSource.getStigmata();
 
       return Right(stigmatas);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<WeaponEntity>>> getWeapons() async {
+    try {
+      final weapons = await remoteDataSource.getWeapons();
+
+      return Right(weapons);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),
