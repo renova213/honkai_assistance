@@ -19,9 +19,9 @@ class ElfBannerProvider extends ChangeNotifier {
   Future<void> getElfBanners() async {
     changeAppState(AppState.loading);
 
-    final failureOrEquipmentBanner = await getElfBanner.call();
+    final failureOrElfBanner = await getElfBanner.call();
 
-    failureOrEquipmentBanner.fold(
+    failureOrElfBanner.fold(
       (failure) {
         _failureMessage = failure.message;
         changeAppState(AppState.failed);

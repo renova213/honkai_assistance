@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:honkai_assistance/presentation/components/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
@@ -66,9 +67,10 @@ class TierListContainer extends StatelessWidget {
                                   );
                                 },
                                 placeholder: (context, url) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
+                                  return const Loading(
+                                      width: double.maxFinite,
+                                      height: double.maxFinite,
+                                      borderRadius: 0);
                                 },
                                 fit: BoxFit.fill),
                           ),
@@ -80,9 +82,8 @@ class TierListContainer extends StatelessWidget {
                                 );
                               },
                               placeholder: (context, url) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                return const Loading(
+                                    width: 20, height: 20, borderRadius: 0);
                               },
                               height: 20,
                               width: 20),

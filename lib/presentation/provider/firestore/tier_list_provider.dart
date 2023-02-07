@@ -41,9 +41,9 @@ class TierListProvider extends ChangeNotifier {
   Future<void> getTierLists() async {
     changeAppState(AppState.loading);
 
-    final failureOrCharacterBanner = await getTierList.call();
+    final failureOrTierList = await getTierList.call();
 
-    failureOrCharacterBanner.fold(
+    failureOrTierList.fold(
       (failure) {
         _failureMessage = failure.message;
         changeAppState(AppState.failed);

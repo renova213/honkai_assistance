@@ -11,12 +11,14 @@ import 'package:honkai_assistance/domain/usecases/local/menu_database_usecase.da
 import 'package:honkai_assistance/domain/usecases/local/official_link_global_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/official_link_sea_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/sidebar_menu.dart';
+import 'package:honkai_assistance/domain/usecases/remote/get_changelog.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_elf.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_outfit.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_stigmata.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_tier_list.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_weapon.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/changelog_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
@@ -73,6 +75,8 @@ void setUp() {
   sl.registerLazySingleton<GetOutfit>(() => GetOutfit(remoteRepository: sl()));
   sl.registerLazySingleton<GetTierList>(
       () => GetTierList(remoteRepository: sl()));
+  sl.registerLazySingleton<GetChangelog>(
+      () => GetChangelog(remoteRepository: sl()));
 
   //usecase local
   sl.registerLazySingleton<AboutContentUsecase>(() => AboutContentUsecase());
@@ -107,6 +111,8 @@ void setUp() {
   sl.registerFactory<OutfitProvider>(() => OutfitProvider(getOutfit: sl()));
   sl.registerFactory<TierListProvider>(
       () => TierListProvider(getTierList: sl()));
+  sl.registerFactory<ChangelogProvider>(
+      () => ChangelogProvider(getChangelog: sl()));
 
   //local
   sl.registerFactory<AboutGameProvider>(() => AboutGameProvider(

@@ -47,9 +47,9 @@ class BattlesuitProvider extends ChangeNotifier {
   Future<void> getBattlesuits() async {
     changeAppState(AppState.loading);
 
-    final failureOrCharacter = await getCharacter.call();
+    final failureOBattlesuit = await getCharacter.call();
 
-    failureOrCharacter.fold(
+    failureOBattlesuit.fold(
       (failure) {
         _failureMessage = failure.message;
         changeAppState(AppState.failed);

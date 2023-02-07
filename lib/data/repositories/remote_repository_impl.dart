@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:honkai_assistance/domain/entities/changelog_entity.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
@@ -174,6 +175,19 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final tierList = await remoteDataSource.getTierList();
 
       return Right(tierList);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ChangelogEntity>>> getChangelogs() async {
+    try {
+      final changelogs = await remoteDataSource.getChangelog();
+
+      return Right(changelogs);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

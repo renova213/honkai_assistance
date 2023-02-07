@@ -9,6 +9,7 @@ import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
 import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
 
 import '../../common/error/error.dart';
+import '../entities/changelog_entity.dart';
 import '../entities/character_entity.dart';
 import '../entities/elf_banner_entity.dart';
 import '../entities/redeem_code_entity.dart';
@@ -27,4 +28,5 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<WeaponEntity>>> getWeapons();
   Future<Either<Failure, List<OutfitEntity>>> getOutfits();
   Future<Either<Failure, List<TierListEntity>>> getTierList();
+  Future<Either<Failure, List<ChangelogEntity>>> getChangelogs();
 }

@@ -21,9 +21,9 @@ class StigmataProvider extends ChangeNotifier {
   Future<void> getStigmatas() async {
     changeAppState(AppState.loading);
 
-    final failureOrElf = await getStigmata.call();
+    final failureOrStigmata = await getStigmata.call();
 
-    failureOrElf.fold(
+    failureOrStigmata.fold(
       (failure) {
         _failureMessage = failure.message;
         changeAppState(AppState.failed);
