@@ -22,8 +22,11 @@ class _TierListScreenState extends State<TierListScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TierListProvider>(context, listen: false).getTierLists());
+    Future.microtask(() {
+      Provider.of<TierListProvider>(context, listen: false).getTierLists();
+      Provider.of<TierListButtonProvider>(context, listen: false)
+          .changeRole('DPS');
+    });
   }
 
   @override
