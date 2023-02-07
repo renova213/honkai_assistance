@@ -39,7 +39,10 @@ class MenuScreen extends StatelessWidget {
                             children: [
                               Padding(
                                   padding: const EdgeInsets.only(
-                                          left: 20, right: 20, bottom: 24)
+                                          top: 24,
+                                          left: 20,
+                                          right: 20,
+                                          bottom: 24)
                                       .r,
                                   child:
                                       sidebar.pages[sidebarButton.indexPage]),

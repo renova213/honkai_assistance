@@ -42,7 +42,7 @@ class _HelpState extends State<Help> {
             },
             child: Row(
               children: [
-                Icon(Icons.help, color: AppColor.red, size: 20.r),
+                const Icon(Icons.help, color: AppColor.red),
                 SizedBox(width: 8.w),
                 Text("Help",
                     style: AppFont.smallText.copyWith(color: AppColor.red)),
