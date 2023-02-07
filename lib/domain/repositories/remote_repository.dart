@@ -12,6 +12,7 @@ import '../../common/error/error.dart';
 import '../entities/character_entity.dart';
 import '../entities/elf_banner_entity.dart';
 import '../entities/redeem_code_entity.dart';
+import '../entities/tier_list_entity.dart';
 
 abstract class RemoteRepository {
   Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCodes();
@@ -25,4 +26,5 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<StigmataEntity>>> getStigmatas();
   Future<Either<Failure, List<WeaponEntity>>> getWeapons();
   Future<Either<Failure, List<OutfitEntity>>> getOutfits();
+  Future<Either<Failure, List<TierListEntity>>> getTierList();
 }

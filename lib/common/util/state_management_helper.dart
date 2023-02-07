@@ -4,10 +4,12 @@ import 'package:honkai_assistance/presentation/provider/button/battlesuit_button
 import 'package:honkai_assistance/presentation/provider/button/elf_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/redeem_code_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
+import 'package:honkai_assistance/presentation/provider/button/tier_list_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
 
 import 'package:provider/provider.dart';
@@ -50,6 +52,8 @@ class StateManagementHelper {
             create: (_) => sl<WeaponProvider>()),
         ChangeNotifierProvider<OutfitProvider>(
             create: (_) => sl<OutfitProvider>()),
+        ChangeNotifierProvider<TierListProvider>(
+            create: (_) => sl<TierListProvider>()),
 
         //local
         ChangeNotifierProvider(
@@ -75,6 +79,7 @@ class StateManagementHelper {
         ChangeNotifierProvider(create: (_) => RedeemCodeButtonProvider()),
         ChangeNotifierProvider(create: (_) => BattlesuitButtonProvider()),
         ChangeNotifierProvider(create: (_) => ElfButtonProvider()),
+        ChangeNotifierProvider(create: (_) => TierListButtonProvider()),
       ],
       child: widget,
     );

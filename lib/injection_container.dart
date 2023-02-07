@@ -14,11 +14,13 @@ import 'package:honkai_assistance/domain/usecases/local/sidebar_menu.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_elf.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_outfit.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_stigmata.dart';
+import 'package:honkai_assistance/domain/usecases/remote/get_tier_list.dart';
 import 'package:honkai_assistance/domain/usecases/remote/get_weapon.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/database_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/glossary_provider.dart';
@@ -69,6 +71,8 @@ void setUp() {
       () => GetStigmata(remoteRepository: sl()));
   sl.registerLazySingleton<GetWeapon>(() => GetWeapon(remoteRepository: sl()));
   sl.registerLazySingleton<GetOutfit>(() => GetOutfit(remoteRepository: sl()));
+  sl.registerLazySingleton<GetTierList>(
+      () => GetTierList(remoteRepository: sl()));
 
   //usecase local
   sl.registerLazySingleton<AboutContentUsecase>(() => AboutContentUsecase());
@@ -101,6 +105,8 @@ void setUp() {
       () => StigmataProvider(getStigmata: sl()));
   sl.registerFactory<WeaponProvider>(() => WeaponProvider(getWeapon: sl()));
   sl.registerFactory<OutfitProvider>(() => OutfitProvider(getOutfit: sl()));
+  sl.registerFactory<TierListProvider>(
+      () => TierListProvider(getTierList: sl()));
 
   //local
   sl.registerFactory<AboutGameProvider>(() => AboutGameProvider(

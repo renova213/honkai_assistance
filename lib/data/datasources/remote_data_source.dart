@@ -10,6 +10,7 @@ import 'package:honkai_assistance/data/models/outfit_model.dart';
 import 'package:honkai_assistance/data/models/redeem_code_model.dart';
 import 'package:honkai_assistance/data/models/stigmata_model.dart';
 
+import '../models/tier_list_model.dart';
 import '../models/weapon_model.dart';
 
 abstract class RemoteDataSource {
@@ -24,6 +25,7 @@ abstract class RemoteDataSource {
   Future<List<StigmataModel>> getStigmata();
   Future<List<WeaponModel>> getWeapons();
   Future<List<OutfitModel>> getOutfits();
+  Future<List<TierListModel>> getTierList();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -170,5 +172,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return outfits;
+  }
+
+  @override
+  Future<List<TierListModel>> getTierList() async {
+    List<TierListModel> tierList = [];
+    await firestoreService.collection('tierList').get().then(
+      (value) {
+        for (var i in value.docs) {
+          tierList.add(TierListModel.fromMap(i.data()));
+        }
+      },
+    );
+    return tierList;
   }
 }
