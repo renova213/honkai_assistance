@@ -5,6 +5,7 @@ import 'package:honkai_assistance/presentation/components/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
+import '../../../../common/util/enum_state.dart';
 import '../../../../domain/entities/tier_list_entity.dart';
 import '../../../provider/firestore/tier_list_provider.dart';
 
@@ -38,65 +39,85 @@ class TierListContainer extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.r),
                 child: Consumer<TierListProvider>(
-                  builder: (context, notifier, _) => GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: tierList.length,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 8,
-                            crossAxisSpacing: 8,
-                            crossAxisCount: 4),
-                    itemBuilder: (context, index) {
-                      final data = tierList[index];
-                      notifier.filterTypeATKImage(data.element);
-                      return Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                    color: notifier.bottomBorder, width: 3),
-                              ),
-                            ),
-                            child: CachedNetworkImage(
-                                imageUrl: data.image,
-                                errorWidget: (context, url, error) {
-                                  return const Center(
-                                    child: Icon(Icons.error, color: Colors.red),
-                                  );
-                                },
-                                placeholder: (context, url) {
-                                  return const Loading(
-                                      width: double.maxFinite,
-                                      height: double.maxFinite,
-                                      borderRadius: 0);
-                                },
-                                fit: BoxFit.fill),
-                          ),
-                          CachedNetworkImage(
-                              imageUrl: notifier.typaATKImage,
-                              errorWidget: (context, url, error) {
-                                return const Center(
-                                  child: Icon(Icons.error, color: Colors.red),
+                  builder: (context, notifier, _) =>
+                      notifier.appstate == AppState.loaded
+                          ? GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: tierList.length,
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      mainAxisSpacing: 8,
+                                      crossAxisSpacing: 8,
+                                      crossAxisCount: 4),
+                              itemBuilder: (context, index) {
+                                final data = tierList[index];
+                                notifier.filterTypeATKImage(data.element);
+                                return Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                              color: notifier.bottomBorder,
+                                              width: 3),
+                                        ),
+                                      ),
+                                      child: CachedNetworkImage(
+                                          imageUrl: data.image,
+                                          errorWidget: (context, url, error) {
+                                            return const Center(
+                                              child: Icon(Icons.error,
+                                                  color: Colors.red),
+                                            );
+                                          },
+                                          placeholder: (context, url) {
+                                            return const Loading(
+                                                width: double.maxFinite,
+                                                height: double.maxFinite,
+                                                borderRadius: 0);
+                                          },
+                                          fit: BoxFit.fill),
+                                    ),
+                                    CachedNetworkImage(
+                                        imageUrl: notifier.typaATKImage,
+                                        errorWidget: (context, url, error) {
+                                          return const Center(
+                                            child: Icon(Icons.error,
+                                                color: Colors.red),
+                                          );
+                                        },
+                                        placeholder: (context, url) {
+                                          return const Loading(
+                                              width: 20,
+                                              height: 20,
+                                              borderRadius: 0);
+                                        },
+                                        height: 20,
+                                        width: 20),
+                                  ],
                                 );
                               },
-                              placeholder: (context, url) {
-                                return const Loading(
-                                    width: 20, height: 20, borderRadius: 0);
-                              },
-                              height: 20,
-                              width: 20),
-                        ],
-                      );
-                    },
-                  ),
+                            )
+                          : _loading(),
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  GridView _loading() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: tierList.length,
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 8, crossAxisSpacing: 8, crossAxisCount: 4),
+      itemBuilder: (context, index) => const Loading(
+          width: double.maxFinite, height: double.maxFinite, borderRadius: 0),
     );
   }
 }

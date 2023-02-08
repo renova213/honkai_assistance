@@ -7,6 +7,7 @@ import 'package:honkai_assistance/domain/usecases/local/about_content_usecase.da
 import 'package:honkai_assistance/domain/usecases/local/game_mode.dart';
 import 'package:honkai_assistance/domain/usecases/local/glossary_rank.dart';
 import 'package:honkai_assistance/domain/usecases/local/glossary_speciality.dart';
+import 'package:honkai_assistance/domain/usecases/local/guide_menu_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/menu_database_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/official_link_global_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/local/official_link_sea_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:honkai_assistance/presentation/provider/firestore/tier_list_prov
 import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/database_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/glossary_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/guide_provider.dart';
 import 'package:honkai_assistance/presentation/provider/local/sidebar_provider.dart';
 
 import 'domain/usecases/remote/get_character.dart';
@@ -89,6 +91,7 @@ void setUp() {
   sl.registerLazySingleton<GameMode>(() => GameMode());
   sl.registerLazySingleton<GlossaryRank>(() => GlossaryRank());
   sl.registerLazySingleton<GlossarySpeciality>(() => GlossarySpeciality());
+  sl.registerLazySingleton<GuideMenuUsecase>(() => GuideMenuUsecase());
 
   //provider
   sl.registerFactory<RedeemCodeProvider>(
@@ -124,6 +127,8 @@ void setUp() {
       () => DatabaseProvider(menuDatabaseUsecase: sl()));
   sl.registerFactory<GlossaryProvider>(() => GlossaryProvider(
       gameMode: sl(), glossaryRank: sl(), glossarySpeciality: sl()));
+  sl.registerFactory<GuideProvider>(
+      () => GuideProvider(guideMenuUsecase: sl()));
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

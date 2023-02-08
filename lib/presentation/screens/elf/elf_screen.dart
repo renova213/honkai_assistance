@@ -27,16 +27,6 @@ class _BattlesuitScreenState extends State<ElfScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () {
-        Provider.of<ElfProvider>(context, listen: false).getElfs();
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(

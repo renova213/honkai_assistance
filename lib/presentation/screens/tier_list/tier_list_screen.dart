@@ -4,7 +4,6 @@ import 'package:honkai_assistance/presentation/components/changelog.dart';
 import 'package:honkai_assistance/presentation/components/custom_dropdown_button.dart';
 import 'package:honkai_assistance/presentation/components/help.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
 import 'package:honkai_assistance/presentation/screens/tier_list/child/tier_list_childs.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +22,6 @@ class _TierListScreenState extends State<TierListScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TierListProvider>(context, listen: false).getTierLists();
       Provider.of<TierListButtonProvider>(context, listen: false)
           .changeRole('DPS');
     });

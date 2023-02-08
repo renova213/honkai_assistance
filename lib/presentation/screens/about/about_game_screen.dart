@@ -1,31 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/provider/local/about_game_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../../common/style/font_style.dart';
 import '../../components/explanatory_container.dart';
 import 'child/about_childs.dart';
 
-class AboutGameScreen extends StatefulWidget {
+class AboutGameScreen extends StatelessWidget {
   const AboutGameScreen({super.key});
-
-  @override
-  State<AboutGameScreen> createState() => _AboutGameScreenState();
-}
-
-class _AboutGameScreenState extends State<AboutGameScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      Provider.of<AboutGameProvider>(context, listen: false).getAboutContent();
-      Provider.of<AboutGameProvider>(context, listen: false)
-          .getOfficialLinkGlobal();
-      Provider.of<AboutGameProvider>(context, listen: false)
-          .getOfficialLinkSea();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

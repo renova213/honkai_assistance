@@ -6,6 +6,7 @@ import 'package:honkai_assistance/presentation/screens/home/home_screen.dart';
 import 'package:honkai_assistance/presentation/screens/tier_list/tier_list_screen.dart';
 
 import '../../../domain/entities/menu.dart';
+import '../../screens/guide/guide_menu_screen.dart';
 
 class SidebarProvider extends ChangeNotifier {
   final SidebarMenu sidebarMenu;
@@ -17,7 +18,7 @@ class SidebarProvider extends ChangeNotifier {
     AboutGameScreen(),
     DatabaseScreen(),
     TierListScreen(),
-    HomeScreen(),
+    GuideMenuScreen(),
   ];
 
   List<Menu> get sidebarMenus => _sidebarMenus;

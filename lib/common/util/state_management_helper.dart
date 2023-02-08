@@ -12,6 +12,7 @@ import 'package:honkai_assistance/presentation/provider/firestore/outfit_provide
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
+import 'package:honkai_assistance/presentation/provider/local/guide_provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -74,6 +75,9 @@ class StateManagementHelper {
         ChangeNotifierProvider(
           create: (_) => GlossaryProvider(
               gameMode: sl(), glossaryRank: sl(), glossarySpeciality: sl()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GuideProvider(guideMenuUsecase: sl()),
         ),
 
         //button

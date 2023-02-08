@@ -26,16 +26,6 @@ class _BattlesuitScreenState extends State<StigmataScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () {
-        Provider.of<StigmataProvider>(context, listen: false).getStigmatas();
-      },
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(
