@@ -1,256 +1,172 @@
-import 'package:honkai_lab/domain/entities/character.dart';
+import 'package:honkai_assistance/domain/entities/character_entity.dart';
 
-class CharacterModel extends Character {
+class CharacterModel extends CharacterEntity {
   const CharacterModel(
-      {required super.element,
-      required super.image,
-      required super.imageChibi,
-      required super.nameCharacter,
-      required super.tier,
-      required super.elementImage,
-      required super.role,
-      required super.detail});
+      {required super.characterName,
+      required super.urlImageCharacter,
+      required super.urlImageChibi,
+      required super.urlImageATK,
+      required super.characterRole,
+      required super.characterTypeATK,
+      super.characterSpeciality,
+      super.characterBiography,
+      super.characterWeapon,
+      super.characterStigmata,
+      super.characterTeam});
 
-  factory CharacterModel.fromMap(Map<String, dynamic> json) => CharacterModel(
-        element: json["element"],
-        image: json["image"],
-        imageChibi: json["imageChibi"],
-        nameCharacter: json["nameCharacter"],
-        tier: json["tier"],
-        elementImage: json["elementImage"],
-        role: json['role'],
-        detail: DetailModel.fromMap(
-          json['detail'],
-        ),
+  factory CharacterModel.fromMap(Map<String, dynamic> map) => CharacterModel(
+        characterName: map['characterName'],
+        urlImageCharacter: map['urlImageCharacter'],
+        urlImageChibi: map['urlImageChibi'],
+        urlImageATK: map['urlImageATK'],
+        characterRole: map['characterRole'],
+        characterTypeATK: map['characterTypeATK'],
+        characterSpeciality: map['characterSpeciality'] != null
+            ? (map['characterSpeciality'] as List)
+                .map((e) => CharacterSpecialityModel.fromMap(e))
+                .toList()
+            : [],
+        characterBiography: map['characterBiography'] != null
+            ? CharacterBiographyModel.fromMap(map['characterBiography'])
+            : const CharacterBiographyModel(
+                rank: "null",
+                typeElement: "null",
+                typeATK: "null",
+                backgroundDetail: "null",
+                birthplace: "null",
+                dateBirth: "null",
+                gender: "null",
+                height: "null",
+                organization: "null",
+                weight: "null"),
+        characterWeapon: map['characterWeapon'] != null
+            ? (map['characterWeapon'] as List)
+                .map((e) => CharacterWeaponModel.fromMap(e))
+                .toList()
+            : [],
+        characterStigmata: map['characterStigmata'] != null
+            ? (map['characterStigmata'] as List)
+                .map((e) => CharacterStigmataModel.fromMap(e))
+                .toList()
+            : [],
+        characterTeam: map['characterTeam'] != null
+            ? (map['characterTeam'] as List)
+                .map((e) => CharacterTeamModel.fromMap(e))
+                .toList()
+            : [],
       );
 }
 
-class DetailModel extends Detail {
-  const DetailModel(
-      {required super.characterProfile,
-      required super.rankUpLevel,
-      required super.characterEquipment,
-      required super.characterTeam,
-      required super.characterElysianRealm});
-  factory DetailModel.fromMap(Map<String, dynamic> json) => DetailModel(
-        characterProfile: CharacterProfileModel.fromMap(
-          json["profile"],
-        ),
-        rankUpLevel: (json['rankUpLevel'] as List)
-            .map(
-              (e) => RankUpLevelModel.fromMap(e),
-            )
-            .toList(),
-        characterEquipment: CharacterEquipmentModel.fromMap(
-          json['characterEquipment'],
-        ),
-        characterTeam: (json['characterTeam'] as List)
-            .map(
-              (e) => CharacterTeamModel.fromMap(e),
-            )
-            .toList(),
-        characterElysianRealm: CharacterElysianRealmModel.fromMap(
-          json["characterElysianRealm"],
-        ),
-      );
+class CharacterSpecialityModel extends CharacterSpecialityEntity {
+  const CharacterSpecialityModel(
+      {required super.urlImage, required super.name});
+
+  factory CharacterSpecialityModel.fromMap(Map<String, dynamic> map) =>
+      CharacterSpecialityModel(urlImage: map['urlImage'], name: map['name']);
 }
 
-class CharacterProfileModel extends CharacterProfile {
-  const CharacterProfileModel(
-      {required super.dateBirth,
-      required super.battlesuitDetail,
-      required super.gender,
-      required super.organization,
-      required super.height,
+class CharacterBiographyModel extends CharacterBiographyEntity {
+  const CharacterBiographyModel(
+      {required super.rank,
+      required super.typeElement,
+      required super.typeATK,
+      required super.backgroundDetail,
       required super.birthplace,
+      required super.dateBirth,
+      required super.gender,
+      required super.height,
+      required super.organization,
       required super.weight});
-  factory CharacterProfileModel.fromMap(Map<String, dynamic> json) =>
-      CharacterProfileModel(
-        dateBirth: json["dateBirth"],
-        battlesuitDetail: json["battlesuitDetail"],
-        gender: json["gender"],
-        organization: json["organization"],
-        height: json["height"],
-        birthplace: json["birthplace"],
-        weight: json["weight"],
-      );
+
+  factory CharacterBiographyModel.fromMap(Map<String, dynamic> map) =>
+      CharacterBiographyModel(
+          rank: map['rank'],
+          typeElement: map['typeElement'],
+          typeATK: map['typeATK'],
+          backgroundDetail: map['backgroundDetail'],
+          birthplace: map['birthplace'],
+          dateBirth: map['dateBirth'],
+          gender: map['gender'],
+          height: map['height'],
+          organization: map['organization'],
+          weight: map['weight']);
 }
 
-class RankUpLevelModel extends RankUpLevel {
-  const RankUpLevelModel({required super.rankUp, required super.description});
-  factory RankUpLevelModel.fromMap(Map<String, dynamic> json) =>
-      RankUpLevelModel(
-        rankUp: json['rankUp'],
-        description: json['description'],
-      );
+class CharacterWeaponModel extends CharacterWeaponEntity {
+  const CharacterWeaponModel(
+      {required super.priority,
+      required super.name,
+      required super.star,
+      required super.urlImage,
+      super.weaponSkill});
+
+  factory CharacterWeaponModel.fromMap(Map<String, dynamic> map) =>
+      CharacterWeaponModel(
+          priority: map['priority'],
+          name: map['name'],
+          star: map['star'],
+          urlImage: map['urlImage'],
+          weaponSkill: map['weaponSkill'] != null
+              ? (map['weaponSkill'] as List)
+                  .map((e) => WeaponSkillModel.fromMap(e))
+                  .toList()
+              : []);
 }
 
-class CharacterEquipmentModel extends CharacterEquipment {
-  const CharacterEquipmentModel(
-      {required super.stigmatas, required super.weapons});
+class WeaponSkillModel extends WeaponSkillEntity {
+  const WeaponSkillModel({required super.title, required super.description});
 
-  factory CharacterEquipmentModel.fromMap(Map<String, dynamic> json) =>
-      CharacterEquipmentModel(
-        stigmatas: (json['stigmatas'] as List)
-            .map(
-              (e) => EquipmentStigmataCharacterModel.froMap(e),
-            )
-            .toList(),
-        weapons: (json['weapons'] as List)
-            .map(
-              (e) => EquipmentWeaponCharacterModel.froMap(e),
-            )
-            .toList(),
-      );
+  factory WeaponSkillModel.fromMap(Map<String, dynamic> map) =>
+      WeaponSkillModel(title: map['title'], description: map['description']);
 }
 
-class EquipmentStigmataCharacterModel extends EquipmentStigmataCharacter {
-  const EquipmentStigmataCharacterModel(
-      {required super.nameStigmata,
-      required super.rank,
-      required super.urlImage});
+class CharacterStigmataModel extends CharacterStigmataEntity {
+  const CharacterStigmataModel(
+      {required super.priority,
+      required super.name,
+      required super.star,
+      required super.typeStigmata,
+      required super.urlImage,
+      super.stigmataEffect});
 
-  factory EquipmentStigmataCharacterModel.froMap(Map<String, dynamic> json) =>
-      EquipmentStigmataCharacterModel(
-        nameStigmata: json['nameStigmata'],
-        rank: json['rank'],
-        urlImage: json['urlImage'],
-      );
+  factory CharacterStigmataModel.fromMap(Map<String, dynamic> map) =>
+      CharacterStigmataModel(
+          priority: map['priority'],
+          name: map['name'],
+          star: map['star'],
+          typeStigmata: map['typeStigmata'],
+          urlImage: map['urlImage'],
+          stigmataEffect: map['stigmataEffect'] != null
+              ? (map['stigmataEffect'] as List)
+                  .map((e) => CharacterStigmataEffectModel.fromMap(e))
+                  .toList()
+              : []);
 }
 
-class EquipmentWeaponCharacterModel extends EquipmentWeaponCharacter {
-  const EquipmentWeaponCharacterModel(
-      {required super.nameWeapon,
-      required super.rank,
-      required super.urlImage});
+class CharacterStigmataEffectModel extends CharacterStigmataEffectEntity {
+  const CharacterStigmataEffectModel(
+      {required super.title, required super.description});
 
-  factory EquipmentWeaponCharacterModel.froMap(Map<String, dynamic> json) =>
-      EquipmentWeaponCharacterModel(
-        nameWeapon: json['nameWeapon'],
-        rank: json['rank'],
-        urlImage: json['urlImage'],
-      );
+  factory CharacterStigmataEffectModel.fromMap(Map<String, dynamic> map) =>
+      CharacterStigmataEffectModel(
+          title: map['title'], description: map['description']);
 }
 
-class CharacterTeamModel extends CharacterTeam {
-  const CharacterTeamModel(
-      {required super.characterTeam, required super.nameTeam});
+class CharacterTeamModel extends CharacterTeamEntity {
+  const CharacterTeamModel({required super.teamList});
 
-  factory CharacterTeamModel.fromMap(Map<String, dynamic> json) =>
+  factory CharacterTeamModel.fromMap(Map<String, dynamic> map) =>
       CharacterTeamModel(
-        characterTeam: (json['characterTeamItem'] as List)
-            .map(
-              (e) => CharacterTeamItemModel.froMap(e),
-            )
-            .toList(),
-        nameTeam: json['nameTeam'],
-      );
+          teamList: (map['teamList']) != null
+              ? (map['teamList'] as List)
+                  .map((e) => TeamListModel.fromMap(e))
+                  .toList()
+              : []);
 }
 
-class CharacterTeamItemModel extends CharacterTeamItem {
-  const CharacterTeamItemModel(
-      {required super.nameCharacter, required super.urlImage});
+class TeamListModel extends TeamListEntity {
+  const TeamListModel({required super.name, required super.urlImage});
 
-  factory CharacterTeamItemModel.froMap(Map<String, dynamic> json) =>
-      CharacterTeamItemModel(
-        nameCharacter: json['nameCharacter'],
-        urlImage: json['urlImage'],
-      );
-}
-
-class CharacterElysianRealmModel extends CharacterElysianRealm {
-  const CharacterElysianRealmModel(
-      {required super.recommendedSetup,
-      required super.coreSignet,
-      required super.reinforcementSignet});
-  factory CharacterElysianRealmModel.fromMap(Map<String, dynamic> json) =>
-      CharacterElysianRealmModel(
-        recommendedSetup: RecommendedSetupModel.fromMap(
-          json["recommendedSetup"],
-        ),
-        coreSignet: (json["coreSignet"] as List)
-            .map(
-              (e) => CoreSignetModel.fromMap(e),
-            )
-            .toList(),
-        reinforcementSignet: (json["reinforcementSignet"] as List)
-            .map(
-              (e) => ReinforcementSignetModel.fromMap(e),
-            )
-            .toList(),
-      );
-}
-
-class RecommendedSetupModel extends RecommendedSetup {
-  const RecommendedSetupModel(
-      {required super.emblemSetup,
-      required super.setupSignet,
-      required super.supportSetup});
-  factory RecommendedSetupModel.fromMap(Map<String, dynamic> json) =>
-      RecommendedSetupModel(
-        emblemSetup: (json["emblemSetup"] as List)
-            .map(
-              (e) => EmblemSetupModel.fromMap(e),
-            )
-            .toList(),
-        setupSignet: (json["setupSignet"] as List)
-            .map(
-              (e) => SetupSignetModel.fromMap(e),
-            )
-            .toList(),
-        supportSetup: (json["supportSetup"] as List)
-            .map(
-              (e) => SupportSetupModel.fromMap(e),
-            )
-            .toList(),
-      );
-}
-
-class EmblemSetupModel extends EmblemSetup {
-  const EmblemSetupModel({required super.contents1, required super.contents2});
-  factory EmblemSetupModel.fromMap(Map<String, dynamic> json) =>
-      EmblemSetupModel(
-        contents1: json["contents1"],
-        contents2: json["contents2"],
-      );
-}
-
-class SupportSetupModel extends SupportSetup {
-  const SupportSetupModel(
-      {required super.contents1,
-      required super.contents2,
-      required super.contents3});
-  factory SupportSetupModel.fromMap(Map<String, dynamic> json) =>
-      SupportSetupModel(
-        contents1: json["contents1"],
-        contents2: json["contents2"],
-        contents3: json["contents3"],
-      );
-}
-
-class SetupSignetModel extends SetupSignet {
-  const SetupSignetModel({required super.contents1, required super.contents2});
-  factory SetupSignetModel.fromMap(Map<String, dynamic> json) =>
-      SetupSignetModel(
-        contents1: json["contents1"],
-        contents2: json["contents2"],
-      );
-}
-
-class CoreSignetModel extends CoreSignet {
-  const CoreSignetModel({required super.contents1, required super.contents2});
-  factory CoreSignetModel.fromMap(Map<String, dynamic> json) => CoreSignetModel(
-        contents1: json["contents1"],
-        contents2: json["contents2"],
-      );
-}
-
-class ReinforcementSignetModel extends ReinforcementSignet {
-  const ReinforcementSignetModel(
-      {required super.contents1, required super.contents2});
-  factory ReinforcementSignetModel.fromMap(Map<String, dynamic> json) =>
-      ReinforcementSignetModel(
-        contents1: json["contents1"],
-        contents2: json["contents2"],
-      );
+  factory TeamListModel.fromMap(Map<String, dynamic> map) =>
+      TeamListModel(name: map['name'], urlImage: map['urlImage']);
 }

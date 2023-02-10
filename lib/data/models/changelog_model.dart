@@ -1,27 +1,15 @@
-import 'package:honkai_lab/domain/entities/changelog.dart';
+import 'package:honkai_assistance/domain/entities/changelog_entity.dart';
 
-class ChangelogModel extends Changelog {
-  const ChangelogModel({required super.characterLog, required super.date});
+class ChangelogModel extends ChangelogEntity {
+  const ChangelogModel(
+      {required super.image,
+      required super.name,
+      required super.tierAfter,
+      required super.tierBefore});
 
-  factory ChangelogModel.fromMap(Map<String, dynamic> json) => ChangelogModel(
-      date: json["date"],
-      characterLog: (json["data"] as List)
-          .map((e) => CharacterLogModel.fromMap(e))
-          .toList());
-}
-
-class CharacterLogModel extends CharacterLog {
-  const CharacterLogModel(
-      {required super.nameCharacter,
-      required super.tierBefore,
-      required super.tierCurrent,
-      required super.urlImage});
-
-  factory CharacterLogModel.fromMap(Map<String, dynamic> json) =>
-      CharacterLogModel(
-        nameCharacter: json["nameCharacter"],
-        tierBefore: json["tierBefore"],
-        tierCurrent: json["tierCurrent"],
-        urlImage: json["urlImage"],
-      );
+  factory ChangelogModel.fromMap(Map<String, dynamic> map) => ChangelogModel(
+      image: map['image'],
+      name: map['name'],
+      tierAfter: map['tierAfter'],
+      tierBefore: map['tierBefore']);
 }
