@@ -15,8 +15,7 @@ class OfficialLinkGlobalUsecase {
       OfficialLink(
           platform: "Facebook",
           assetIcon: "assets/icons/facebook.svg",
-          url:
-              "https://www.facebook.com/global.honkaiimpact/?brand_redir=426412444588504"),
+          url: "https://www.facebook.com/global.honkaiimpact/"),
       OfficialLink(
           platform: "Youtube",
           assetIcon: "assets/icons/youtube.svg",

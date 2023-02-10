@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class WebView extends StatefulWidget {
+class WebViewScreen extends StatefulWidget {
   final String urlWeb;
-  const WebView({super.key, required this.urlWeb});
+  const WebViewScreen({super.key, required this.urlWeb});
 
   @override
-  State<WebView> createState() => _InAppBrowserScreenState();
+  State<WebViewScreen> createState() => _InAppBrowserScreenState();
 }
 
-class _InAppBrowserScreenState extends State<WebView> {
+class _InAppBrowserScreenState extends State<WebViewScreen> {
   double _progress = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
           children: [
             InAppWebView(
               initialUrlRequest: URLRequest(
@@ -36,9 +36,7 @@ class _InAppBrowserScreenState extends State<WebView> {
                 ? SizedBox(
                     height: 3.h,
                     child: LinearProgressIndicator(
-                      value: _progress,
-                      backgroundColor: Colors.blue.withOpacity(0.2),
-                    ),
+                        value: _progress, backgroundColor: Colors.blue),
                   )
                 : const SizedBox()
           ],

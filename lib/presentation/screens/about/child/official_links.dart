@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../../common/style/style.dart';
 import '../../../provider/button/about_game_button_provider.dart';
 import '../../../provider/local/about_game_provider.dart';
-import '../../in_app_browser_screen.dart';
+import '../../web_view_screen.dart';
 
 class OfficialLinks extends StatelessWidget {
   const OfficialLinks({super.key});

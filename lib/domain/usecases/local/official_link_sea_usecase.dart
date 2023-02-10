@@ -15,8 +15,7 @@ class OfficialLinkSeaUsecase {
       OfficialLink(
           platform: "Facebook",
           assetIcon: "assets/icons/facebook.svg",
-          url:
-              "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi46fvbrOH6AhXiAbcAHV_lBjcQFnoECBAQAQ&url=https%3A%2F%2Fwww.facebook.com%2FHonkaiImpact3rd.id%2F&usg=AOvVaw1mHakzACRw-GRNGOK_1kI1"),
+          url: "https://www.facebook.com/HonkaiImpact3rd.id/"),
       OfficialLink(
           platform: "Youtube",
           assetIcon: "assets/icons/youtube.svg",

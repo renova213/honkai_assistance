@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
 import '../../../provider/firestore/news_update_provider.dart';
-import '../../in_app_browser_screen.dart';
+import '../../web_view_screen.dart';
 
 class NewsUpdate extends StatelessWidget {
   const NewsUpdate({super.key});
