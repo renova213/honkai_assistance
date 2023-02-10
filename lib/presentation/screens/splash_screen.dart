@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
-import 'package:honkai_assistance/presentation/provider/local/guide_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
 import 'package:honkai_assistance/presentation/screens/menu_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -61,6 +62,10 @@ class _SplashScreenState extends State<SplashScreen> {
       Provider.of<StigmataProvider>(context, listen: false).getStigmatas();
       Provider.of<TierListProvider>(context, listen: false).getTierLists();
       Provider.of<WeaponProvider>(context, listen: false).getWeapons();
+      Provider.of<BeginnerGuideProvider>(context, listen: false)
+          .getBeginnerGuides();
+      Provider.of<GeneralGuideProvider>(context, listen: false)
+          .getGeneralGuides();
 
       //local
       Provider.of<AboutGameProvider>(context, listen: false).getAboutContent();
@@ -71,8 +76,6 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.microtask(() =>
           Provider.of<DatabaseProvider>(context, listen: false)
               .getMenuDatabase());
-      Provider.of<GuideProvider>(context, listen: false).getBeginnerMenuGuide();
-      Provider.of<GuideProvider>(context, listen: false).getGeneralMenuGuide();
     });
     startTime();
   }

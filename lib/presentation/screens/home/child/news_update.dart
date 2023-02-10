@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/components/loading.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
 import '../../../provider/firestore/news_update_provider.dart';
+import '../../in_app_browser_screen.dart';
 
 class NewsUpdate extends StatelessWidget {
   const NewsUpdate({super.key});
@@ -42,7 +42,11 @@ class NewsUpdate extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   GestureDetector(
-                    onTap: () => _launchUrl(data.urlWeb),
+                    onTap: () => Navigator.of(context).push(
+                      NavigatorFadeHelper(
+                        child: WebViewScreen(urlWeb: data.urlWeb),
+                      ),
+                    ),
                     child: Container(
                       width: double.maxFinite,
                       height: 200.h,
@@ -84,16 +88,6 @@ class NewsUpdate extends StatelessWidget {
         return _loading();
       },
     );
-  }
-
-  void _launchUrl(String url) async {
-    try {
-      await launchUrl(
-        Uri.parse(url),
-      );
-    } catch (_) {
-      throw "couldn't launch this url";
-    }
   }
 
   Widget _loading() {

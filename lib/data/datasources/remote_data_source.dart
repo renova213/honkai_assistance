@@ -11,6 +11,7 @@ import 'package:honkai_assistance/data/models/redeem_code_model.dart';
 import 'package:honkai_assistance/data/models/stigmata_model.dart';
 
 import '../models/changelog_model.dart';
+import '../models/guide_model.dart';
 import '../models/tier_list_model.dart';
 import '../models/weapon_model.dart';
 
@@ -28,6 +29,8 @@ abstract class RemoteDataSource {
   Future<List<OutfitModel>> getOutfits();
   Future<List<TierListModel>> getTierList();
   Future<List<ChangelogModel>> getChangelog();
+  Future<List<GuideModel>> getBeginnerGuides();
+  Future<List<GuideModel>> getGeneralGuides();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -200,5 +203,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return changelogs;
+  }
+
+  @override
+  Future<List<GuideModel>> getBeginnerGuides() async {
+    List<GuideModel> guides = [];
+    await firestoreService.collection('beginner_guide').get().then(
+      (value) {
+        for (var i in value.docs) {
+          guides.add(GuideModel.fromMap(i.data()));
+        }
+      },
+    );
+    return guides;
+  }
+
+  @override
+  Future<List<GuideModel>> getGeneralGuides() async {
+    List<GuideModel> guides = [];
+    await firestoreService.collection('general_guide').get().then(
+      (value) {
+        for (var i in value.docs) {
+          guides.add(GuideModel.fromMap(i.data()));
+        }
+      },
+    );
+    return guides;
   }
 }

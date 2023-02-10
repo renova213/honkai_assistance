@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style/style.dart';
-import '../../provider/local/guide_provider.dart';
 import 'child/guide_menu_container.dart';
 
 class GuideMenuScreen extends StatelessWidget {
@@ -34,30 +35,30 @@ class GuideMenuScreen extends StatelessWidget {
   }
 
   Consumer _listMenuBeginnerGuide() {
-    return Consumer<GuideProvider>(
+    return Consumer<BeginnerGuideProvider>(
       builder: (context, notifier, _) => ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            final data = notifier.beginnerMenuGuide[index];
+            final data = notifier.beginnerGuides[index];
             return GuideMenuContainer(guide: data);
           },
           separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemCount: notifier.beginnerMenuGuide.length),
+          itemCount: notifier.beginnerGuides.length),
     );
   }
 
   Consumer _listMenuGeneralGuide() {
-    return Consumer<GuideProvider>(
+    return Consumer<GeneralGuideProvider>(
       builder: (context, notifier, _) => ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            final data = notifier.generalMenuGuide[index];
+            final data = notifier.generalGuides[index];
             return GuideMenuContainer(guide: data);
           },
           separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemCount: notifier.generalMenuGuide.length),
+          itemCount: notifier.generalGuides.length),
     );
   }
 }

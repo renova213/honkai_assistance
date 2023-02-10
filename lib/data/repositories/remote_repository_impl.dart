@@ -6,6 +6,7 @@ import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
+import 'package:honkai_assistance/domain/entities/guide_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
 import 'package:honkai_assistance/domain/entities/outfit_entity.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
@@ -188,6 +189,32 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final changelogs = await remoteDataSource.getChangelog();
 
       return Right(changelogs);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuides() async {
+    try {
+      final guides = await remoteDataSource.getBeginnerGuides();
+
+      return Right(guides);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<GuideEntity>>> getGeneralGuides() async {
+    try {
+      final guides = await remoteDataSource.getGeneralGuides();
+
+      return Right(guides);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

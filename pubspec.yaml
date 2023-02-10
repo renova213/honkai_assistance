@@ -37,20 +37,20 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   equatable: ^2.0.5
-  url_launcher: ^6.1.6
   cached_network_image: ^3.2.2
   google_fonts: ^4.0.1
   firebase_core: ^2.4.1
   cloud_firestore: ^4.3.1
   dartz: ^0.10.1
   get_it: ^7.2.0
-  flutter_svg: ^1.1.5
+  flutter_svg: ^2.0.0+1
   dropdown_button2: ^1.8.5
   double_back_to_close_app: ^2.1.0
   flutter_screenutil: ^5.6.0
   skeleton_text: ^3.0.0
   lottie: ^2.2.0
   flutter_rating_bar: ^4.0.1
+  flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
   flutter_test:

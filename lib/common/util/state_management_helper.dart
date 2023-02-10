@@ -6,13 +6,14 @@ import 'package:honkai_assistance/presentation/provider/button/redeem_code_butto
 import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/button/tier_list_button_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/changelog_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
+import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
 import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
-import 'package:honkai_assistance/presentation/provider/local/guide_provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,10 @@ class StateManagementHelper {
             create: (_) => sl<TierListProvider>()),
         ChangeNotifierProvider<ChangelogProvider>(
             create: (_) => sl<ChangelogProvider>()),
+        ChangeNotifierProvider<BeginnerGuideProvider>(
+            create: (_) => sl<BeginnerGuideProvider>()),
+        ChangeNotifierProvider<GeneralGuideProvider>(
+            create: (_) => sl<GeneralGuideProvider>()),
 
         //local
         ChangeNotifierProvider(
@@ -76,10 +81,6 @@ class StateManagementHelper {
           create: (_) => GlossaryProvider(
               gameMode: sl(), glossaryRank: sl(), glossarySpeciality: sl()),
         ),
-        ChangeNotifierProvider(
-          create: (_) => GuideProvider(guideMenuUsecase: sl()),
-        ),
-
         //button
         ChangeNotifierProvider(create: (_) => AboutGameButtonProvider()),
         ChangeNotifierProvider(create: (_) => SidebarButtonProvider()),

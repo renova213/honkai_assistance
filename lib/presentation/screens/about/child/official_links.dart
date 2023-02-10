@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../provider/button/about_game_button_provider.dart';
 import '../../../provider/local/about_game_provider.dart';
+import '../../in_app_browser_screen.dart';
 
 class OfficialLinks extends StatelessWidget {
   const OfficialLinks({super.key});
@@ -93,7 +94,8 @@ class OfficialLinks extends StatelessWidget {
             return _officialLinkItems(
                 assetIcon: data.assetIcon,
                 platform: data.platform,
-                url: data.url);
+                url: data.url,
+                context: context);
           },
         ),
       ),
@@ -103,16 +105,22 @@ class OfficialLinks extends StatelessWidget {
   Widget _officialLinkItems(
       {required String assetIcon,
       required String platform,
-      required String url}) {
+      required String url,
+      required BuildContext context}) {
     return SizedBox(
-      height: 30,
+      height: 30.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              SvgPicture.asset(assetIcon,
-                  width: 20, height: 20, color: Colors.white),
+              SvgPicture.asset(
+                assetIcon,
+                width: 20.w,
+                height: 20.h,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ),
               const SizedBox(width: 8),
               Text(platform, style: AppFont.smallText),
             ],
@@ -123,7 +131,11 @@ class OfficialLinks extends StatelessWidget {
               SizedBox(width: 8.h),
               InkWell(
                 onTap: () {
-                  _launchUrl(url);
+                  Navigator.of(context).push(
+                    NavigatorFadeHelper(
+                      child: WebViewScreen(urlWeb: url),
+                    ),
+                  );
                 },
                 child: Text(
                   "Open in Browser",
@@ -135,15 +147,5 @@ class OfficialLinks extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _launchUrl(String url) async {
-    try {
-      await launchUrl(
-        Uri.parse(url),
-      );
-    } catch (_) {
-      throw "couldn't launch this url";
-    }
   }
 }

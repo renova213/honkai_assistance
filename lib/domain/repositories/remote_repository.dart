@@ -12,6 +12,7 @@ import '../../common/error/error.dart';
 import '../entities/changelog_entity.dart';
 import '../entities/character_entity.dart';
 import '../entities/elf_banner_entity.dart';
+import '../entities/guide_entity.dart';
 import '../entities/redeem_code_entity.dart';
 import '../entities/tier_list_entity.dart';
 
@@ -29,4 +30,6 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<OutfitEntity>>> getOutfits();
   Future<Either<Failure, List<TierListEntity>>> getTierList();
   Future<Either<Failure, List<ChangelogEntity>>> getChangelogs();
+  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuides();
+  Future<Either<Failure, List<GuideEntity>>> getGeneralGuides();
 }
