@@ -28,12 +28,11 @@ class GridBattlesuit extends StatelessWidget {
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
               final data = notifier.battlesuits[index];
-              return SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    Consumer<BattlesuitProvider>(
+              return Column(
+                children: [
+                  Expanded(
+                    flex: 10,
+                    child: Consumer<BattlesuitProvider>(
                       builder: (context, notifier, _) {
                         notifier.changeBottomColor(data.characterTypeATK);
                         return InkWell(
@@ -61,14 +60,17 @@ class GridBattlesuit extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: 8.h),
-                    Text(data.characterName,
+                  ),
+                  SizedBox(height: 8.h),
+                  Expanded(
+                    flex: 4,
+                    child: Text(data.characterName,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppFont.smallText,
-                        textAlign: TextAlign.center)
-                  ],
-                ),
+                        textAlign: TextAlign.center),
+                  )
+                ],
               );
             },
           );
