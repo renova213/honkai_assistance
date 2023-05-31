@@ -48,6 +48,7 @@ class BattlesuitTeam extends StatelessWidget {
                 Text("#${index + 1}", style: AppFont.boldMediumText),
                 SizedBox(width: 16.w),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: List.generate(
                     teams.teamList.length,
                     (index) {
@@ -78,7 +79,7 @@ class BattlesuitTeam extends StatelessWidget {
                                 child: Text(data.name,
                                     textAlign: TextAlign.center,
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
+                                    maxLines: 3,
                                     style: AppFont.mediumText),
                               ),
                             ],

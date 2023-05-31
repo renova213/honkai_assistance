@@ -110,20 +110,22 @@ class _BattlesuitWeaponState extends State<BattlesuitWeapon> {
                           fit: BoxFit.fill,
                         ),
                         SizedBox(width: 16.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data.name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppFont.mediumText
-                                  .copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 8.h),
-                            RatingStar(
-                                rating: double.parse(data.star), size: 16.r),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                data.name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppFont.mediumText
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 8.h),
+                              RatingStar(
+                                  rating: double.parse(data.star), size: 16.r),
+                            ],
+                          ),
                         ),
                       ],
                     ),

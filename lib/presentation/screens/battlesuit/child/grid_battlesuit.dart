@@ -22,7 +22,7 @@ class GridBattlesuit extends StatelessWidget {
             itemCount: notifier.battlesuits.length,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 2 / 2.8,
+                childAspectRatio: 2 / 3,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 16,
                 crossAxisCount: 3),
