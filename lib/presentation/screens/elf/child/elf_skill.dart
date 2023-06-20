@@ -51,7 +51,7 @@ class ElfSkill extends StatelessWidget {
   GridView _gridSkillImage() {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 9,
+      itemCount: elfSkills.length,
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 8, crossAxisSpacing: 8, crossAxisCount: 4),
@@ -75,8 +75,7 @@ class ElfSkill extends StatelessWidget {
               child: CachedNetworkImage(
                   width: double.maxFinite,
                   height: double.maxFinite,
-                  imageUrl:
-                      'https://i.postimg.cc/X7sHwPjT/ELF-Common-7-Skill.png',
+                  imageUrl: elfSkills[index].urlImage,
                   errorWidget: (context, url, error) {
                     return const Center(
                       child: Icon(Icons.error, color: AppColor.red),

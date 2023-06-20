@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
 import 'package:honkai_assistance/presentation/screens/stigmata/child/stigmata_childs.dart';
 
@@ -23,7 +24,26 @@ class DetailStigmataScreen extends StatelessWidget {
       body: Padding(
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 24),
-        child: ListStigmata(stigmatas: stigmata.stigmataItems!),
+        child: ListView(
+          children: [
+            ListStigmata(stigmatas: stigmata.stigmataItems!),
+            SizedBox(height: 16.h),
+            _setEffect(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _setEffect() {
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColor.containerColor,
+          borderRadius: BorderRadius.circular(10)),
+      width: double.maxFinite,
+      child: Padding(
+        padding: EdgeInsets.all(8.r),
+        child: SetEffect(onTap: false, setEffects: stigmata.setEffects!),
       ),
     );
   }

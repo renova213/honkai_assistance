@@ -4,12 +4,18 @@ class StigmataModel extends StigmataEntity {
   const StigmataModel(
       {required super.stigmataName,
       required super.stigmataImage,
+      super.setEffects,
       super.stigmataItems});
 
   factory StigmataModel.fromMap(Map<String, dynamic> map) => StigmataModel(
       stigmataItems: map['stigmataItems'] != null
           ? (map['stigmataItems'] as List)
               .map((e) => StigmataItemModel.fromMap(e))
+              .toList()
+          : [],
+      setEffects: map['setEffects'] != null
+          ? (map['setEffects'] as List)
+              .map((e) => SetEffectModel.fromMap(e))
               .toList()
           : [],
       stigmataImage: map['stigmataImage'],
@@ -35,6 +41,13 @@ class StigmataItemModel extends StigmataItemEntity {
                   .map((e) => StigmataEffectModel.fromMap(e))
                   .toList()
               : []);
+}
+
+class SetEffectModel extends SetEffectEntity {
+  const SetEffectModel({required super.setName, required super.description});
+
+  factory SetEffectModel.fromMap(Map<String, dynamic> map) =>
+      SetEffectModel(setName: map['setName'], description: map['description']);
 }
 
 class StigmataEffectModel extends StigmataEffectEntity {

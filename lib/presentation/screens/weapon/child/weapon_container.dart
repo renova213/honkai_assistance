@@ -26,7 +26,12 @@ class WeaponContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5).r),
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.close, color: Colors.white),
+                  ),
                   Row(
                     children: [
                       CachedNetworkImage(

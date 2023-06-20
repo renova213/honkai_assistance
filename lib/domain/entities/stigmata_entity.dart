@@ -4,14 +4,17 @@ class StigmataEntity extends Equatable {
   final String stigmataName;
   final String stigmataImage;
   final List<StigmataItemEntity>? stigmataItems;
+  final List<SetEffectEntity>? setEffects;
 
   const StigmataEntity(
       {this.stigmataItems,
       required this.stigmataName,
-      required this.stigmataImage});
+      required this.stigmataImage,
+      required this.setEffects});
 
   @override
-  List<Object> get props => [stigmataName, stigmataImage, stigmataItems!];
+  List<Object> get props =>
+      [stigmataName, stigmataImage, stigmataItems!, setEffects!];
 }
 
 class StigmataItemEntity extends Equatable {
@@ -47,4 +50,14 @@ class StigmataEffectEntity extends Equatable {
 
   @override
   List<Object> get props => [titleEffect, descriptionEffect];
+}
+
+class SetEffectEntity extends Equatable {
+  final String setName;
+  final String description;
+
+  const SetEffectEntity({required this.setName, required this.description});
+
+  @override
+  List<Object> get props => [setName, setName];
 }
