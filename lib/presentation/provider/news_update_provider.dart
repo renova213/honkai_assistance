@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
 
-import '../../../domain/usecases/remote/get_news_update.dart';
+import '../../domain/usecases/get_news_update.dart';
 
 class NewsUpdateProvider extends ChangeNotifier {
   final GetNewsUpdate getNewsUpdate;

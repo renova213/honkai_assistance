@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:honkai_assistance/presentation/provider/button/about_game_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/button/battlesuit_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/button/elf_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/button/redeem_code_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/button/sidebar_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/button/tier_list_button_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/battlesuit_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/changelog_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/tier_list_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
-
 import 'package:provider/provider.dart';
 
 import '../../injection_container.dart';
-import '../../presentation/provider/firestore/character_banner_provider.dart';
-import '../../presentation/provider/firestore/elf_banner_provider.dart';
-import '../../presentation/provider/firestore/equipment_banner_provider.dart';
-import '../../presentation/provider/firestore/event_provider.dart';
-import '../../presentation/provider/firestore/news_update_provider.dart';
-import '../../presentation/provider/firestore/redeem_code_provider.dart';
-import '../../presentation/provider/local/about_game_provider.dart';
-import '../../presentation/provider/local/sidebar_provider.dart';
-import '../../presentation/provider/local/database_provider.dart';
-import '../../presentation/provider/local/glossary_provider.dart';
+import '../../presentation/provider/about_game_provider.dart';
+import '../../presentation/provider/battlesuit_button_provider.dart';
+import '../../presentation/provider/battlesuit_provider.dart';
+import '../../presentation/provider/beginner_guide_provider.dart';
+import '../../presentation/provider/changelog_provider.dart';
+import '../../presentation/provider/character_banner_provider.dart';
+import '../../presentation/provider/database_provider.dart';
+import '../../presentation/provider/elf_banner_provider.dart';
+import '../../presentation/provider/elf_button_provider.dart';
+import '../../presentation/provider/elf_provider.dart';
+import '../../presentation/provider/equipment_banner_provider.dart';
+import '../../presentation/provider/event_provider.dart';
+import '../../presentation/provider/general_guide_provider.dart';
+import '../../presentation/provider/glossary_provider.dart';
+import '../../presentation/provider/navbar_provider.dart';
+import '../../presentation/provider/news_update_provider.dart';
+import '../../presentation/provider/outfit_provider.dart';
+import '../../presentation/provider/redeem_code_button_provider.dart';
+import '../../presentation/provider/redeem_code_provider.dart';
+import '../../presentation/provider/sidebar_button_provider.dart';
+import '../../presentation/provider/stigmata_provider.dart';
+import '../../presentation/provider/tier_list_button_provider.dart';
+import '../../presentation/provider/tier_list_provider.dart';
+import '../../presentation/provider/weapon_provider.dart';
 
 class StateManagementHelper {
   static providers(Widget widget) {
@@ -64,25 +62,13 @@ class StateManagementHelper {
         ChangeNotifierProvider<GeneralGuideProvider>(
             create: (_) => sl<GeneralGuideProvider>()),
 
-        //local
-        ChangeNotifierProvider(
-          create: (_) => SidebarProvider(sidebarMenu: sl()),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => AboutGameProvider(
-              aboutContentUsecase: sl(),
-              officialLinkSeaUsecase: sl(),
-              officialLinkGlobalUsecase: sl()),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => DatabaseProvider(menuDatabaseUsecase: sl()),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => GlossaryProvider(
-              gameMode: sl(), glossaryRank: sl(), glossarySpeciality: sl()),
-        ),
+        //raw
+        ChangeNotifierProvider(create: (_) => AboutGameProvider()),
+        ChangeNotifierProvider(create: (_) => DatabaseProvider()),
+        ChangeNotifierProvider(create: (_) => GlossaryProvider()),
+        ChangeNotifierProvider(create: (_) => NavbarProvider()),
+
         //button
-        ChangeNotifierProvider(create: (_) => AboutGameButtonProvider()),
         ChangeNotifierProvider(create: (_) => SidebarButtonProvider()),
         ChangeNotifierProvider(create: (_) => RedeemCodeButtonProvider()),
         ChangeNotifierProvider(create: (_) => BattlesuitButtonProvider()),

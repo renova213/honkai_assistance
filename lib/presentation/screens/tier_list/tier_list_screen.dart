@@ -8,7 +8,7 @@ import 'package:honkai_assistance/presentation/screens/tier_list/child/tier_list
 import 'package:provider/provider.dart';
 
 import '../../../common/style/style.dart';
-import '../../provider/button/tier_list_button_provider.dart';
+import '../../provider/tier_list_button_provider.dart';
 
 class TierListScreen extends StatefulWidget {
   const TierListScreen({super.key});
@@ -73,6 +73,7 @@ class _TierListScreenState extends State<TierListScreen> {
               builder: (context, notifier, _) => notifier.role == 'DPS'
                   ? const DPSTierList()
                   : const SupportTierList()),
+          SizedBox(height: 80.h),
         ],
       ),
     );

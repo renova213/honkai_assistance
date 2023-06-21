@@ -17,6 +17,7 @@ class DatabaseScreen extends StatelessWidget {
             Text("Database", style: AppFont.headline6),
             SizedBox(height: 24.h),
             const ListDatabaseMenu(),
+            SizedBox(height: 80.h),
           ],
         ),
       ),

@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:honkai_assistance/presentation/components/search_field.dart';
 import 'package:flutter/services.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/screens/stigmata/child/grid_stigmata.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/title_line_2.dart';
+import '../../provider/stigmata_provider.dart';
 
 class StigmataScreen extends StatefulWidget {
   const StigmataScreen({super.key});

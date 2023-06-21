@@ -5,7 +5,7 @@ import 'package:honkai_assistance/presentation/components/explanatory_container.
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/local/about_game_provider.dart';
+import '../../../provider/about_game_provider.dart';
 
 class ListAboutContent extends StatelessWidget {
   const ListAboutContent({super.key});
@@ -22,7 +22,7 @@ class ListAboutContent extends StatelessWidget {
             return Column(
               children: [
                 ExplanatoryContainer(
-                    title: data.title, description: data.description),
+                    title: data["title"], description: data["description"]),
                 SizedBox(height: 12.h),
                 Container(
                   height: 200.h,
@@ -30,7 +30,7 @@ class ListAboutContent extends StatelessWidget {
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColor.blue, width: 3),
                   ),
-                  child: Lottie.asset(data.assetImage, fit: BoxFit.fill),
+                  child: Lottie.asset(data["assetImage"], fit: BoxFit.fill),
                 ),
               ],
             );

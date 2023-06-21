@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/elf_provider.dart';
 import 'package:honkai_assistance/presentation/screens/elf/detail_elf_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../provider/firestore/battlesuit_provider.dart';
 import '../../../components/grid_loading.dart';
+import '../../../provider/battlesuit_provider.dart';
+import '../../../provider/elf_provider.dart';
 
 class GridElf extends StatelessWidget {
   const GridElf({super.key});

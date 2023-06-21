@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_stigmata.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_stigmata.dart';
 
 class StigmataProvider extends ChangeNotifier {
   final GetStigmata getStigmata;

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 
 import '../../../common/util/enum_state.dart';
-import '../../../domain/usecases/remote/get_equipment_banner.dart';
+import '../../domain/usecases/get_equipment_banner.dart';
 
 class EquipmentBannerProvider extends ChangeNotifier {
   final GetEquipmentBanner getEquipmentBanner;

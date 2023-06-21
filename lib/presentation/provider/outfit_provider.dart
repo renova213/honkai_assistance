@@ -1,53 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_weapon.dart';
+import 'package:honkai_assistance/domain/entities/outfit_entity.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_outfit.dart';
 
-class WeaponProvider extends ChangeNotifier {
-  final GetWeapon getWeapon;
-  WeaponProvider({required this.getWeapon});
+class OutfitProvider extends ChangeNotifier {
+  final GetOutfit getOutfit;
+  OutfitProvider({required this.getOutfit});
 
-  List<WeaponEntity> _weapons = [];
+  List<OutfitEntity> _outfits = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
 
-  List<WeaponEntity> get weapons => _weapons;
+  List<OutfitEntity> get outfits => _outfits;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
   Color get bottomColor => _bottomColor;
 
-  Future<void> getWeapons() async {
+  Future<void> getOutfits() async {
     changeAppState(AppState.loading);
 
-    final failureOrWeapon = await getWeapon.call();
+    final failureOrOutfit = await getOutfit.call();
 
-    failureOrWeapon.fold(
+    failureOrOutfit.fold(
       (failure) {
         _failureMessage = failure.message;
         changeAppState(AppState.failed);
       },
-      (weapons) {
-        _weapons = weapons;
-        _weapons.sort(
-          (a, b) => a.weaponName.compareTo(b.weaponName),
+      (outfits) {
+        _outfits = outfits;
+
+        _outfits.sort(
+          (a, b) => a.outfitName.compareTo(b.outfitName),
         );
         changeAppState(AppState.loaded);
       },
     );
   }
 
-  Future<void> searchWeapon(String value) async {
+  Future<void> searchOutfit(String value) async {
     if (value.isNotEmpty) {
-      await getWeapons();
+      await getOutfits();
 
-      _weapons = _weapons
+      _outfits = _outfits
           .where(
-              (e) => e.weaponName.toLowerCase().contains(value.toLowerCase()))
+              (e) => e.outfitName.toLowerCase().contains(value.toLowerCase()))
           .toList();
     } else {
-      await getWeapons();
+      await getOutfits();
     }
     notifyListeners();
   }

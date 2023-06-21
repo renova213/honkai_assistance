@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/enum_state.dart';
-import '../../../provider/firestore/elf_banner_provider.dart';
 import '../../../components/loading.dart';
+import '../../../provider/elf_banner_provider.dart';
 
 class ElfBanner extends StatelessWidget {
   const ElfBanner({super.key});

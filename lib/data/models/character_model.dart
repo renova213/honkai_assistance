@@ -125,6 +125,7 @@ class CharacterStigmataModel extends CharacterStigmataEntity {
       {required super.priority,
       required super.name,
       required super.star,
+      required super.setName,
       required super.typeStigmata,
       required super.urlImage,
       super.stigmataEffect});
@@ -134,6 +135,7 @@ class CharacterStigmataModel extends CharacterStigmataEntity {
           priority: map['priority'],
           name: map['name'],
           star: map['star'],
+          setName: map['setName'],
           typeStigmata: map['typeStigmata'],
           urlImage: map['urlImage'],
           stigmataEffect: map['stigmataEffect'] != null

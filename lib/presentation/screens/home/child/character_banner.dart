@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/enum_state.dart';
-import '../../../provider/firestore/character_banner_provider.dart';
 import '../../../components/loading.dart';
+import '../../../provider/character_banner_provider.dart';
 
 class CharacterBanner extends StatelessWidget {
   const CharacterBanner({super.key});

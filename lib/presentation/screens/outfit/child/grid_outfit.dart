@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/outfit_entity.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
 import '../../../components/grid_loading.dart';
 import '../../../components/loading.dart';
+import '../../../provider/outfit_provider.dart';
 
 class GridOutfit extends StatelessWidget {
   const GridOutfit({super.key});

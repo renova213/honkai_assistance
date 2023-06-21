@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 
 import '../../../common/util/enum_state.dart';
-import '../../../domain/usecases/remote/get_redeem_code.dart';
+import '../../domain/usecases/get_redeem_code.dart';
 
 class RedeemCodeProvider extends ChangeNotifier {
   final GetRedeemCode getRedeemCode;

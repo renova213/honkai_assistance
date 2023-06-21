@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/changelog_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_changelog.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_changelog.dart';
 
 class ChangelogProvider extends ChangeNotifier {
   final GetChangelog getChangelog;

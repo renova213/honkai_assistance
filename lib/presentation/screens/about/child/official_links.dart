@@ -6,8 +6,7 @@ import 'package:honkai_assistance/presentation/components/title_line.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
-import '../../../provider/button/about_game_button_provider.dart';
-import '../../../provider/local/about_game_provider.dart';
+import '../../../provider/about_game_provider.dart';
 import '../../web_view_screen.dart';
 
 class OfficialLinks extends StatelessWidget {
@@ -27,7 +26,7 @@ class OfficialLinks extends StatelessWidget {
   }
 
   Widget _listMenu() {
-    return Consumer<AboutGameButtonProvider>(
+    return Consumer<AboutGameProvider>(
       builder: (context, notifier, _) => Row(
         children: [
           Expanded(
@@ -78,23 +77,23 @@ class OfficialLinks extends StatelessWidget {
   }
 
   Widget _listLinkOfficialServer() {
-    return Consumer<AboutGameButtonProvider>(
-      builder: (context, button, _) => Consumer<AboutGameProvider>(
+    return Consumer<AboutGameProvider>(
+      builder: (context, about, _) => Consumer<AboutGameProvider>(
         builder: (context, notifier, _) => ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: button.indexHeader == 0
+          itemCount: about.indexHeader == 0
               ? notifier.officialLinksSea.length
               : notifier.officialLinksGlobal.length,
           itemBuilder: (context, index) {
-            final data = button.indexHeader == 0
+            final data = about.indexHeader == 0
                 ? notifier.officialLinksSea[index]
                 : notifier.officialLinksGlobal[index];
 
             return _officialLinkItems(
-                assetIcon: data.assetIcon,
-                platform: data.platform,
-                url: data.url,
+                assetIcon: data["assetIcon"],
+                platform: data["platform"],
+                url: data["url"],
                 context: context);
           },
         ),

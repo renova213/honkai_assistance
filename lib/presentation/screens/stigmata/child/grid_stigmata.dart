@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/screens/stigmata/detail_stigmata_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
 import '../../../components/grid_loading.dart';
+import '../../../provider/stigmata_provider.dart';
 
 class GridStigmata extends StatelessWidget {
   const GridStigmata({super.key});

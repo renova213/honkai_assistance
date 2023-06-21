@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
-import 'package:honkai_assistance/presentation/provider/button/elf_button_provider.dart';
 import 'package:honkai_assistance/presentation/screens/elf/child/elf_childs.dart';
 import 'package:provider/provider.dart';
+
+import '../../provider/elf_button_provider.dart';
 
 class DetailElfScreen extends StatefulWidget {
   final ElfEntity elf;

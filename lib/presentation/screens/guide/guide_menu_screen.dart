@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../common/style/style.dart';
+import '../../provider/beginner_guide_provider.dart';
+import '../../provider/general_guide_provider.dart';
 import 'child/guide_menu_container.dart';
 
 class GuideMenuScreen extends StatelessWidget {
@@ -29,6 +29,7 @@ class GuideMenuScreen extends StatelessWidget {
           const TitleLine(title: 'General', height: 40, fontSize: 16),
           SizedBox(height: 12.h),
           _listMenuGeneralGuide(),
+          SizedBox(height: 80.h),
         ],
       ),
     );

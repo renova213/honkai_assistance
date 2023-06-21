@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
 
 import '../../../common/util/enum_state.dart';
-import '../../../domain/usecases/remote/get_event.dart';
+import '../../domain/usecases/get_event.dart';
 
 class EventProvider extends ChangeNotifier {
   final GetEvent getEvent;

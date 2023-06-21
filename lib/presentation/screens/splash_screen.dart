@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/beginner_guide_provider.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/general_guide_provider.dart';
-import 'package:honkai_assistance/presentation/screens/menu_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
-import '../provider/firestore/battlesuit_provider.dart';
-import '../provider/firestore/character_banner_provider.dart';
-import '../provider/firestore/elf_banner_provider.dart';
-import '../provider/firestore/elf_provider.dart';
-import '../provider/firestore/equipment_banner_provider.dart';
-import '../provider/firestore/event_provider.dart';
-import '../provider/firestore/news_update_provider.dart';
-import '../provider/firestore/outfit_provider.dart';
-import '../provider/firestore/redeem_code_provider.dart';
-import '../provider/firestore/stigmata_provider.dart';
-import '../provider/firestore/tier_list_provider.dart';
-import '../provider/firestore/weapon_provider.dart';
-import '../provider/local/about_game_provider.dart';
-import '../provider/local/database_provider.dart';
+import '../../common/util/utils.dart';
+import '../provider/battlesuit_provider.dart';
+import '../provider/beginner_guide_provider.dart';
+import '../provider/character_banner_provider.dart';
+import '../provider/elf_banner_provider.dart';
+import '../provider/elf_provider.dart';
+import '../provider/equipment_banner_provider.dart';
+import '../provider/event_provider.dart';
+import '../provider/general_guide_provider.dart';
+import '../provider/news_update_provider.dart';
+import '../provider/outfit_provider.dart';
+import '../provider/redeem_code_provider.dart';
+import '../provider/stigmata_provider.dart';
+import '../provider/tier_list_provider.dart';
+import '../provider/weapon_provider.dart';
+import 'navbar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
       () => Navigator.of(context).pushReplacement(
         NavigatorFadeHelper(
-          child: const MenuScreen(),
+          child: const NavbarScreen(),
         ),
       ),
     );
@@ -66,16 +64,6 @@ class _SplashScreenState extends State<SplashScreen> {
           .getBeginnerGuides();
       Provider.of<GeneralGuideProvider>(context, listen: false)
           .getGeneralGuides();
-
-      //local
-      Provider.of<AboutGameProvider>(context, listen: false).getAboutContent();
-      Provider.of<AboutGameProvider>(context, listen: false)
-          .getOfficialLinkGlobal();
-      Provider.of<AboutGameProvider>(context, listen: false)
-          .getOfficialLinkSea();
-      Future.microtask(() =>
-          Provider.of<DatabaseProvider>(context, listen: false)
-              .getMenuDatabase());
     });
     startTime();
   }

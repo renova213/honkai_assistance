@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:honkai_assistance/presentation/components/search_field.dart';
 import 'package:flutter/services.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/outfit_provider.dart';
 import 'package:honkai_assistance/presentation/screens/outfit/child/outfit_childs.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/title_line_2.dart';
+import '../../provider/outfit_provider.dart';
 
 class OutfitScreen extends StatefulWidget {
   const OutfitScreen({super.key});

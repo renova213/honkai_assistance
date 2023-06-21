@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/components/loading.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/changelog_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
-import '../provider/local/glossary_provider.dart';
+import '../provider/changelog_provider.dart';
+import '../provider/glossary_provider.dart';
 
 class Changelog extends StatefulWidget {
   const Changelog({super.key});

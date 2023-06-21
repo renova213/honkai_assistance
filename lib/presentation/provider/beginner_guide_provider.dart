@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:honkai_assistance/domain/entities/guide_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_beginner_guide.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_beginner_guide.dart';
 
 class BeginnerGuideProvider extends ChangeNotifier {
   final GetBeginnerGuide getBeginnerGuide;

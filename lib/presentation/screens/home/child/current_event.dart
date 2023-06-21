@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../provider/firestore/event_provider.dart';
 import '../../../components/loading.dart';
+import '../../../provider/event_provider.dart';
 
 class CurrentEvent extends StatelessWidget {
   const CurrentEvent({super.key});

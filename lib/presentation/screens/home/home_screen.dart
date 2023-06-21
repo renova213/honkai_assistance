@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
           const EquipmentBanner(),
           SizedBox(height: 32.h),
           const ElfBanner(),
+          SizedBox(height: 80.h),
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/tier_list_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_tier_list.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_tier_list.dart';
 
 class TierListProvider extends ChangeNotifier {
   final GetTierList getTierList;

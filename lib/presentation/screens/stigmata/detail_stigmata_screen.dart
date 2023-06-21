@@ -35,16 +35,22 @@ class DetailStigmataScreen extends StatelessWidget {
     );
   }
 
-  Container _setEffect() {
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColor.containerColor,
-          borderRadius: BorderRadius.circular(10)),
-      width: double.maxFinite,
-      child: Padding(
-        padding: EdgeInsets.all(8.r),
-        child: SetEffect(onTap: false, setEffects: stigmata.setEffects!),
-      ),
+  Column _setEffect() {
+    return Column(
+      children: [
+        Text("Set Effects", style: AppFont.subtitle),
+        SizedBox(height: 16.h),
+        Container(
+          decoration: BoxDecoration(
+              color: AppColor.containerColor,
+              borderRadius: BorderRadius.circular(10)),
+          width: double.maxFinite,
+          child: Padding(
+            padding: EdgeInsets.all(8.r),
+            child: SetEffect(onTap: false, setEffects: stigmata.setEffects!),
+          ),
+        )
+      ],
     );
   }
 }

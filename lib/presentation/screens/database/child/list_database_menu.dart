@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/local/database_provider.dart';
 import '../../../components/menu_item_container.dart';
+import '../../../provider/database_provider.dart';
 
 class ListDatabaseMenu extends StatelessWidget {
   const ListDatabaseMenu({super.key});
@@ -18,9 +18,9 @@ class ListDatabaseMenu extends StatelessWidget {
           final data = notifier.menuDatabases[index];
 
           return MenuItemContainer(
-              assetImage: data.assetImage,
-              title: data.title,
-              screen: data.widget);
+              assetImage: data["assetImage"],
+              title: data["title"],
+              screen: data["widget"]);
         },
         separatorBuilder: (context, index) => SizedBox(height: 16.h),
         itemCount: notifier.menuDatabases.length,

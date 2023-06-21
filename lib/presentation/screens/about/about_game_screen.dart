@@ -21,6 +21,7 @@ class AboutGameScreen extends StatelessWidget {
           const ListAboutContent(),
           SizedBox(height: 24.h),
           const OfficialLinks(),
+          SizedBox(height: 80.h),
         ],
       ),
     );

@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/weapon_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
 import '../../../components/grid_loading.dart';
+import '../../../provider/weapon_provider.dart';
 import 'weapon_container.dart';
 
 class GridWeapon extends StatelessWidget {

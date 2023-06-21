@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:honkai_assistance/domain/entities/guide_entity.dart';
 
 import '../../../common/util/enum_state.dart';
-import '../../../domain/usecases/remote/get_general_guide.dart';
+import '../../domain/usecases/get_general_guide.dart';
 
 class GeneralGuideProvider extends ChangeNotifier {
   final GetGeneralGuide getGeneralGuide;

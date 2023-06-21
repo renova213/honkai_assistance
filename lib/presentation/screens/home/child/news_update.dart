@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/utils.dart';
-import '../../../provider/firestore/news_update_provider.dart';
+import '../../../provider/news_update_provider.dart';
 import '../../web_view_screen.dart';
 
 class NewsUpdate extends StatelessWidget {

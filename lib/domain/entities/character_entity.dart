@@ -121,6 +121,7 @@ class CharacterStigmataEntity extends Equatable {
   final String priority;
   final String typeStigmata;
   final String name;
+  final String setName;
   final String urlImage;
   final String star;
   final List<CharacterStigmataEffectEntity>? stigmataEffect;
@@ -129,12 +130,13 @@ class CharacterStigmataEntity extends Equatable {
       {required this.priority,
       required this.name,
       required this.star,
+      required this.setName,
       required this.typeStigmata,
       required this.urlImage,
       this.stigmataEffect});
   @override
   List<Object> get props =>
-      [priority, typeStigmata, name, urlImage, star, stigmataEffect!];
+      [priority, typeStigmata, name, urlImage, star, setName, stigmataEffect!];
 }
 
 class CharacterStigmataEffectEntity extends Equatable {

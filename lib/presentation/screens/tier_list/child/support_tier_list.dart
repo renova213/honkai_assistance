@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/screens/tier_list/child/tier_list_childs.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/firestore/tier_list_provider.dart';
+import '../../../provider/tier_list_provider.dart';
 
 class SupportTierList extends StatelessWidget {
   const SupportTierList({super.key});

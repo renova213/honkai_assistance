@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
-import 'package:honkai_assistance/presentation/provider/firestore/redeem_code_provider.dart';
 import 'package:honkai_assistance/presentation/components/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../domain/entities/redeem_code_entity.dart';
-import '../../../provider/button/redeem_code_button_provider.dart';
+import '../../../provider/redeem_code_button_provider.dart';
+import '../../../provider/redeem_code_provider.dart';
 
 class RedeemCode extends StatelessWidget {
   const RedeemCode({super.key});

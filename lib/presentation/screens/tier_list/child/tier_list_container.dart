@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../../common/style/style.dart';
 import '../../../../common/util/enum_state.dart';
 import '../../../../domain/entities/tier_list_entity.dart';
-import '../../../provider/firestore/tier_list_provider.dart';
+import '../../../provider/tier_list_provider.dart';
 
 class TierListContainer extends StatelessWidget {
   final Color color;

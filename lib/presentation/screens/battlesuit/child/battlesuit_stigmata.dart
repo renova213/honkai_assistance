@@ -1,15 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
-import 'package:honkai_assistance/presentation/provider/button/battlesuit_button_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/battlesuit_childs.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../components/loading.dart';
 import '../../../components/rating_star.dart';
-import '../../../provider/firestore/battlesuit_provider.dart';
+import '../../../provider/battlesuit_button_provider.dart';
+import '../../../provider/battlesuit_provider.dart';
 
 class BattlesuitStigmata extends StatefulWidget {
   final List<CharacterStigmataEntity> battlesuitStigmatas;
@@ -165,20 +166,27 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                   children: [
                     Row(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: data.urlImage,
-                          errorWidget: (context, url, error) {
-                            return const Center(
-                              child: Icon(Icons.error, color: Colors.red),
-                            );
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(NavigatorFadeHelper(
+                                child: BattlesuitDetailStigmata(
+                                    setName: data.setName)));
                           },
-                          placeholder: (context, url) {
-                            return const Loading(
-                                width: 80, height: 70, borderRadius: 0);
-                          },
-                          width: 80.w,
-                          height: 70.h,
-                          fit: BoxFit.fill,
+                          child: CachedNetworkImage(
+                            imageUrl: data.urlImage,
+                            errorWidget: (context, url, error) {
+                              return const Center(
+                                child: Icon(Icons.error, color: Colors.red),
+                              );
+                            },
+                            placeholder: (context, url) {
+                              return const Loading(
+                                  width: 80, height: 70, borderRadius: 0);
+                            },
+                            width: 80.w,
+                            height: 70.h,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                         SizedBox(width: 16.w),
                         Column(

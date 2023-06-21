@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../common/util/enum_state.dart';
-import '../../../provider/firestore/equipment_banner_provider.dart';
 import '../../../components/loading.dart';
+import '../../../provider/equipment_banner_provider.dart';
 
 class EquipmentBanner extends StatelessWidget {
   const EquipmentBanner({super.key});

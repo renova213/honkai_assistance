@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
-import 'package:honkai_assistance/domain/usecases/remote/get_elf.dart';
 
 import '../../../common/util/enum_state.dart';
+import '../../domain/usecases/get_elf.dart';
 
 class ElfProvider extends ChangeNotifier {
   final GetElf getElf;

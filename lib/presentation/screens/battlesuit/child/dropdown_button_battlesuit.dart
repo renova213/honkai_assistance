@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/firestore/battlesuit_provider.dart';
 import '../../../components/custom_dropdown_button.dart';
+import '../../../provider/battlesuit_provider.dart';
 
 class DropdownButtonBattlesuit extends StatelessWidget {
   const DropdownButtonBattlesuit({super.key});

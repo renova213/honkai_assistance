@@ -3,29 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
-import '../provider/local/glossary_provider.dart';
+import '../provider/glossary_provider.dart';
 
-class Help extends StatefulWidget {
+class Help extends StatelessWidget {
   const Help({super.key});
-
-  @override
-  State<Help> createState() => _HelpState();
-}
-
-class _HelpState extends State<Help> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () {
-        Provider.of<GlossaryProvider>(context, listen: false).getGameModes();
-        Provider.of<GlossaryProvider>(context, listen: false)
-            .getGlossaryRanks();
-        Provider.of<GlossaryProvider>(context, listen: false)
-            .getGlossarySpecialities();
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,8 +137,8 @@ class _HelpState extends State<Help> {
           if (index.isOdd) indexColor = 2;
 
           return _table(
-              title: data.title,
-              description: data.descirption,
+              title: data["title"],
+              description: data["description"],
               indexColor: indexColor);
         },
       ),
@@ -179,8 +160,8 @@ class _HelpState extends State<Help> {
           final data = notifier.glossaryRanks[index];
 
           return _table(
-              title: data.title,
-              description: data.descirption,
+              title: data["title"],
+              description: data["description"],
               indexColor: indexColor);
         },
       ),
@@ -202,8 +183,8 @@ class _HelpState extends State<Help> {
           final data = notifier.glossarySpecialities[index];
 
           return _table(
-              title: data.title,
-              description: data.descirption,
+              title: data["title"],
+              description: data["description"],
               indexColor: indexColor);
         },
       ),

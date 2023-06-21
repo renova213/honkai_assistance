@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 
 import '../../../common/util/enum_state.dart';
-import '../../../domain/usecases/remote/get_elf_banner.dart';
+import '../../domain/usecases/get_elf_banner.dart';
 
 class ElfBannerProvider extends ChangeNotifier {
   final GetElfBanner getElfBanner;
