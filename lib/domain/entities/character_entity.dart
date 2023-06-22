@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class CharacterEntity extends Equatable {
   final String characterName;
   final String urlImageCharacter;
-  final String urlImageChibi;
+  final String urlImageAvatar;
   final String urlImageATK;
   final String characterRole;
   final String characterTypeATK;
@@ -15,7 +15,7 @@ class CharacterEntity extends Equatable {
   const CharacterEntity(
       {required this.characterName,
       required this.urlImageCharacter,
-      required this.urlImageChibi,
+      required this.urlImageAvatar,
       required this.urlImageATK,
       required this.characterRole,
       required this.characterTypeATK,
@@ -29,7 +29,7 @@ class CharacterEntity extends Equatable {
   List<Object> get props => [
         characterName,
         urlImageCharacter,
-        urlImageChibi,
+        urlImageAvatar,
         urlImageATK,
         characterRole,
         characterTypeATK,

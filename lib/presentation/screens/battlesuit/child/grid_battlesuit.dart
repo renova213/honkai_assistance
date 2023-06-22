@@ -49,7 +49,7 @@ class GridBattlesuit extends StatelessWidget {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
-                                      data.urlImageCharacter),
+                                      data.urlImageAvatar),
                                   fit: BoxFit.fill),
                               border: Border(
                                 bottom: BorderSide(

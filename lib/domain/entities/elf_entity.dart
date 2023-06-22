@@ -16,8 +16,14 @@ class ElfEntity extends Equatable {
       this.elfSkills});
 
   @override
-  List<Object> get props =>
-      [elfName, urlImage, typeATK, urlImageATK, elfSpecialities!, elfSkills!];
+  List<Object> get props => [
+        elfName,
+        urlImage,
+        typeATK,
+        urlImageATK,
+        elfSpecialities!,
+        elfSkills!,
+      ];
 }
 
 class ElfSpecialityEntity extends Equatable {

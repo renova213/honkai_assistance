@@ -4,7 +4,7 @@ class CharacterModel extends CharacterEntity {
   const CharacterModel(
       {required super.characterName,
       required super.urlImageCharacter,
-      required super.urlImageChibi,
+      required super.urlImageAvatar,
       required super.urlImageATK,
       required super.characterRole,
       required super.characterTypeATK,
@@ -17,7 +17,7 @@ class CharacterModel extends CharacterEntity {
   factory CharacterModel.fromMap(Map<String, dynamic> map) => CharacterModel(
         characterName: map['characterName'],
         urlImageCharacter: map['urlImageCharacter'],
-        urlImageChibi: map['urlImageChibi'],
+        urlImageAvatar: map['urlImageAvatar'],
         urlImageATK: map['urlImageATK'],
         characterRole: map['characterRole'],
         characterTypeATK: map['characterTypeATK'],
