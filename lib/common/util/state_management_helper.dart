@@ -23,7 +23,6 @@ import '../../presentation/provider/redeem_code_button_provider.dart';
 import '../../presentation/provider/redeem_code_provider.dart';
 import '../../presentation/provider/sidebar_button_provider.dart';
 import '../../presentation/provider/stigmata_provider.dart';
-import '../../presentation/provider/tier_list_button_provider.dart';
 import '../../presentation/provider/tier_list_provider.dart';
 import '../../presentation/provider/weapon_provider.dart';
 
@@ -73,7 +72,6 @@ class StateManagementHelper {
         ChangeNotifierProvider(create: (_) => RedeemCodeButtonProvider()),
         ChangeNotifierProvider(create: (_) => BattlesuitButtonProvider()),
         ChangeNotifierProvider(create: (_) => ElfButtonProvider()),
-        ChangeNotifierProvider(create: (_) => TierListButtonProvider()),
       ],
       child: widget,
     );

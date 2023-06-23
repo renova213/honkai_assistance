@@ -8,12 +8,10 @@ class TierListProvider extends ChangeNotifier {
   final GetTierList getTierList;
   TierListProvider({required this.getTierList});
 
-  List<TierListEntity> _dpsTierEX = [];
   List<TierListEntity> _dpsTierS = [];
   List<TierListEntity> _dpsTierA = [];
   List<TierListEntity> _dpsTierB = [];
   List<TierListEntity> _dpsTierOut = [];
-  List<TierListEntity> _supportTierEX = [];
   List<TierListEntity> _supportTierS = [];
   List<TierListEntity> _supportTierA = [];
   List<TierListEntity> _supportTierB = [];
@@ -22,13 +20,12 @@ class TierListProvider extends ChangeNotifier {
   String _failureMessage = "";
   String _typeATKImage = '';
   late Color _bottomBorder;
+  String _role = 'DPS';
 
-  List<TierListEntity> get dpsTierEX => _dpsTierEX;
   List<TierListEntity> get dpsTierS => _dpsTierS;
   List<TierListEntity> get dpsTierA => _dpsTierA;
   List<TierListEntity> get dpsTierB => _dpsTierB;
   List<TierListEntity> get dpsTierOut => _dpsTierOut;
-  List<TierListEntity> get supportTierEX => _supportTierEX;
   List<TierListEntity> get supportTierS => _supportTierS;
   List<TierListEntity> get supportTierA => _supportTierA;
   List<TierListEntity> get supportTierB => _supportTierB;
@@ -37,6 +34,7 @@ class TierListProvider extends ChangeNotifier {
   String get failureMessage => _failureMessage;
   String get typaATKImage => _typeATKImage;
   Color get bottomBorder => _bottomBorder;
+  String get role => _role;
 
   Future<void> getTierLists() async {
     changeAppState(AppState.loading);
@@ -50,10 +48,6 @@ class TierListProvider extends ChangeNotifier {
       },
       (tierList) {
         //dps
-        _dpsTierEX = tierList
-            .where((e) =>
-                e.tier.toLowerCase() == 'ex' && e.role.toLowerCase() == 'dps')
-            .toList();
         _dpsTierS = tierList
             .where((e) =>
                 e.tier.toLowerCase() == 's' && e.role.toLowerCase() == 'dps')
@@ -72,11 +66,6 @@ class TierListProvider extends ChangeNotifier {
             .toList();
 
         //support
-        _supportTierEX = tierList
-            .where((e) =>
-                e.tier.toLowerCase() == 'ex' &&
-                e.role.toLowerCase() == 'support')
-            .toList();
         _supportTierS = tierList
             .where((e) =>
                 e.tier.toLowerCase() == 's' &&
@@ -127,6 +116,13 @@ class TierListProvider extends ChangeNotifier {
     }
   }
 
+  //button
+  void changeRole(String value) {
+    _role = value;
+    notifyListeners();
+  }
+
+  //state
   changeAppState(AppState state) {
     _appState = state;
     notifyListeners();

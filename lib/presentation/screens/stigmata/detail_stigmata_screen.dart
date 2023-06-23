@@ -28,7 +28,7 @@ class DetailStigmataScreen extends StatelessWidget {
           children: [
             ListStigmata(stigmatas: stigmata.stigmataItems!),
             SizedBox(height: 16.h),
-            _setEffect(),
+            _setEffect()
           ],
         ),
       ),

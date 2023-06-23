@@ -14,14 +14,9 @@ class DPSTierList extends StatelessWidget {
       builder: (context, tierList, _) => Column(
         children: [
           TierListContainer(
-              tierList: tierList.dpsTierEX,
-              tier: 'EX',
-              color: const Color(0xFFF44336)),
-          SizedBox(height: 12.h),
-          TierListContainer(
               tierList: tierList.dpsTierS,
               tier: 'S',
-              color: const Color(0xFFFF5252)),
+              color: const Color(0xFFF44336)),
           SizedBox(height: 12.h),
           TierListContainer(
               tierList: tierList.dpsTierA,

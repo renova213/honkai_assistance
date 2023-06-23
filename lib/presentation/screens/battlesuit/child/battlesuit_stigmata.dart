@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
+import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
+import 'package:honkai_assistance/presentation/provider/stigmata_provider.dart';
 import 'package:honkai_assistance/presentation/screens/battlesuit/child/battlesuit_childs.dart';
+import 'package:honkai_assistance/presentation/screens/stigmata/detail_stigmata_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
@@ -166,26 +169,51 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                   children: [
                     Row(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(NavigatorFadeHelper(
-                                child: BattlesuitDetailStigmata(
-                                    setName: data.setName)));
-                          },
-                          child: CachedNetworkImage(
-                            imageUrl: data.urlImage,
-                            errorWidget: (context, url, error) {
-                              return const Center(
-                                child: Icon(Icons.error, color: Colors.red),
+                        Consumer<StigmataProvider>(
+                          builder: (context, notifier, _) => GestureDetector(
+                            onTap: () async {
+                              await notifier.searchStigmata(data.setName).then(
+                                (_) {
+                                  notifier.stigmatas.isEmpty
+                                      ? ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                          const SnackBar(
+                                            duration:
+                                                Duration(milliseconds: 700),
+                                            content: Text(
+                                                "Sorry, this stigmata info hasn't been updated yet"),
+                                          ),
+                                        )
+                                      : Navigator.of(context).push(
+                                          NavigatorFadeHelper(
+                                            child: DetailStigmataScreen(
+                                                stigmata: notifier
+                                                        .stigmatas.isNotEmpty
+                                                    ? notifier.stigmatas.first
+                                                    : const StigmataEntity(
+                                                        stigmataName: "",
+                                                        stigmataImage: "",
+                                                        setEffects: [])),
+                                          ),
+                                        );
+                                },
                               );
                             },
-                            placeholder: (context, url) {
-                              return const Loading(
-                                  width: 80, height: 70, borderRadius: 0);
-                            },
-                            width: 80.w,
-                            height: 70.h,
-                            fit: BoxFit.fill,
+                            child: CachedNetworkImage(
+                              imageUrl: data.urlImage,
+                              errorWidget: (context, url, error) {
+                                return const Center(
+                                  child: Icon(Icons.error, color: Colors.red),
+                                );
+                              },
+                              placeholder: (context, url) {
+                                return const Loading(
+                                    width: 80, height: 70, borderRadius: 0);
+                              },
+                              width: 80.w,
+                              height: 70.h,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         SizedBox(width: 16.w),

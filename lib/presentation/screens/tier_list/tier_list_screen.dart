@@ -8,7 +8,7 @@ import 'package:honkai_assistance/presentation/screens/tier_list/child/tier_list
 import 'package:provider/provider.dart';
 
 import '../../../common/style/style.dart';
-import '../../provider/tier_list_button_provider.dart';
+import '../../provider/tier_list_provider.dart';
 
 class TierListScreen extends StatefulWidget {
   const TierListScreen({super.key});
@@ -22,8 +22,7 @@ class _TierListScreenState extends State<TierListScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TierListButtonProvider>(context, listen: false)
-          .changeRole('DPS');
+      Provider.of<TierListProvider>(context, listen: false).changeRole('DPS');
     });
   }
 
@@ -40,7 +39,7 @@ class _TierListScreenState extends State<TierListScreen> {
           SizedBox(height: 16.h),
           Text("Role", style: AppFont.subtitle),
           SizedBox(height: 12.h),
-          Consumer<TierListButtonProvider>(
+          Consumer<TierListProvider>(
             builder: (context, notifier, _) => CustomDropdownButton(
                 height: 40,
                 width: 150,
@@ -69,7 +68,7 @@ class _TierListScreenState extends State<TierListScreen> {
             ),
           ),
           SizedBox(height: 16.h),
-          Consumer<TierListButtonProvider>(
+          Consumer<TierListProvider>(
               builder: (context, notifier, _) => notifier.role == 'DPS'
                   ? const DPSTierList()
                   : const SupportTierList()),

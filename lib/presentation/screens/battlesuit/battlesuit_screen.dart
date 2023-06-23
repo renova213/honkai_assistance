@@ -27,6 +27,16 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<BattlesuitProvider>(context, listen: false).battlesuits.isEmpty
+        ? Future.microtask(() =>
+            Provider.of<BattlesuitProvider>(context, listen: false)
+                .getBattlesuits())
+        : null;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(
