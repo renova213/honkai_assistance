@@ -54,12 +54,17 @@ class WeaponProvider extends ChangeNotifier {
 
   void changeBottomColor(String star) {
     switch (star) {
+      case '5.0':
+        _bottomColor = Colors.yellow;
+        break;
       case '4.0':
         _bottomColor = Colors.purple;
         break;
-
-      default:
+      case '3.0':
         _bottomColor = Colors.blue;
+        break;
+      default:
+        _bottomColor = Colors.green;
     }
   }
 

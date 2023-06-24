@@ -41,51 +41,54 @@ class BattlesuitSpeciality extends StatelessWidget {
     );
   }
 
-  ListView _listBattlesuitSpecilities(
+  Align _listBattlesuitSpecilities(
       List<CharacterSpecialityEntity> battlesuitSpecialities) {
-    return ListView.separated(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          final data = battlesuitSpecialities[index];
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final data = battlesuitSpecialities[index];
 
-          return Container(
-            decoration: BoxDecoration(
-                color: AppColor.containerColor,
-                borderRadius: BorderRadius.circular(5)),
-            height: 40.h,
-            width: 105.w,
-            padding: EdgeInsets.all(8.r),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 24.w,
-                  height: 24.h,
-                  child: CachedNetworkImage(
-                    imageUrl: data.urlImage,
-                    errorWidget: (context, url, error) {
-                      return const Center(
-                        child: Icon(Icons.error, color: Colors.red),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return const Loading(
-                          width: 24, height: 24, borderRadius: 0);
-                    },
-                    fit: BoxFit.fill,
+            return Container(
+              decoration: BoxDecoration(
+                  color: AppColor.containerColor,
+                  borderRadius: BorderRadius.circular(5)),
+              height: 40.h,
+              width: 105.w,
+              padding: EdgeInsets.all(8.r),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 24.w,
+                    height: 24.h,
+                    child: CachedNetworkImage(
+                      imageUrl: data.urlImage,
+                      errorWidget: (context, url, error) {
+                        return const Center(
+                          child: Icon(Icons.error, color: Colors.red),
+                        );
+                      },
+                      placeholder: (context, url) {
+                        return const Loading(
+                            width: 24, height: 24, borderRadius: 0);
+                      },
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(data.name, style: AppFont.smallText)),
-                ),
-              ],
-            ),
-          );
-        },
-        separatorBuilder: (context, index) => SizedBox(width: 8.w),
-        itemCount: battlesuitSpecialities.length);
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(data.name, style: AppFont.smallText)),
+                  ),
+                ],
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => SizedBox(width: 8.w),
+          itemCount: battlesuitSpecialities.length),
+    );
   }
 }
