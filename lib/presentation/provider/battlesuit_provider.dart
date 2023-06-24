@@ -134,10 +134,10 @@ class BattlesuitProvider extends ChangeNotifier {
           .where((e) =>
               e.characterName.toLowerCase().contains(value.toLowerCase()))
           .toList();
+      notifyListeners();
     } else {
       await getBattlesuits();
     }
-    notifyListeners();
   }
 
   Future<void> changeRole(String value) async {

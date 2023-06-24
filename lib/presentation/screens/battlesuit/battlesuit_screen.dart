@@ -29,11 +29,9 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<BattlesuitProvider>(context, listen: false).battlesuits.isEmpty
-        ? Future.microtask(() =>
-            Provider.of<BattlesuitProvider>(context, listen: false)
-                .getBattlesuits())
-        : null;
+    Future.microtask(() =>
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .getBattlesuits());
   }
 
   @override

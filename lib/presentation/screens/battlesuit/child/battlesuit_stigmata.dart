@@ -178,8 +178,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                                       ? ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                           const SnackBar(
-                                            duration:
-                                                Duration(milliseconds: 700),
+                                            duration: Duration(seconds: 1),
                                             content: Text(
                                                 "Sorry, this stigmata info hasn't been updated yet"),
                                           ),

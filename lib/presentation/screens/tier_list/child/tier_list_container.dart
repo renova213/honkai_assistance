@@ -41,28 +41,28 @@ class TierListContainer extends StatelessWidget {
               color: AppColor.secondaryColor,
               child: Padding(
                 padding: EdgeInsets.all(8.r),
-                child: Consumer<TierListProvider>(
-                  builder: (context, notifier, _) => notifier.appstate ==
-                          AppState.loaded
-                      ? GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: tierList.length,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 8,
-                                  crossAxisCount: 4),
-                          itemBuilder: (context, index) {
-                            final data = tierList[index];
-                            notifier.filterTypeATKImage(data.element);
-                            return Stack(
-                              children: [
-                                Material(
-                                  color: Colors.transparent,
-                                  child: Consumer<BattlesuitProvider>(
-                                    builder: (context, battlesuit, _) =>
-                                        InkWell(
+                child: Consumer<BattlesuitProvider>(
+                  builder: (context, battlesuit, _) =>
+                      Consumer<TierListProvider>(
+                    builder: (context, notifier, _) => notifier.appstate ==
+                            AppState.loaded
+                        ? GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: tierList.length,
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8,
+                                    crossAxisCount: 4),
+                            itemBuilder: (context, index) {
+                              final data = tierList[index];
+                              notifier.filterTypeATKImage(data.element);
+                              return Stack(
+                                children: [
+                                  Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
                                       onTap: () async {
                                         await battlesuit
                                             .searchBattlesuit(data.valkyrieName)
@@ -72,8 +72,8 @@ class TierListContainer extends StatelessWidget {
                                                 ? ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                     const SnackBar(
-                                                      duration: Duration(
-                                                          milliseconds: 700),
+                                                      duration:
+                                                          Duration(seconds: 1),
                                                       content: Text(
                                                           "Sorry, this battlesuit info hasn't been updated yet"),
                                                     ),
@@ -117,28 +117,28 @@ class TierListContainer extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                ),
-                                CachedNetworkImage(
-                                    imageUrl: notifier.typaATKImage,
-                                    errorWidget: (context, url, error) {
-                                      return const Center(
-                                        child: Icon(Icons.error,
-                                            color: Colors.red),
-                                      );
-                                    },
-                                    placeholder: (context, url) {
-                                      return const Loading(
-                                          width: 20,
-                                          height: 20,
-                                          borderRadius: 0);
-                                    },
-                                    height: 20,
-                                    width: 20),
-                              ],
-                            );
-                          },
-                        )
-                      : _loading(),
+                                  CachedNetworkImage(
+                                      imageUrl: notifier.typaATKImage,
+                                      errorWidget: (context, url, error) {
+                                        return const Center(
+                                          child: Icon(Icons.error,
+                                              color: Colors.red),
+                                        );
+                                      },
+                                      placeholder: (context, url) {
+                                        return const Loading(
+                                            width: 20,
+                                            height: 20,
+                                            borderRadius: 0);
+                                      },
+                                      height: 20,
+                                      width: 20),
+                                ],
+                              );
+                            },
+                          )
+                        : _loading(),
+                  ),
                 ),
               ),
             ),

@@ -109,6 +109,7 @@ class Help extends StatelessWidget {
                               indexColor: 0,
                               height: 60.h),
                           _specialityTable(),
+                          SizedBox(height: 16.h),
                         ],
                       ),
                     )

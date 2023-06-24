@@ -28,37 +28,32 @@ class GridBattlesuit extends StatelessWidget {
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
               final data = notifier.battlesuits[index];
+              notifier.changeBottomColor(data.characterTypeATK);
               return Column(
                 children: [
                   Expanded(
                     flex: 10,
-                    child: Consumer<BattlesuitProvider>(
-                      builder: (context, notifier, _) {
-                        notifier.changeBottomColor(data.characterTypeATK);
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              NavigatorFadeHelper(
-                                  child:
-                                      DetailBattlesuitScreen(character: data)),
-                            );
-                          },
-                          child: Ink(
-                            width: 95.w,
-                            height: 95.h,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      data.urlImageAvatar),
-                                  fit: BoxFit.fill),
-                              border: Border(
-                                bottom: BorderSide(
-                                    width: 3, color: notifier.bottomColor),
-                              ),
-                            ),
-                          ),
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.of(context).push(
+                          NavigatorFadeHelper(
+                              child: DetailBattlesuitScreen(character: data)),
                         );
                       },
+                      child: Ink(
+                        width: 95.w,
+                        height: 95.h,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                  data.urlImageAvatar),
+                              fit: BoxFit.fill),
+                          border: Border(
+                            bottom: BorderSide(
+                                width: 3, color: notifier.bottomColor),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: 8.h),

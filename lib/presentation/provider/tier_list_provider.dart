@@ -92,8 +92,8 @@ class TierListProvider extends ChangeNotifier {
     );
   }
 
-  void filterTypeATKImage(String urlImage) {
-    switch (urlImage) {
+  void filterTypeATKImage(String typeAtk) {
+    switch (typeAtk) {
       case 'Physical':
         _typeATKImage = 'https://i.postimg.cc/8PtQfzqw/a-removebg-preview.png';
         _bottomBorder = Colors.orange;
