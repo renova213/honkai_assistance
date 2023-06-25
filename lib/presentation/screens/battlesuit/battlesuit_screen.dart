@@ -29,9 +29,11 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<BattlesuitProvider>(context, listen: false)
-            .getBattlesuits());
+    Future.microtask(() {
+      Provider.of<BattlesuitProvider>(context, listen: false).searchBattlesuit(
+          searchValue: "", roleValue: "Any Role", typeValue: "Any Type");
+      Provider.of<BattlesuitProvider>(context, listen: false).getBattlesuits();
+    });
   }
 
   @override
@@ -70,20 +72,22 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
                     return TitleLine2(
                         title: "Battlesuits",
                         title2:
-                            "Showing ${notifier.battlesuits.length} battlesuits");
+                            "Showing ${notifier.searchResults.length} battlesuits");
                   },
                 ),
                 SizedBox(height: 12.h),
-                const DropdownButtonBattlesuit(),
+                DropdownButtonBattlesuit(controller: _searchController),
                 SizedBox(height: 8.h),
                 Consumer<BattlesuitProvider>(
                   builder: (context, notifier, _) => SearchField(
                     width: double.maxFinite,
                     hintText: "Search Battlesuit ...",
                     controller: _searchController,
-                    onSubmit: (value) {
-                      notifier.searchBattlesuit(value);
-                      _searchController.clear();
+                    onChanged: (value) {
+                      notifier.searchBattlesuit(
+                          searchValue: value,
+                          typeValue: notifier.typeATK,
+                          roleValue: notifier.role);
                     },
                   ),
                 ),

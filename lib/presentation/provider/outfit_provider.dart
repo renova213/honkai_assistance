@@ -9,11 +9,13 @@ class OutfitProvider extends ChangeNotifier {
   OutfitProvider({required this.getOutfit});
 
   List<OutfitEntity> _outfits = [];
+  List<OutfitEntity> _searchResults = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
 
   List<OutfitEntity> get outfits => _outfits;
+  List<OutfitEntity> get searchResults => _searchResults;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
   Color get bottomColor => _bottomColor;
@@ -40,16 +42,10 @@ class OutfitProvider extends ChangeNotifier {
   }
 
   Future<void> searchOutfit(String value) async {
-    if (value.isNotEmpty) {
-      await getOutfits();
+    _searchResults = _outfits
+        .where((e) => e.outfitName.toLowerCase().contains(value.toLowerCase()))
+        .toList();
 
-      _outfits = _outfits
-          .where(
-              (e) => e.outfitName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      await getOutfits();
-    }
     notifyListeners();
   }
 
@@ -63,6 +59,9 @@ class OutfitProvider extends ChangeNotifier {
         break;
       case '3.0':
         _bottomColor = Colors.blue;
+        break;
+      case '2.0':
+        _bottomColor = Colors.lightBlue;
         break;
       default:
         _bottomColor = Colors.green;

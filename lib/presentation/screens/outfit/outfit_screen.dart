@@ -26,6 +26,14 @@ class _BattlesuitScreenState extends State<OutfitScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() =>
+        Provider.of<OutfitProvider>(context, listen: false).searchOutfit(""));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(
@@ -59,15 +67,15 @@ class _BattlesuitScreenState extends State<OutfitScreen> {
                   SizedBox(height: 24.h),
                   TitleLine2(
                       title: "Outfits",
-                      title2: "Showing ${notifier.outfits.length} outfits"),
+                      title2:
+                          "Showing ${notifier.searchResults.length} outfits"),
                   SizedBox(height: 12.h),
                   SearchField(
                     width: double.maxFinite,
                     hintText: "Search Outfit ...",
                     controller: _searchController,
-                    onSubmit: (value) {
+                    onChanged: (value) {
                       notifier.searchOutfit(value);
-                      _searchController.clear();
                     },
                   ),
                   SizedBox(height: 16.h),

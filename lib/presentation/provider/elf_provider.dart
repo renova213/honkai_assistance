@@ -9,16 +9,20 @@ class ElfProvider extends ChangeNotifier {
   ElfProvider({required this.getElf});
 
   List<ElfEntity> _elfs = [];
+  List<ElfEntity> _searchResults = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
-  String _typeATK = 'Any ATK';
+  String _typeATK = 'Any Type';
+  int _index = 0;
 
   List<ElfEntity> get elfs => _elfs;
+  List<ElfEntity> get searchResults => _searchResults;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
   Color get bottomColor => _bottomColor;
   String get typeATK => _typeATK;
+  int get index => _index;
 
   Future<void> getElfs() async {
     changeAppState(AppState.loading);
@@ -60,47 +64,21 @@ class ElfProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> changeTypeATK(String value) async {
-    if (_typeATK != value) {
-      _typeATK = value;
-      notifyListeners();
-
-      switch (value) {
-        case 'Physical':
-          await getElfs();
-          _elfs = _elfs.where((e) => e.typeATK.contains(value)).toList();
-          break;
-        case 'Fire':
-          await getElfs();
-          _elfs = _elfs.where((e) => e.typeATK.contains(value)).toList();
-          break;
-        case 'Ice':
-          await getElfs();
-          _elfs = _elfs.where((e) => e.typeATK.contains(value)).toList();
-          break;
-        case 'Lightning':
-          await getElfs();
-          _elfs = _elfs.where((e) => e.typeATK.contains(value)).toList();
-          break;
-        default:
-          await getElfs();
-      }
-    }
+  Future<void> searchElf(
+      {required String searchValue, required String typeValue}) async {
+    _typeATK = typeValue;
+    _searchResults = _elfs
+        .where((e) =>
+            e.elfName.toLowerCase().contains(searchValue.toLowerCase()) &&
+            e.typeATK.toLowerCase().contains(
+                typeValue == "Any Type" ? "" : typeValue.toLowerCase()))
+        .toList();
 
     notifyListeners();
   }
 
-  Future<void> searchElf(String value) async {
-    if (value.isNotEmpty) {
-      await getElfs();
-      await changeTypeATK('Any ATK');
-
-      _elfs = _elfs
-          .where((e) => e.elfName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      await getElfs();
-    }
+  Future<void> changeIndex(index) async {
+    _index = index;
     notifyListeners();
   }
 

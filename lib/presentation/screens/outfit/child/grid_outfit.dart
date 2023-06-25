@@ -20,7 +20,7 @@ class GridOutfit extends StatelessWidget {
         if (notifier.appState == AppState.loaded) {
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: notifier.outfits.length,
+            itemCount: notifier.searchResults.length,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 2 / 2.8,
@@ -28,7 +28,7 @@ class GridOutfit extends StatelessWidget {
                 crossAxisSpacing: 16,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              final data = notifier.outfits[index];
+              final data = notifier.searchResults[index];
 
               notifier.changeBottomColor(data.grade);
 

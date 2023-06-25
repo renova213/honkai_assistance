@@ -3,17 +3,19 @@ import 'package:equatable/equatable.dart';
 class WeaponEntity extends Equatable {
   final String weaponName;
   final String rank;
+  final String type;
   final String urlImage;
   final List<SkillWeaponEntity> skillWeapons;
 
   const WeaponEntity(
       {required this.weaponName,
+      required this.type,
       required this.rank,
       required this.urlImage,
       required this.skillWeapons});
 
   @override
-  List<Object> get props => [weaponName, rank, urlImage, skillWeapons];
+  List<Object> get props => [weaponName, rank, urlImage, skillWeapons, type];
 }
 
 class SkillWeaponEntity extends Equatable {

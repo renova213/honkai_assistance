@@ -9,14 +9,18 @@ class WeaponProvider extends ChangeNotifier {
   WeaponProvider({required this.getWeapon});
 
   List<WeaponEntity> _weapons = [];
+  List<WeaponEntity> _searchResults = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
+  String _weaponType = "Any Type";
 
   List<WeaponEntity> get weapons => _weapons;
+  List<WeaponEntity> get searchResults => _searchResults;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
   Color get bottomColor => _bottomColor;
+  String get weaponType => _weaponType;
 
   Future<void> getWeapons() async {
     changeAppState(AppState.loading);
@@ -38,17 +42,18 @@ class WeaponProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> searchWeapon(String value) async {
-    if (value.isNotEmpty) {
-      await getWeapons();
+  Future<void> searchWeapon(
+      {required String searchValue, required String typeValue}) async {
+    _weaponType = typeValue;
+    _searchResults = _weapons
+        .where(
+          (e) =>
+              e.weaponName.toLowerCase().contains(searchValue.toLowerCase()) &&
+              e.type.toLowerCase().contains(
+                  _weaponType == "Any Type" ? "" : _weaponType.toLowerCase()),
+        )
+        .toList();
 
-      _weapons = _weapons
-          .where(
-              (e) => e.weaponName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      await getWeapons();
-    }
     notifyListeners();
   }
 

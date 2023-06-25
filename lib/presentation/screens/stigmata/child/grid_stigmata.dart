@@ -19,7 +19,7 @@ class GridStigmata extends StatelessWidget {
         if (notifier.appState == AppState.loaded) {
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: notifier.stigmatas.length,
+            itemCount: notifier.searchResults.length,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 2 / 2.8,
@@ -27,7 +27,7 @@ class GridStigmata extends StatelessWidget {
                 crossAxisSpacing: 16,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              final data = notifier.stigmatas[index];
+              final data = notifier.searchResults[index];
 
               notifier.changeBottomColor(data.stigmataItems!.isEmpty
                   ? '1.0'

@@ -19,7 +19,7 @@ class GridWeapon extends StatelessWidget {
         if (notifier.appState == AppState.loaded) {
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: notifier.weapons.length,
+            itemCount: notifier.searchResults.length,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 2 / 2.8,
@@ -27,7 +27,7 @@ class GridWeapon extends StatelessWidget {
                 crossAxisSpacing: 16,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              final weapon = notifier.weapons[index];
+              final weapon = notifier.searchResults[index];
 
               notifier.changeBottomColor(weapon.rank);
 

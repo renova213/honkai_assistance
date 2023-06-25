@@ -12,11 +12,15 @@ class RedeemCodeProvider extends ChangeNotifier {
   final List<RedeemCodeEntity> _redeemCodesGlobal = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
+  int _indexServer = 0;
+  int _indexEvent = 0;
 
   List<RedeemCodeEntity> get redeemCodesSea => _redeemCodesSea;
   List<RedeemCodeEntity> get redeemCodesGlobal => _redeemCodesGlobal;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
+  int get indexServer => _indexServer;
+  int get indexEvent => _indexEvent;
 
   Future<void> getRedeemCodes() async {
     changeAppState(AppState.loading);
@@ -41,6 +45,16 @@ class RedeemCodeProvider extends ChangeNotifier {
         }
       },
     );
+  }
+
+  void changeIndexServer(int index) {
+    _indexServer = index;
+    notifyListeners();
+  }
+
+  void changeIndexEvent(int index) {
+    _indexEvent = index;
+    notifyListeners();
   }
 
   changeAppState(AppState state) {

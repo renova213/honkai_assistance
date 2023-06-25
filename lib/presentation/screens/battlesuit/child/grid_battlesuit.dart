@@ -19,7 +19,7 @@ class GridBattlesuit extends StatelessWidget {
         if (notifier.appState == AppState.loaded) {
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: notifier.battlesuits.length,
+            itemCount: notifier.searchResults.length,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 2 / 3,
@@ -27,7 +27,7 @@ class GridBattlesuit extends StatelessWidget {
                 crossAxisSpacing: 16,
                 crossAxisCount: 3),
             itemBuilder: (context, index) {
-              final data = notifier.battlesuits[index];
+              final data = notifier.searchResults[index];
               notifier.changeBottomColor(data.characterTypeATK);
               return Column(
                 children: [

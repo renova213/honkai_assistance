@@ -26,6 +26,7 @@ class CustomDropdownButton extends StatelessWidget {
       width: width.w,
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
+          dropdownMaxHeight: 200.h,
           selectedItemHighlightColor: AppColor.blue,
           icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
           dropdownDecoration: const BoxDecoration(

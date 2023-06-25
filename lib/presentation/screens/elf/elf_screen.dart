@@ -27,6 +27,14 @@ class _BattlesuitScreenState extends State<ElfScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() => Provider.of<ElfProvider>(context, listen: false)
+        .searchElf(searchValue: "", typeValue: "Any Type"));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(
@@ -60,7 +68,7 @@ class _BattlesuitScreenState extends State<ElfScreen> {
                   SizedBox(height: 24.h),
                   TitleLine2(
                       title: "Elfs",
-                      title2: "Showing ${notifier.elfs.length} elfs"),
+                      title2: "Showing ${notifier.searchResults.length} elfs"),
                   SizedBox(height: 12.h),
                   Consumer<ElfProvider>(
                     builder: (context, notifier, _) => Row(
@@ -68,13 +76,15 @@ class _BattlesuitScreenState extends State<ElfScreen> {
                         Expanded(
                           child: CustomDropdownButton(
                             changeValue: (value) {
-                              notifier.changeTypeATK(value);
+                              notifier.searchElf(
+                                  typeValue: value,
+                                  searchValue: _searchController.text);
                             },
                             height: 35,
                             width: double.maxFinite,
                             value: notifier.typeATK,
                             items: const [
-                              "Any ATK",
+                              "Any Type",
                               "Physical",
                               "Ice",
                               "Fire",
@@ -88,9 +98,10 @@ class _BattlesuitScreenState extends State<ElfScreen> {
                             width: double.maxFinite,
                             hintText: "Search Elf ...",
                             controller: _searchController,
-                            onSubmit: (value) {
-                              notifier.searchElf(value);
-                              _searchController.clear();
+                            onChanged: (value) {
+                              notifier.searchElf(
+                                  searchValue: value,
+                                  typeValue: notifier.typeATK);
                             },
                           ),
                         ),

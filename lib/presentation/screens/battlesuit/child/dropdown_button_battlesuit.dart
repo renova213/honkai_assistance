@@ -6,7 +6,8 @@ import '../../../components/custom_dropdown_button.dart';
 import '../../../provider/battlesuit_provider.dart';
 
 class DropdownButtonBattlesuit extends StatelessWidget {
-  const DropdownButtonBattlesuit({super.key});
+  final TextEditingController controller;
+  const DropdownButtonBattlesuit({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +19,16 @@ class DropdownButtonBattlesuit extends StatelessWidget {
               Expanded(
                 child: CustomDropdownButton(
                   changeValue: (value) {
-                    notifier.changeTypeATK(value);
+                    notifier.searchBattlesuit(
+                        searchValue: controller.text,
+                        roleValue: notifier.role,
+                        typeValue: value);
                   },
                   height: 35,
                   width: double.maxFinite,
                   value: notifier.typeATK,
                   items: const [
-                    "Any ATK",
+                    "Any Type",
                     "Physical",
                     "Ice",
                     "Fire",
@@ -36,7 +40,10 @@ class DropdownButtonBattlesuit extends StatelessWidget {
               Expanded(
                 child: CustomDropdownButton(
                   changeValue: (value) {
-                    notifier.changeRole(value);
+                    notifier.searchBattlesuit(
+                        searchValue: controller.text,
+                        typeValue: notifier.typeATK,
+                        roleValue: value);
                   },
                   height: 35,
                   width: double.maxFinite,

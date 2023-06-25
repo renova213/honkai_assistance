@@ -9,11 +9,13 @@ class StigmataProvider extends ChangeNotifier {
   StigmataProvider({required this.getStigmata});
 
   List<StigmataEntity> _stigmatas = [];
+  List<StigmataEntity> _searchResults = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
   late Color _bottomColor;
 
   List<StigmataEntity> get stigmatas => _stigmatas;
+  List<StigmataEntity> get searchResults => _searchResults;
   AppState get appState => _appState;
   String get failureMessage => _failureMessage;
   Color get bottomColor => _bottomColor;
@@ -40,16 +42,11 @@ class StigmataProvider extends ChangeNotifier {
   }
 
   Future<void> searchStigmata(String value) async {
-    if (value.isNotEmpty) {
-      await getStigmatas();
+    _searchResults = _stigmatas
+        .where(
+            (e) => e.stigmataName.toLowerCase().contains(value.toLowerCase()))
+        .toList();
 
-      _stigmatas = _stigmatas
-          .where(
-              (e) => e.stigmataName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-    } else {
-      await getStigmatas();
-    }
     notifyListeners();
   }
 

@@ -65,7 +65,10 @@ class TierListContainer extends StatelessWidget {
                                     child: InkWell(
                                       onTap: () async {
                                         await battlesuit
-                                            .searchBattlesuit(data.valkyrieName)
+                                            .searchBattlesuit(
+                                                searchValue: data.valkyrieName,
+                                                typeValue: "Any Type",
+                                                roleValue: "Any Role")
                                             .then(
                                           (_) {
                                             battlesuit.battlesuits.isEmpty

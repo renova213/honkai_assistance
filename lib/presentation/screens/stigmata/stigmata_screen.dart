@@ -26,6 +26,13 @@ class _BattlesuitScreenState extends State<StigmataScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => Provider.of<StigmataProvider>(context, listen: false)
+        .searchStigmata(""));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final focusField = FocusNode();
     return Scaffold(
@@ -59,15 +66,15 @@ class _BattlesuitScreenState extends State<StigmataScreen> {
                   SizedBox(height: 24.h),
                   TitleLine2(
                       title: "Stigmatas",
-                      title2: "Showing ${notifier.stigmatas.length} stigmatas"),
+                      title2:
+                          "Showing ${notifier.searchResults.length} stigmatas"),
                   SizedBox(height: 12.h),
                   SearchField(
                     width: double.maxFinite,
                     hintText: "Search Stigmata ...",
                     controller: _searchController,
-                    onSubmit: (value) {
+                    onChanged: (value) {
                       notifier.searchStigmata(value);
-                      _searchController.clear();
                     },
                   ),
                   SizedBox(height: 16.h),

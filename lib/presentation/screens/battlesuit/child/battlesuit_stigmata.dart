@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import '../../../../common/style/style.dart';
 import '../../../components/loading.dart';
 import '../../../components/rating_star.dart';
-import '../../../provider/battlesuit_button_provider.dart';
 import '../../../provider/battlesuit_provider.dart';
 
 class BattlesuitStigmata extends StatefulWidget {
@@ -50,8 +49,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
           child: Padding(
             padding: const EdgeInsets.all(16).r,
             child: Consumer<BattlesuitProvider>(
-              builder: (context, battlesuit, _) =>
-                  Consumer<BattlesuitButtonProvider>(
+              builder: (context, battlesuit, _) => Consumer<BattlesuitProvider>(
                 builder: (context, battlesuitButton, _) => Column(
                   children: [
                     _titleContainer('Recommended'),
@@ -80,7 +78,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
   }
 
   Consumer _changePieceStigmata() {
-    return Consumer<BattlesuitButtonProvider>(
+    return Consumer<BattlesuitProvider>(
       builder: (context, battlesuitButton, _) => Row(
         children: [
           _containerStigmataPiece(

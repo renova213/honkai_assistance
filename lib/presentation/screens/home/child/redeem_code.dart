@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../domain/entities/redeem_code_entity.dart';
-import '../../../provider/redeem_code_button_provider.dart';
 import '../../../provider/redeem_code_provider.dart';
 
 class RedeemCode extends StatelessWidget {
@@ -20,7 +19,7 @@ class RedeemCode extends StatelessWidget {
           return Column(
             children: [
               _allServer(),
-              Consumer<RedeemCodeButtonProvider>(
+              Consumer<RedeemCodeProvider>(
                 builder: (context, redeemCodeButton, _) => _listRedeemCode(
                     redeemCodeButton.indexServer == 0
                         ? redeemCode.redeemCodesSea
@@ -35,7 +34,7 @@ class RedeemCode extends StatelessWidget {
   }
 
   Consumer _allServer() {
-    return Consumer<RedeemCodeButtonProvider>(
+    return Consumer<RedeemCodeProvider>(
       builder: (context, redeemCodeButton, _) => Row(
         children: [
           Container(

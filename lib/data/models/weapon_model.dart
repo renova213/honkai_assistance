@@ -3,6 +3,7 @@ import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
 class WeaponModel extends WeaponEntity {
   const WeaponModel(
       {required super.weaponName,
+      required super.type,
       required super.rank,
       required super.urlImage,
       required super.skillWeapons});
@@ -10,6 +11,7 @@ class WeaponModel extends WeaponEntity {
   factory WeaponModel.fromMap(Map<String, dynamic> map) => WeaponModel(
       weaponName: map['weaponName'],
       rank: map['rank'],
+      type: map['type'],
       urlImage: map['urlImage'],
       skillWeapons: (map['skillWeapons'] as List)
           .map((e) => SkillWeaponModel.fromMap(e))

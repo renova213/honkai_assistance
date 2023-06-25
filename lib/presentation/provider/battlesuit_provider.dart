@@ -9,6 +9,7 @@ class BattlesuitProvider extends ChangeNotifier {
   BattlesuitProvider({required this.getCharacter});
 
   List<CharacterEntity> _battlesuits = [];
+  List<CharacterEntity> _searchResults = [];
   List<CharacterWeaponEntity> _recommendedWeapons = [];
   List<CharacterWeaponEntity> _otherOptionWeapons = [];
   List<CharacterStigmataEntity> _recommendedTStigmatas = [];
@@ -21,9 +22,11 @@ class BattlesuitProvider extends ChangeNotifier {
   String _failureMessage = "";
   late Color _bottomColor;
   String _role = 'Any Role';
-  String _typeATK = 'Any ATK';
+  String _typeATK = 'Any Type';
+  int _index = 0;
 
   List<CharacterEntity> get battlesuits => _battlesuits;
+  List<CharacterEntity> get searchResults => _searchResults;
   List<CharacterWeaponEntity> get recommendedWeapons => _recommendedWeapons;
   List<CharacterWeaponEntity> get otherOptionWeapons => _otherOptionWeapons;
   List<CharacterStigmataEntity> get recommendedTStigmatas =>
@@ -43,6 +46,7 @@ class BattlesuitProvider extends ChangeNotifier {
   String get role => _role;
   String get typeATK => _typeATK;
   String get failureMessage => _failureMessage;
+  int get index => _index;
 
   Future<void> getBattlesuits() async {
     changeAppState(AppState.loading);
@@ -124,116 +128,21 @@ class BattlesuitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchBattlesuit(String value) async {
-    if (value.isNotEmpty) {
-      await getBattlesuits();
-      await changeRole('Any Role');
-      await changeTypeATK('Any ATK');
-
-      _battlesuits = _battlesuits
-          .where((e) =>
-              e.characterName.toLowerCase().contains(value.toLowerCase()))
-          .toList();
-      notifyListeners();
-    } else {
-      await getBattlesuits();
-    }
-  }
-
-  Future<void> changeRole(String value) async {
-    if (_role != value) {
-      _role = value;
-      notifyListeners();
-      switch (value) {
-        case 'DPS':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK
-                  .contains(_typeATK != "Any ATK" ? _typeATK : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterRole.contains('DPS'))
-              .toList();
-          break;
-        case 'Support':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK
-                  .contains(_typeATK != "Any ATK" ? _typeATK : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterRole.contains('Support'))
-              .toList();
-          break;
-        default:
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK
-                  .contains(_typeATK != "Any ATK" ? _typeATK : ""))
-              .toList();
-      }
-    }
-
-    notifyListeners();
-  }
-
-  Future<void> changeTypeATK(String value) async {
-    if (_typeATK != value) {
-      _typeATK = value;
-      notifyListeners();
-      switch (value) {
-        case 'Physical':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) =>
-                  e.characterRole.contains(_role != "Any Role" ? _role : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK.contains(value))
-              .toList();
-          break;
-        case 'Fire':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) =>
-                  e.characterRole.contains(_role != "Any Role" ? _role : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK.contains(value))
-              .toList();
-
-          break;
-        case 'Ice':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) =>
-                  e.characterRole.contains(_role != "Any Role" ? _role : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK.contains(value))
-              .toList();
-
-          break;
-        case 'Lightning':
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) =>
-                  e.characterRole.contains(_role != "Any Role" ? _role : ""))
-              .toList();
-          _battlesuits = _battlesuits
-              .where((e) => e.characterTypeATK.contains(value))
-              .toList();
-
-          break;
-        default:
-          await getBattlesuits();
-          _battlesuits = _battlesuits
-              .where((e) =>
-                  e.characterRole.contains(_role != "Any Role" ? _role : ""))
-              .toList();
-      }
-    }
-
+  Future<void> searchBattlesuit(
+      {required String searchValue,
+      required String typeValue,
+      required String roleValue}) async {
+    _typeATK = typeValue;
+    _role = roleValue;
+    _searchResults = _battlesuits
+        .where((e) =>
+            e.characterName.toLowerCase().contains(searchValue.toLowerCase()) &&
+            e.characterTypeATK.toLowerCase().contains(
+                typeValue == "Any Type" ? "" : _typeATK.toLowerCase()) &&
+            e.characterRole
+                .toLowerCase()
+                .contains(roleValue == "Any Role" ? "" : _role.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 
@@ -258,6 +167,12 @@ class BattlesuitProvider extends ChangeNotifier {
 
   void changeAppState(AppState state) {
     _appState = state;
+    notifyListeners();
+  }
+
+  //button
+  void changeIndex(int index) {
+    _index = index;
     notifyListeners();
   }
 }

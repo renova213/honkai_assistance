@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/presentation/components/title_line.dart';
+import 'package:honkai_assistance/presentation/provider/elf_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
 import '../../../../domain/entities/elf_entity.dart';
 import '../../../components/loading.dart';
-import '../../../provider/elf_button_provider.dart';
 
 class ElfSkill extends StatelessWidget {
   final List<ElfSkillEntity> elfSkills;
@@ -56,7 +56,7 @@ class ElfSkill extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 8, crossAxisSpacing: 8, crossAxisCount: 4),
       itemBuilder: (context, index) {
-        return Consumer<ElfButtonProvider>(
+        return Consumer<ElfProvider>(
           builder: (context, elfButton, _) => GestureDetector(
             onTap: () {
               elfButton.changeIndex(index);
@@ -96,7 +96,7 @@ class ElfSkill extends StatelessWidget {
   }
 
   Consumer _descriptionSkill() {
-    return Consumer<ElfButtonProvider>(
+    return Consumer<ElfProvider>(
       builder: (context, elfButton, _) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
