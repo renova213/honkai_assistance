@@ -86,7 +86,7 @@ class _BattlesuitScreenState extends State<WeaponScreen> {
                               "Any Type",
                               "Pistol",
                               "Katana",
-                              "Canon",
+                              "Cannon",
                               "Cross",
                               "Greatsword",
                               "Gauntlet",

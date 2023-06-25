@@ -17,57 +17,59 @@ class GridWeapon extends StatelessWidget {
     return Consumer<WeaponProvider>(
       builder: (context, notifier, _) {
         if (notifier.appState == AppState.loaded) {
-          return GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: notifier.searchResults.length,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 2 / 2.8,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 16,
-                crossAxisCount: 3),
-            itemBuilder: (context, index) {
-              final weapon = notifier.searchResults[index];
+          return notifier.searchResults.isEmpty
+              ? _emptyListError()
+              : GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: notifier.searchResults.length,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 2 / 2.8,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 16,
+                      crossAxisCount: 3),
+                  itemBuilder: (context, index) {
+                    final weapon = notifier.searchResults[index];
 
-              notifier.changeBottomColor(weapon.rank);
+                    notifier.changeBottomColor(weapon.rank);
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        _generalDialog(
-                            context: context,
-                            screen: WeaponContainer(weapon: weapon));
-                      },
-                      child: Ink(
-                        width: 95.w,
-                        height: 95.h,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  CachedNetworkImageProvider(weapon.urlImage),
-                              fit: BoxFit.fill),
-                          border: Border(
-                            bottom: BorderSide(
-                                width: 3, color: notifier.bottomColor),
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              _generalDialog(
+                                  context: context,
+                                  screen: WeaponContainer(weapon: weapon));
+                            },
+                            child: Ink(
+                              width: 95.w,
+                              height: 95.h,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: CachedNetworkImageProvider(
+                                        weapon.urlImage),
+                                    fit: BoxFit.fill),
+                                border: Border(
+                                  bottom: BorderSide(
+                                      width: 3, color: notifier.bottomColor),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: 8.h),
+                          Text(weapon.weaponName,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppFont.smallText,
+                              textAlign: TextAlign.center)
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Text(weapon.weaponName,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppFont.smallText,
-                        textAlign: TextAlign.center)
-                  ],
-                ),
-              );
-            },
-          );
+                    );
+                  },
+                );
         }
 
         return const GridLoading();
@@ -96,6 +98,17 @@ class GridWeapon extends StatelessWidget {
           child: child,
         );
       },
+    );
+  }
+
+  Column _emptyListError() {
+    return Column(
+      children: [
+        Image.asset("assets/images/kiana.png", width: 100.w, height: 100.w),
+        SizedBox(height: 16.h),
+        Text("No weapons found. Try changing your filter.",
+            style: AppFont.subtitle, textAlign: TextAlign.center),
+      ],
     );
   }
 }
