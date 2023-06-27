@@ -1,0 +1,18 @@
+[
+  {
+    "stigmataName": "string",
+    "stigmataImage": "string",
+    "stigmataItems": [
+      {
+        "star": "string",
+        "stigmataImage": "string",
+        "stigmataType": "string",
+        "stigmataEffects": [
+          { "titleEffect": "string", "descriptionEffect": "string" }
+        ],
+        "stigmataPieceName": "string"
+      }
+    ],
+    "setEffects": [{ "setName": "string", "description": "string" }]
+  }
+]

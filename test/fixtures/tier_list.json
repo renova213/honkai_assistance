@@ -1,0 +1,9 @@
+[
+  {
+    "valkyrieName": "string",
+    "image": "string",
+    "element": "string",
+    "role": "string",
+    "tier": "string"
+  }
+]

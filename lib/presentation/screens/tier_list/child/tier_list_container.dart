@@ -71,7 +71,7 @@ class TierListContainer extends StatelessWidget {
                                                 roleValue: "Any Role")
                                             .then(
                                           (_) {
-                                            battlesuit.battlesuits.isEmpty
+                                            battlesuit.searchResults.isEmpty
                                                 ? ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                     const SnackBar(
@@ -83,12 +83,10 @@ class TierListContainer extends StatelessWidget {
                                                   )
                                                 : Navigator.of(context).push(
                                                     NavigatorFadeHelper(
-                                                      child:
-                                                          DetailBattlesuitScreen(
-                                                              character:
-                                                                  battlesuit
-                                                                      .battlesuits
-                                                                      .first),
+                                                      child: DetailBattlesuitScreen(
+                                                          character: battlesuit
+                                                              .searchResults
+                                                              .first),
                                                     ),
                                                   );
                                           },

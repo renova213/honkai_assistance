@@ -1,0 +1,8 @@
+[
+  {
+    "outfitName": "string",
+    "outfitImage": "string",
+    "grade": "string",
+    "outfitIcon": "string"
+  }
+]

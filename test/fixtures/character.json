@@ -1,68 +1,46 @@
 [
   {
-    "detail": {
-      "characterElysianRealm": {
-        "coreSignet": [{ "contents1": "contents1", "contents2": "contents2" }],
-        "reinforcementSignet": [
-          { "contents1": "contents1", "contents2": "contents2" }
-        ],
-        "recommendedSetup": {
-          "emblemSetup": [
-            { "contents1": "contents1", "contents2": "contents2" }
-          ],
-          "setupSignet": [
-            { "contents1": "contents1", "contents2": "contents2" }
-          ],
-          "supportSetup": [
-            {
-              "contents1": "contents1",
-              "contents2": "contents2",
-              "contents3": "contents3"
-            }
-          ]
-        }
-      },
-      "characterEquipment": {
-        "stigmatas": [
-          {
-            "nameStigmata": "nameStigmata",
-            "rank": "rank",
-            "urlImage": "urlImage"
-          }
-        ],
-        "weapons": [
-          {
-            "nameWeapon": "nameWeapon",
-            "rank": "rank",
-            "urlImage": "urlImage"
-          }
-        ]
-      },
-      "characterTeam": [
-        {
-          "characterTeamItem": [
-            { "nameCharacter": "nameCharacter", "urlImage": "urlImage" }
-          ],
-          "nameTeam": "nameTeam"
-        }
-      ],
-      "profile": {
-        "battlesuitDetail": "battlesuitDetail",
-        "birthplace": "birthplace",
-        "gender": "gender",
-        "height": "height",
-        "weight": "weight",
-        "organization": "organization",
-        "dateBirth": "dateBirth"
-      },
-      "rankUpLevel": [{ "description": "description", "rankUp": "rankUp" }]
+    "characterName": "string",
+    "urlImageCharacter": "string",
+    "urlImageAvatar": "string",
+    "urlImageATK": "string",
+    "characterRole": "string",
+    "characterTypeATK": "string",
+    "characterSpeciality": [{ "urlImage": "string", "name": "string" }],
+    "characterBiography": {
+      "rank": "string",
+      "typeElement": "string",
+      "typeATK": "string",
+      "backgroundDetail": "string",
+      "dateBirth": "string",
+      "gender": "string",
+      "organization": "string",
+      "height": "string",
+      "weight": "string",
+      "birthplace": "string"
     },
-    "element": "element",
-    "elementImage": "elementImage",
-    "image": "image",
-    "imageChibi": "imageChibi",
-    "nameCharacter": "nameCharacter",
-    "role": "role",
-    "tier": "tier"
+    "characterWeapon": [
+      {
+        "priority": "string",
+        "name": "string",
+        "urlImage": "string",
+        "star": "string",
+        "weaponSkill": [{ "title": "string", "description": "string" }]
+      }
+    ],
+    "characterStigmata": [
+      {
+        "priority": "string",
+        "typeStigmata": "string",
+        "name": "string",
+        "setName": "string",
+        "urlImage": "string",
+        "star": "string",
+        "stigmataEffect": [{ "title": "string", "description": "string" }]
+      }
+    ],
+    "characterTeam": [
+      { "teamList": [{ "name": "string", "urlImage": "string" }] }
+    ]
   }
 ]

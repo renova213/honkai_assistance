@@ -1,0 +1,16 @@
+[
+  {
+    "elfName": "string",
+    "urlImage": "string",
+    "typeATK": "string",
+    "urlImageATK": "string",
+    "elfSkills": [
+      {
+        "urlImage": "string",
+        "skillName": "string",
+        "descriptionSkill": "string"
+      }
+    ],
+    "elfSpecialities": [{ "urlImage": "string", "name": "string" }]
+  }
+]

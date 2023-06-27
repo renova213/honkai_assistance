@@ -1,83 +1,70 @@
-// import 'dart:convert';
+import 'dart:convert';
 
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:honkai_lab/data/models/character_model.dart';
-// import 'package:honkai_lab/domain/entities/character.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:honkai_assistance/data/models/character_model.dart';
+import 'package:honkai_assistance/domain/entities/character_entity.dart';
 
-// import '../../fixtures/fixture_reader.dart';
+import '../../fixtures/fixture_reader.dart';
 
-// void main() {
-//   CharacterModel testCharacterModel = const CharacterModel(
-//       element: "element",
-//       image: "image",
-//       imageChibi: "imageChibi",
-//       nameCharacter: "nameCharacter",
-//       tier: "tier",
-//       elementImage: "elementImage",
-//       role: "role",
-//       detail: DetailModel(
-//           characterProfile: CharacterProfileModel(
-//               dateBirth: "dateBirth",
-//               battlesuitDetail: "battlesuitDetail",
-//               gender: "gender",
-//               organization: "organization",
-//               height: "height",
-//               birthplace: "birthplace",
-//               weight: "weight"),
-//           rankUpLevel: <RankUpLevelModel>[
-//             RankUpLevelModel(rankUp: "rankUp", description: "description")
-//           ],
-//           characterEquipment: CharacterEquipmentModel(
-//               stigmatas: <EquipmentStigmataCharacterModel>[
-//                 EquipmentStigmataCharacterModel(
-//                     nameStigmata: "nameStigmata",
-//                     rank: "rank",
-//                     urlImage: "urlImage")
-//               ],
-//               weapons: <EquipmentWeaponCharacterModel>[
-//                 EquipmentWeaponCharacterModel(
-//                     nameWeapon: "nameWeapon",
-//                     rank: "rank",
-//                     urlImage: "urlImage")
-//               ]),
-//           characterTeam: <CharacterTeamModel>[
-//             CharacterTeamModel(characterTeam: <CharacterTeamItemModel>[
-//               CharacterTeamItemModel(
-//                   nameCharacter: "nameCharacter", urlImage: "urlImage")
-//             ], nameTeam: "nameTeam")
-//           ],
-//           characterElysianRealm: CharacterElysianRealmModel(
-//               recommendedSetup:
-//                   RecommendedSetupModel(emblemSetup: <EmblemSetupModel>[
-//                 EmblemSetupModel(contents1: "contents1", contents2: "contents2")
-//               ], setupSignet: <SetupSignetModel>[
-//                 SetupSignetModel(contents1: "contents1", contents2: "contents2")
-//               ], supportSetup: <SupportSetupModel>[
-//                 SupportSetupModel(
-//                     contents1: "contents1",
-//                     contents2: "contents2",
-//                     contents3: "contents3")
-//               ]),
-//               coreSignet: <CoreSignetModel>[
-//                 CoreSignetModel(contents1: "contents1", contents2: "contents2")
-//               ],
-//               reinforcementSignet: <ReinforcementSignetModel>[
-//                 ReinforcementSignetModel(
-//                     contents1: "contents1", contents2: "contents2")
-//               ])));
+void main() {
+  CharacterModel testCharacterModel = const CharacterModel(
+      characterName: "string",
+      urlImageCharacter: "string",
+      urlImageAvatar: "string",
+      urlImageATK: "string",
+      characterRole: "string",
+      characterTypeATK: "string",
+      characterSpeciality: <CharacterSpecialityModel>[
+        CharacterSpecialityModel(urlImage: "string", name: "string")
+      ],
+      characterBiography: CharacterBiographyModel(
+          rank: "string",
+          typeElement: "string",
+          typeATK: "string",
+          backgroundDetail: "string",
+          birthplace: "string",
+          dateBirth: "string",
+          gender: "string",
+          height: "string",
+          organization: "string",
+          weight: "string"),
+      characterWeapon: <CharacterWeaponModel>[
+        CharacterWeaponModel(
+            priority: "string",
+            name: "string",
+            star: "string",
+            urlImage: "string",
+            weaponSkill: [
+              WeaponSkillModel(title: "string", description: "string")
+            ])
+      ],
+      characterStigmata: <CharacterStigmataModel>[
+        CharacterStigmataModel(
+            priority: "string",
+            name: "string",
+            star: "string",
+            setName: "string",
+            typeStigmata: "string",
+            urlImage: "string",
+            stigmataEffect: [
+              CharacterStigmataEffectModel(
+                  title: "string", description: "string")
+            ])
+      ],
+      characterTeam: <CharacterTeamModel>[
+        CharacterTeamModel(
+            teamList: [TeamListModel(name: "string", urlImage: "string")])
+      ]);
 
-//   test('should be a subclass of Character entity', () {
-//     expect(testCharacterModel, isA<Character>());
-//   });
+  test('should be a subclass of CharacterEntity', () {
+    expect(testCharacterModel, isA<CharacterEntity>());
+  });
 
-//   group('fromJson', () {
-//     test('should return valid model CharacterModel from json', () {
-//       final List jsonMap = json.decode(
-//         fixture('character.json'),
-//       );
-
-//       final result = CharacterModel.fromMap(jsonMap.first);
-//       expect(result, testCharacterModel);
-//     });
-//   });
-// }
+  group('fromJson', () {
+    test('should return valid model CharacterModel from json', () {
+      final List jsonMap = json.decode(fixture('character.json'));
+      final result = CharacterModel.fromMap(jsonMap.first);
+      expect(result, testCharacterModel);
+    });
+  });
+}

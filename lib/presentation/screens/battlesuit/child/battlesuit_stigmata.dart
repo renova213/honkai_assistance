@@ -172,7 +172,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                             onTap: () async {
                               await notifier.searchStigmata(data.setName).then(
                                 (_) {
-                                  notifier.stigmatas.isEmpty
+                                  notifier.searchResults.isEmpty
                                       ? ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                           const SnackBar(
@@ -184,9 +184,10 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                                       : Navigator.of(context).push(
                                           NavigatorFadeHelper(
                                             child: DetailStigmataScreen(
-                                                stigmata: notifier
-                                                        .stigmatas.isNotEmpty
-                                                    ? notifier.stigmatas.first
+                                                stigmata: notifier.searchResults
+                                                        .isNotEmpty
+                                                    ? notifier
+                                                        .searchResults.first
                                                     : const StigmataEntity(
                                                         stigmataName: "",
                                                         stigmataImage: "",

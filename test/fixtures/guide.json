@@ -1,0 +1,15 @@
+[
+  {
+    "titleGuide": "string",
+    "urlImage": "string",
+    "descriptionGuide": "string",
+    "guideItems": [
+      {
+        "title": "string",
+        "guideDetails": [
+          { "description": "string", "subtitle": "string", "image": "string" }
+        ]
+      }
+    ]
+  }
+]

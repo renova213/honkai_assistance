@@ -1,0 +1,14 @@
+[
+  {
+    "weaponName": "string",
+    "type": "string",
+    "rank": "string",
+    "urlImage": "string",
+    "skillWeapons": [
+      {
+        "titleSkill": "string",
+        "descriptionSkill": "string"
+      }
+    ]
+  }
+]

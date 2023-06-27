@@ -1,0 +1,9 @@
+[
+  {
+    "urlWeaponImage": "string",
+    "urlStigmataImage": "string",
+    "endDate": "string",
+    "weaponName": "string",
+    "stigmataName": "string"
+  }
+]

@@ -15,7 +15,7 @@ class WeaponContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 24, bottom: 24),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Material(
         color: Colors.transparent,
         child: IntrinsicHeight(
@@ -53,12 +53,15 @@ class WeaponContainer extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            weapon.weaponName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppFont.mediumText
-                                .copyWith(fontWeight: FontWeight.bold),
+                          SizedBox(
+                            width: 200.w,
+                            child: Text(
+                              weapon.weaponName,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppFont.mediumText
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
                           ),
                           SizedBox(height: 8.h),
                           RatingStar(

@@ -1,13 +1,8 @@
 [
   {
-    "data": [
-      {
-        "nameCharacter": "nameCharacter",
-        "tierBefore": "tierBefore",
-        "tierCurrent": "tierCurrent",
-        "urlImage": "urlImage"
-      }
-    ],
-    "date": "date"
+    "image": "string",
+    "tierBefore": "string",
+    "tierAfter": "string",
+    "name": "string"
   }
 ]
