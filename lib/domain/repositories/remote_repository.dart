@@ -17,19 +17,19 @@ import '../entities/redeem_code_entity.dart';
 import '../entities/tier_list_entity.dart';
 
 abstract class RemoteRepository {
-  Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCodes();
-  Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdates();
-  Future<Either<Failure, List<EventEntity>>> getEvents();
-  Future<Either<Failure, List<CharacterBannerEntity>>> getCharacterBanners();
-  Future<Either<Failure, List<EquipmentBannerEntity>>> getEquipmentBanners();
-  Future<Either<Failure, List<ElfBannerEntity>>> getElfBanners();
-  Future<Either<Failure, List<CharacterEntity>>> getCharacters();
-  Future<Either<Failure, List<ElfEntity>>> getElfs();
-  Future<Either<Failure, List<StigmataEntity>>> getStigmatas();
-  Future<Either<Failure, List<WeaponEntity>>> getWeapons();
-  Future<Either<Failure, List<OutfitEntity>>> getOutfits();
+  Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCode();
+  Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdate();
+  Future<Either<Failure, List<EventEntity>>> getEvent();
+  Future<Either<Failure, List<CharacterBannerEntity>>> getCharacterBanner();
+  Future<Either<Failure, List<EquipmentBannerEntity>>> getEquipmentBanner();
+  Future<Either<Failure, List<ElfBannerEntity>>> getElfBanner();
+  Future<Either<Failure, List<CharacterEntity>>> getCharacter();
+  Future<Either<Failure, List<ElfEntity>>> getElf();
+  Future<Either<Failure, List<StigmataEntity>>> getStigmata();
+  Future<Either<Failure, List<WeaponEntity>>> getWeapon();
+  Future<Either<Failure, List<OutfitEntity>>> getOutfit();
   Future<Either<Failure, List<TierListEntity>>> getTierList();
-  Future<Either<Failure, List<ChangelogEntity>>> getChangelogs();
-  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuides();
-  Future<Either<Failure, List<GuideEntity>>> getGeneralGuides();
+  Future<Either<Failure, List<ChangelogEntity>>> getChangelog();
+  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuide();
+  Future<Either<Failure, List<GuideEntity>>> getGeneralGuide();
 }

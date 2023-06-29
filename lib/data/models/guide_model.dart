@@ -30,7 +30,7 @@ class GuideItemModel extends GuideItemEntity {
           : []);
 }
 
-class GuideItemDetailModel extends GuideDetailEntity {
+class GuideItemDetailModel extends GuideItemDetailEntity {
   const GuideItemDetailModel(
       {required super.description, super.image, super.subtitle});
 

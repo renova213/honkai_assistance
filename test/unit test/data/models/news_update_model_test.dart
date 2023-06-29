@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:honkai_assistance/data/models/news_update_model.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
-import '../../fixtures/fixture_reader.dart';
+import '../../../fixtures/fixture_reader.dart';
 
 void main() {
   const testNewsUpdateModel = NewsUpdateModel(

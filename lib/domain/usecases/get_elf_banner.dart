@@ -9,7 +9,7 @@ class GetElfBanner {
   GetElfBanner({required this.remoteRepository});
 
   Future<Either<Failure, List<ElfBannerEntity>>> call() async {
-    final elfBanners = await remoteRepository.getElfBanners();
+    final elfBanners = await remoteRepository.getElfBanner();
 
     return elfBanners;
   }

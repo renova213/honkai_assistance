@@ -8,8 +8,8 @@ class GetBeginnerGuide {
 
   GetBeginnerGuide({required this.remoteRepository});
 
-  Future<Either<Failure, List<GuideEntity>>> beginnerGuides() async {
-    final beginnerGuides = await remoteRepository.getBeginnerGuides();
+  Future<Either<Failure, List<GuideEntity>>> call() async {
+    final beginnerGuides = await remoteRepository.getBeginnerGuide();
 
     return beginnerGuides;
   }

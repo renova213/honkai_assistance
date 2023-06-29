@@ -16,28 +16,28 @@ import '../models/tier_list_model.dart';
 import '../models/weapon_model.dart';
 
 abstract class RemoteDataSource {
-  Future<List<RedeemCodeModel>> getRedeemCodes();
+  Future<List<RedeemCodeModel>> getRedeemCode();
   Future<List<NewsUpdateModel>> getNewsUpdate();
-  Future<List<EventModel>> getEvents();
-  Future<List<CharacterBannerModel>> getCharacterBanners();
-  Future<List<EquipmentBannerModel>> getEquipmentBanners();
-  Future<List<ElfBannerModel>> getElfBanners();
-  Future<List<CharacterModel>> getCharacters();
-  Future<List<ElfModel>> getElfs();
+  Future<List<EventModel>> getEvent();
+  Future<List<CharacterBannerModel>> getCharacterBanner();
+  Future<List<EquipmentBannerModel>> getEquipmentBanner();
+  Future<List<ElfBannerModel>> getElfBanner();
+  Future<List<CharacterModel>> getCharacter();
+  Future<List<ElfModel>> getElf();
   Future<List<StigmataModel>> getStigmata();
-  Future<List<WeaponModel>> getWeapons();
-  Future<List<OutfitModel>> getOutfits();
+  Future<List<WeaponModel>> getWeapon();
+  Future<List<OutfitModel>> getOutfit();
   Future<List<TierListModel>> getTierList();
   Future<List<ChangelogModel>> getChangelog();
-  Future<List<GuideModel>> getBeginnerGuides();
-  Future<List<GuideModel>> getGeneralGuides();
+  Future<List<GuideModel>> getBeginnerGuide();
+  Future<List<GuideModel>> getGeneralGuide();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final FirebaseFirestore firestoreService;
   RemoteDataSourceImpl({required this.firestoreService});
   @override
-  Future<List<RedeemCodeModel>> getRedeemCodes() async {
+  Future<List<RedeemCodeModel>> getRedeemCode() async {
     List<RedeemCodeModel> redeemCodes = [];
     await firestoreService.collection('redeem_code').get().then(
       (value) {
@@ -63,7 +63,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<EventModel>> getEvents() async {
+  Future<List<EventModel>> getEvent() async {
     List<EventModel> events = [];
     await firestoreService.collection('event').get().then(
       (value) {
@@ -76,7 +76,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<CharacterBannerModel>> getCharacterBanners() async {
+  Future<List<CharacterBannerModel>> getCharacterBanner() async {
     List<CharacterBannerModel> characterBanners = [];
     await firestoreService.collection('character_banner').get().then(
       (value) {
@@ -89,7 +89,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<EquipmentBannerModel>> getEquipmentBanners() async {
+  Future<List<EquipmentBannerModel>> getEquipmentBanner() async {
     List<EquipmentBannerModel> equipmentBanners = [];
     await firestoreService.collection('equipment_banner').get().then(
       (value) {
@@ -102,7 +102,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<ElfBannerModel>> getElfBanners() async {
+  Future<List<ElfBannerModel>> getElfBanner() async {
     List<ElfBannerModel> elfBanners = [];
     await firestoreService.collection('elf_banner').get().then(
       (value) {
@@ -115,7 +115,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<CharacterModel>> getCharacters() async {
+  Future<List<CharacterModel>> getCharacter() async {
     List<CharacterModel> characters = [];
     await firestoreService.collection('character').get().then(
       (value) {
@@ -128,7 +128,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<ElfModel>> getElfs() async {
+  Future<List<ElfModel>> getElf() async {
     List<ElfModel> elfs = [];
     await firestoreService.collection('elf').get().then(
       (value) {
@@ -154,7 +154,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<WeaponModel>> getWeapons() async {
+  Future<List<WeaponModel>> getWeapon() async {
     List<WeaponModel> weapons = [];
     await firestoreService.collection('weapon').get().then(
       (value) {
@@ -167,7 +167,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<OutfitModel>> getOutfits() async {
+  Future<List<OutfitModel>> getOutfit() async {
     List<OutfitModel> outfits = [];
     await firestoreService.collection('outfit').get().then(
       (value) {
@@ -206,7 +206,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<GuideModel>> getBeginnerGuides() async {
+  Future<List<GuideModel>> getBeginnerGuide() async {
     List<GuideModel> guides = [];
     await firestoreService.collection('beginner_guide').get().then(
       (value) {
@@ -219,7 +219,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<List<GuideModel>> getGeneralGuides() async {
+  Future<List<GuideModel>> getGeneralGuide() async {
     List<GuideModel> guides = [];
     await firestoreService.collection('general_guide').get().then(
       (value) {

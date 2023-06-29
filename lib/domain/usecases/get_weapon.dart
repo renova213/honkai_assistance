@@ -11,7 +11,7 @@ class GetWeapon {
 
   Future<Either<Failure, List<WeaponEntity>>> call() async {
     Either<Failure, List<WeaponEntity>> weapons =
-        await remoteRepository.getWeapons();
+        await remoteRepository.getWeapon();
 
     return weapons;
   }

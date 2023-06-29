@@ -8,8 +8,8 @@ class GetGeneralGuide {
 
   GetGeneralGuide({required this.remoteRepository});
 
-  Future<Either<Failure, List<GuideEntity>>> generalGuides() async {
-    final generalGuides = await remoteRepository.getGeneralGuides();
+  Future<Either<Failure, List<GuideEntity>>> call() async {
+    final generalGuides = await remoteRepository.getGeneralGuide();
 
     return generalGuides;
   }

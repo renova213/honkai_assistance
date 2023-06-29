@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:honkai_assistance/data/models/character_model.dart';
 import 'package:honkai_assistance/domain/entities/character_entity.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../../../fixtures/fixture_reader.dart';
 
 void main() {
   CharacterModel testCharacterModel = const CharacterModel(

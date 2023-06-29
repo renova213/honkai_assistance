@@ -19,7 +19,7 @@ class BeginnerGuideProvider extends ChangeNotifier {
   Future<void> getBeginnerGuides() async {
     changeAppState(AppState.loading);
 
-    final failureOrCharacterBanner = await getBeginnerGuide.beginnerGuides();
+    final failureOrCharacterBanner = await getBeginnerGuide.call();
 
     failureOrCharacterBanner.fold(
       (failure) {

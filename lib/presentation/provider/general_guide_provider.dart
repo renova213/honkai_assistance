@@ -19,7 +19,7 @@ class GeneralGuideProvider extends ChangeNotifier {
   Future<void> getGeneralGuides() async {
     changeAppState(AppState.loading);
 
-    final failureOrCharacterBanner = await getGeneralGuide.generalGuides();
+    final failureOrCharacterBanner = await getGeneralGuide.call();
 
     failureOrCharacterBanner.fold(
       (failure) {

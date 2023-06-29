@@ -9,7 +9,7 @@ class GetChangelog {
   GetChangelog({required this.remoteRepository});
 
   Future<Either<Failure, List<ChangelogEntity>>> call() async {
-    final changelogs = await remoteRepository.getChangelogs();
+    final changelogs = await remoteRepository.getChangelog();
 
     return changelogs;
   }

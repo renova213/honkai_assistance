@@ -9,7 +9,7 @@ class GetEvent {
   GetEvent({required this.remoteRepository});
 
   Future<Either<Failure, List<EventEntity>>> call() async {
-    final events = await remoteRepository.getEvents();
+    final events = await remoteRepository.getEvent();
 
     return events;
   }

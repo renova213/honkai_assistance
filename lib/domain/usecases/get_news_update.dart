@@ -9,7 +9,7 @@ class GetNewsUpdate {
   GetNewsUpdate({required this.remoteRepository});
 
   Future<Either<Failure, List<NewsUpdateEntity>>> call() async {
-    final newsUpdates = await remoteRepository.getNewsUpdates();
+    final newsUpdates = await remoteRepository.getNewsUpdate();
 
     return newsUpdates;
   }

@@ -11,7 +11,7 @@ class GetRedeemCode {
 
   Future<Either<Failure, List<RedeemCodeEntity>>> call() async {
     Either<Failure, List<RedeemCodeEntity>> redeemCodes =
-        await remoteRepository.getRedeemCodes();
+        await remoteRepository.getRedeemCode();
 
     return redeemCodes;
   }

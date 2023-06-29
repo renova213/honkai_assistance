@@ -11,7 +11,7 @@ class GetOutfit {
 
   Future<Either<Failure, List<OutfitEntity>>> call() async {
     Either<Failure, List<OutfitEntity>> outfits =
-        await remoteRepository.getOutfits();
+        await remoteRepository.getOutfit();
 
     return outfits;
   }

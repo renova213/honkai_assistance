@@ -9,7 +9,7 @@ class GetElf {
   GetElf({required this.remoteRepository});
 
   Future<Either<Failure, List<ElfEntity>>> call() async {
-    final elfs = await remoteRepository.getElfs();
+    final elfs = await remoteRepository.getElf();
 
     return elfs;
   }

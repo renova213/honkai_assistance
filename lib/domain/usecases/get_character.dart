@@ -10,7 +10,7 @@ class GetCharacter {
   GetCharacter({required this.remoteRepository});
 
   Future<Either<Failure, List<CharacterEntity>>> call() async {
-    final characters = await remoteRepository.getCharacters();
+    final characters = await remoteRepository.getCharacter();
 
     return characters;
   }

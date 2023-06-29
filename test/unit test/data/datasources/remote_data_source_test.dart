@@ -17,7 +17,7 @@ import 'package:honkai_assistance/data/models/weapon_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'honkai_lab_remote_data_source_impl_test.mocks.dart';
+import 'remote_data_source_test.mocks.dart';
 
 @GenerateMocks([RemoteDataSourceImpl])
 void main() {
@@ -167,24 +167,24 @@ void main() {
         SkillWeaponModel(titleSkill: "string", descriptionSkill: "string")
       ]);
 
-  group("getRedeemCodes", () {
+  group("getRedeemCode", () {
     test('should return list of RedeemCodeModel when success get data',
         () async {
-      when(dataSourceImpl.getRedeemCodes()).thenAnswer(
+      when(dataSourceImpl.getRedeemCode()).thenAnswer(
         (_) async => <RedeemCodeModel>[testRedeemCodeModel],
       );
-      final redeemCodes = await dataSourceImpl.getRedeemCodes();
-      expect(redeemCodes, equals(<RedeemCodeModel>[testRedeemCodeModel]));
+      final result = await dataSourceImpl.getRedeemCode();
+      expect(result, equals(<RedeemCodeModel>[testRedeemCodeModel]));
     });
   });
 
   group("getEvent", () {
     test('should return list of EventModel when success get data', () async {
-      when(dataSourceImpl.getEvents()).thenAnswer(
+      when(dataSourceImpl.getEvent()).thenAnswer(
         (_) async => <EventModel>[testEventModel],
       );
-      final events = await dataSourceImpl.getEvents();
-      expect(events, equals(<EventModel>[testEventModel]));
+      final result = await dataSourceImpl.getEvent();
+      expect(result, equals(<EventModel>[testEventModel]));
     });
   });
 
@@ -194,64 +194,62 @@ void main() {
       when(dataSourceImpl.getNewsUpdate()).thenAnswer(
         (_) async => <NewsUpdateModel>[testNewsUpdateModel],
       );
-      final newsUpdates = await dataSourceImpl.getNewsUpdate();
-      expect(newsUpdates, equals(<NewsUpdateModel>[testNewsUpdateModel]));
+      final result = await dataSourceImpl.getNewsUpdate();
+      expect(result, equals(<NewsUpdateModel>[testNewsUpdateModel]));
     });
   });
 
-  group("getCharacterBanners", () {
+  group("getCharacterBanner", () {
     test('should return list of CharacterBannerModel when success get data',
         () async {
-      when(dataSourceImpl.getCharacterBanners()).thenAnswer(
+      when(dataSourceImpl.getCharacterBanner()).thenAnswer(
         (_) async => <CharacterBannerModel>[testCharacterBannerModel],
       );
-      final characterBanners = await dataSourceImpl.getCharacterBanners();
-      expect(characterBanners,
-          equals(<CharacterBannerModel>[testCharacterBannerModel]));
+      final result = await dataSourceImpl.getCharacterBanner();
+      expect(result, equals(<CharacterBannerModel>[testCharacterBannerModel]));
     });
   });
 
-  group("getElfBanners", () {
+  group("getElfBanner", () {
     test('should return list of ElfBannerModel when success get data',
         () async {
-      when(dataSourceImpl.getElfBanners()).thenAnswer(
+      when(dataSourceImpl.getElfBanner()).thenAnswer(
         (_) async => <ElfBannerModel>[testElfBannerModel],
       );
-      final elfBanners = await dataSourceImpl.getElfBanners();
-      expect(elfBanners, equals(<ElfBannerModel>[testElfBannerModel]));
+      final result = await dataSourceImpl.getElfBanner();
+      expect(result, equals(<ElfBannerModel>[testElfBannerModel]));
     });
   });
 
-  group("getEquipmentBanners", () {
+  group("getEquipmentBanner", () {
     test('should return list of EquipmentBannerModel when success get data',
         () async {
-      when(dataSourceImpl.getEquipmentBanners()).thenAnswer(
+      when(dataSourceImpl.getEquipmentBanner()).thenAnswer(
         (_) async => <EquipmentBannerModel>[testEquipmentBannerModel],
       );
-      final equipmentBanners = await dataSourceImpl.getEquipmentBanners();
-      expect(equipmentBanners,
-          equals(<EquipmentBannerModel>[testEquipmentBannerModel]));
+      final result = await dataSourceImpl.getEquipmentBanner();
+      expect(result, equals(<EquipmentBannerModel>[testEquipmentBannerModel]));
     });
   });
 
-  group("getCharacters", () {
+  group("getCharacter", () {
     test('should return list of CharacterModel when success get data',
         () async {
-      when(dataSourceImpl.getCharacters()).thenAnswer(
+      when(dataSourceImpl.getCharacter()).thenAnswer(
         (_) async => <CharacterModel>[testCharacterModel],
       );
-      final characters = await dataSourceImpl.getCharacters();
-      expect(characters, equals(<CharacterModel>[testCharacterModel]));
+      final result = await dataSourceImpl.getCharacter();
+      expect(result, equals(<CharacterModel>[testCharacterModel]));
     });
   });
 
   group("getElf", () {
     test('should return list of ElfModel when success get data', () async {
-      when(dataSourceImpl.getElfs()).thenAnswer(
+      when(dataSourceImpl.getElf()).thenAnswer(
         (_) async => <ElfModel>[testElfModel],
       );
-      final elfs = await dataSourceImpl.getElfs();
-      expect(elfs, equals(<ElfModel>[testElfModel]));
+      final result = await dataSourceImpl.getElf();
+      expect(result, equals(<ElfModel>[testElfModel]));
     });
   });
 
@@ -260,35 +258,35 @@ void main() {
         () async {
       when(dataSourceImpl.getChangelog())
           .thenAnswer((_) async => [testChangelogModel]);
-      final changelogs = await dataSourceImpl.getChangelog();
-      expect(changelogs, equals([testChangelogModel]));
+      final result = await dataSourceImpl.getChangelog();
+      expect(result, equals([testChangelogModel]));
     });
   });
 
-  group("getGeneralGuides", () {
+  group("getGeneralGuide", () {
     test('should return list of GuideModel when success get data', () async {
-      when(dataSourceImpl.getGeneralGuides())
+      when(dataSourceImpl.getGeneralGuide())
           .thenAnswer((_) async => [testGuideModel]);
-      final generalGuides = await dataSourceImpl.getGeneralGuides();
-      expect(generalGuides, equals([testGuideModel]));
+      final result = await dataSourceImpl.getGeneralGuide();
+      expect(result, equals([testGuideModel]));
     });
   });
 
-  group("getBeginnerGuides", () {
+  group("getBeginnerGuide", () {
     test('should return list of GuideModel when success get data', () async {
-      when(dataSourceImpl.getBeginnerGuides())
+      when(dataSourceImpl.getBeginnerGuide())
           .thenAnswer((_) async => [testGuideModel]);
-      final generalGuides = await dataSourceImpl.getBeginnerGuides();
-      expect(generalGuides, equals([testGuideModel]));
+      final result = await dataSourceImpl.getBeginnerGuide();
+      expect(result, equals([testGuideModel]));
     });
   });
 
-  group("getOutfits", () {
+  group("getOutfit", () {
     test('should return list of OutfitModel when success get data', () async {
-      when(dataSourceImpl.getOutfits())
+      when(dataSourceImpl.getOutfit())
           .thenAnswer((_) async => [testOutfitModel]);
-      final outfits = await dataSourceImpl.getOutfits();
-      expect(outfits, equals([testOutfitModel]));
+      final result = await dataSourceImpl.getOutfit();
+      expect(result, equals([testOutfitModel]));
     });
   });
 
@@ -296,8 +294,8 @@ void main() {
     test('should return list of StigmataModel when success get data', () async {
       when(dataSourceImpl.getStigmata())
           .thenAnswer((_) async => [testStigmataModel]);
-      final outfits = await dataSourceImpl.getStigmata();
-      expect(outfits, equals([testStigmataModel]));
+      final result = await dataSourceImpl.getStigmata();
+      expect(result, equals([testStigmataModel]));
     });
   });
 
@@ -305,17 +303,17 @@ void main() {
     test('should return list of TierListModel when success get data', () async {
       when(dataSourceImpl.getTierList())
           .thenAnswer((_) async => [testTierListModel]);
-      final outfits = await dataSourceImpl.getTierList();
-      expect(outfits, equals([testTierListModel]));
+      final result = await dataSourceImpl.getTierList();
+      expect(result, equals([testTierListModel]));
     });
   });
 
-  group("getWeapons", () {
+  group("getWeapon", () {
     test('should return list of WeaponModel when success get data', () async {
-      when(dataSourceImpl.getWeapons())
+      when(dataSourceImpl.getWeapon())
           .thenAnswer((_) async => [testWeaponModel]);
-      final outfits = await dataSourceImpl.getWeapons();
-      expect(outfits, equals([testWeaponModel]));
+      final result = await dataSourceImpl.getWeapon();
+      expect(result, equals([testWeaponModel]));
     });
   });
 }

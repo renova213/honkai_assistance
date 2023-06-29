@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:honkai_assistance/data/models/outfit_model.dart';
 import 'package:honkai_assistance/domain/entities/outfit_entity.dart';
-import '../../fixtures/fixture_reader.dart';
+import '../../../fixtures/fixture_reader.dart';
 
 void main() {
   const testOutfitModel = OutfitModel(

@@ -59,7 +59,7 @@ class DetailGuideScreen extends StatelessWidget {
         itemCount: guide.guideItems!.length);
   }
 
-  ListView _listGuideItemDetail(List<GuideDetailEntity> guideDetail) {
+  ListView _listGuideItemDetail(List<GuideItemDetailEntity> guideDetail) {
     return ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

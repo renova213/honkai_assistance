@@ -11,7 +11,7 @@ class GetStigmata {
 
   Future<Either<Failure, List<StigmataEntity>>> call() async {
     Either<Failure, List<StigmataEntity>> stigmatas =
-        await remoteRepository.getStigmatas();
+        await remoteRepository.getStigmata();
 
     return stigmatas;
   }

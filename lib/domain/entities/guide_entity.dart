@@ -18,18 +18,18 @@ class GuideEntity extends Equatable {
 
 class GuideItemEntity extends Equatable {
   final String? title;
-  final List<GuideDetailEntity>? guideDetails;
+  final List<GuideItemDetailEntity>? guideDetails;
   const GuideItemEntity({this.title, this.guideDetails});
 
   @override
   List<Object> get props => [title!, guideDetails!];
 }
 
-class GuideDetailEntity extends Equatable {
+class GuideItemDetailEntity extends Equatable {
   final String? subtitle;
   final String? image;
   final String description;
-  const GuideDetailEntity(
+  const GuideItemDetailEntity(
       {this.subtitle, this.image, required this.description});
   @override
   List<Object> get props => [subtitle!, image!, description];

@@ -26,9 +26,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   RemoteRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCodes() async {
+  Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCode() async {
     try {
-      final redeemCodes = await remoteDataSource.getRedeemCodes();
+      final redeemCodes = await remoteDataSource.getRedeemCode();
 
       return Right(redeemCodes);
     } on SocketException {
@@ -39,7 +39,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdates() async {
+  Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdate() async {
     try {
       final newsUpdates = await remoteDataSource.getNewsUpdate();
 
@@ -52,9 +52,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<EventEntity>>> getEvents() async {
+  Future<Either<Failure, List<EventEntity>>> getEvent() async {
     try {
-      final events = await remoteDataSource.getEvents();
+      final events = await remoteDataSource.getEvent();
 
       return Right(events);
     } on SocketException {
@@ -66,9 +66,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
 
   @override
   Future<Either<Failure, List<CharacterBannerEntity>>>
-      getCharacterBanners() async {
+      getCharacterBanner() async {
     try {
-      final characterBanners = await remoteDataSource.getCharacterBanners();
+      final characterBanners = await remoteDataSource.getCharacterBanner();
 
       return Right(characterBanners);
     } on SocketException {
@@ -80,9 +80,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
 
   @override
   Future<Either<Failure, List<EquipmentBannerEntity>>>
-      getEquipmentBanners() async {
+      getEquipmentBanner() async {
     try {
-      final equipmentBanners = await remoteDataSource.getEquipmentBanners();
+      final equipmentBanners = await remoteDataSource.getEquipmentBanner();
 
       return Right(equipmentBanners);
     } on SocketException {
@@ -93,9 +93,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<ElfBannerEntity>>> getElfBanners() async {
+  Future<Either<Failure, List<ElfBannerEntity>>> getElfBanner() async {
     try {
-      final elfBanners = await remoteDataSource.getElfBanners();
+      final elfBanners = await remoteDataSource.getElfBanner();
 
       return Right(elfBanners);
     } on SocketException {
@@ -106,9 +106,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<CharacterEntity>>> getCharacters() async {
+  Future<Either<Failure, List<CharacterEntity>>> getCharacter() async {
     try {
-      final characters = await remoteDataSource.getCharacters();
+      final characters = await remoteDataSource.getCharacter();
 
       return Right(characters);
     } on SocketException {
@@ -119,9 +119,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<ElfEntity>>> getElfs() async {
+  Future<Either<Failure, List<ElfEntity>>> getElf() async {
     try {
-      final elfs = await remoteDataSource.getElfs();
+      final elfs = await remoteDataSource.getElf();
 
       return Right(elfs);
     } on SocketException {
@@ -132,7 +132,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<StigmataEntity>>> getStigmatas() async {
+  Future<Either<Failure, List<StigmataEntity>>> getStigmata() async {
     try {
       final stigmatas = await remoteDataSource.getStigmata();
 
@@ -145,9 +145,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<WeaponEntity>>> getWeapons() async {
+  Future<Either<Failure, List<WeaponEntity>>> getWeapon() async {
     try {
-      final weapons = await remoteDataSource.getWeapons();
+      final weapons = await remoteDataSource.getWeapon();
 
       return Right(weapons);
     } on SocketException {
@@ -158,9 +158,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<OutfitEntity>>> getOutfits() async {
+  Future<Either<Failure, List<OutfitEntity>>> getOutfit() async {
     try {
-      final outfits = await remoteDataSource.getOutfits();
+      final outfits = await remoteDataSource.getOutfit();
 
       return Right(outfits);
     } on SocketException {
@@ -184,7 +184,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<ChangelogEntity>>> getChangelogs() async {
+  Future<Either<Failure, List<ChangelogEntity>>> getChangelog() async {
     try {
       final changelogs = await remoteDataSource.getChangelog();
 
@@ -197,9 +197,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuides() async {
+  Future<Either<Failure, List<GuideEntity>>> getBeginnerGuide() async {
     try {
-      final guides = await remoteDataSource.getBeginnerGuides();
+      final guides = await remoteDataSource.getBeginnerGuide();
 
       return Right(guides);
     } on SocketException {
@@ -210,9 +210,9 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<GuideEntity>>> getGeneralGuides() async {
+  Future<Either<Failure, List<GuideEntity>>> getGeneralGuide() async {
     try {
-      final guides = await remoteDataSource.getGeneralGuides();
+      final guides = await remoteDataSource.getGeneralGuide();
 
       return Right(guides);
     } on SocketException {
