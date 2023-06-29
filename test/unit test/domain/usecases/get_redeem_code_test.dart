@@ -11,17 +11,17 @@ void main() {
 
   GetRedeemCode usecase = GetRedeemCode(remoteRepository: remoteRepository);
 
-  const testRedeemCode =
+  const testRedeemCodeEntity =
       RedeemCodeEntity(code: "code", reward: "reward", server: "server");
 
   test('should get list of RedeemCodeEntity from the repository', () async {
     when(remoteRepository.getRedeemCode())
-        .thenAnswer((_) async => const Right([testRedeemCode]));
+        .thenAnswer((_) async => const Right([testRedeemCodeEntity]));
 
     final result = await usecase();
 
     verify(remoteRepository.getRedeemCode());
 
-    expect(result, const Right([testRedeemCode]));
+    expect(result, const Right([testRedeemCodeEntity]));
   });
 }
