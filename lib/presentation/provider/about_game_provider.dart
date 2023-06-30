@@ -104,7 +104,7 @@ Honkai is the shadow of civilization that aims to exterminate it. The Will of Ho
   List<Map<String, dynamic>> get officialLinksGlobal => _officialLinksGlobal;
   List<Map<String, dynamic>> get aboutContents => _aboutContents;
 
-  void changeIndexHeader(int index) {
+  Future<void> changeIndexHeader(int index) async {
     _indexHeader = index;
     notifyListeners();
   }

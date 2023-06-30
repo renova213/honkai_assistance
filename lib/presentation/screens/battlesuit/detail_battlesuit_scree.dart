@@ -25,18 +25,18 @@ class DetailBattlesuitScreen extends StatelessWidget {
                     children: [
                       BattlesuitSpeciality(
                           battlesuitSpecialities:
-                              character.characterSpeciality!),
+                              character.characterSpeciality),
                       SizedBox(height: 24.h),
                       BattlesuitBiography(
-                          battlesuitBiography: character.characterBiography!),
+                          battlesuitBiography: character.characterBiography),
                       SizedBox(height: 24.h),
                       BattlesuitWeapon(
-                          battlesuitWeapons: character.characterWeapon!),
+                          battlesuitWeapons: character.characterWeapon),
                       SizedBox(height: 24.h),
                       BattlesuitStigmata(
-                          battlesuitStigmatas: character.characterStigmata!),
+                          battlesuitStigmatas: character.characterStigmata),
                       SizedBox(height: 24.h),
-                      BattlesuitTeam(battlesuitTeams: character.characterTeam!),
+                      BattlesuitTeam(battlesuitTeams: character.characterTeam),
                     ],
                   ),
                 ),

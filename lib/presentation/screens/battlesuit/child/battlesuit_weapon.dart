@@ -131,7 +131,7 @@ class _BattlesuitWeaponState extends State<BattlesuitWeapon> {
                     ),
                     SizedBox(height: 8.h),
                     WeaponSkillContainer(
-                        onTap: false, weaponSkills: data.weaponSkill!),
+                        onTap: false, weaponSkills: data.weaponSkill),
                   ],
                 ),
               ),

@@ -7,11 +7,11 @@ class CharacterEntity extends Equatable {
   final String urlImageATK;
   final String characterRole;
   final String characterTypeATK;
-  final List<CharacterSpecialityEntity>? characterSpeciality;
-  final CharacterBiographyEntity? characterBiography;
-  final List<CharacterWeaponEntity>? characterWeapon;
-  final List<CharacterStigmataEntity>? characterStigmata;
-  final List<CharacterTeamEntity>? characterTeam;
+  final List<CharacterSpecialityEntity> characterSpeciality;
+  final CharacterBiographyEntity characterBiography;
+  final List<CharacterWeaponEntity> characterWeapon;
+  final List<CharacterStigmataEntity> characterStigmata;
+  final List<CharacterTeamEntity> characterTeam;
   const CharacterEntity(
       {required this.characterName,
       required this.urlImageCharacter,
@@ -19,11 +19,11 @@ class CharacterEntity extends Equatable {
       required this.urlImageATK,
       required this.characterRole,
       required this.characterTypeATK,
-      this.characterSpeciality,
-      this.characterBiography,
-      this.characterWeapon,
-      this.characterStigmata,
-      this.characterTeam});
+      required this.characterSpeciality,
+      required this.characterBiography,
+      required this.characterWeapon,
+      required this.characterStigmata,
+      required this.characterTeam});
 
   @override
   List<Object> get props => [
@@ -33,11 +33,11 @@ class CharacterEntity extends Equatable {
         urlImageATK,
         characterRole,
         characterTypeATK,
-        characterSpeciality!,
-        characterBiography!,
-        characterWeapon!,
-        characterStigmata!,
-        characterTeam!
+        characterSpeciality,
+        characterBiography,
+        characterWeapon,
+        characterStigmata,
+        characterTeam
       ];
 }
 
@@ -94,17 +94,17 @@ class CharacterWeaponEntity extends Equatable {
   final String name;
   final String urlImage;
   final String star;
-  final List<WeaponSkillEntity>? weaponSkill;
+  final List<WeaponSkillEntity> weaponSkill;
 
   const CharacterWeaponEntity(
       {required this.priority,
       required this.name,
       required this.star,
       required this.urlImage,
-      this.weaponSkill});
+      required this.weaponSkill});
 
   @override
-  List<Object> get props => [priority, name, urlImage, star, weaponSkill!];
+  List<Object> get props => [priority, name, urlImage, star, weaponSkill];
 }
 
 class WeaponSkillEntity extends Equatable {
@@ -124,7 +124,7 @@ class CharacterStigmataEntity extends Equatable {
   final String setName;
   final String urlImage;
   final String star;
-  final List<CharacterStigmataEffectEntity>? stigmataEffect;
+  final List<CharacterStigmataEffectEntity> stigmataEffect;
 
   const CharacterStigmataEntity(
       {required this.priority,
@@ -133,10 +133,10 @@ class CharacterStigmataEntity extends Equatable {
       required this.setName,
       required this.typeStigmata,
       required this.urlImage,
-      this.stigmataEffect});
+      required this.stigmataEffect});
   @override
   List<Object> get props =>
-      [priority, typeStigmata, name, urlImage, star, setName, stigmataEffect!];
+      [priority, typeStigmata, name, urlImage, star, setName, stigmataEffect];
 }
 
 class CharacterStigmataEffectEntity extends Equatable {

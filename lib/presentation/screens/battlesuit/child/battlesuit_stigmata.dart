@@ -234,7 +234,7 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                     ),
                     SizedBox(height: 8.h),
                     BattlesuitStigmataEffectContainer(
-                        onTap: false, stigmataEffects: data.stigmataEffect!),
+                        onTap: false, stigmataEffects: data.stigmataEffect),
                   ],
                 ),
               ),

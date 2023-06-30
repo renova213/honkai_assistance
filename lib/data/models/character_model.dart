@@ -8,11 +8,11 @@ class CharacterModel extends CharacterEntity {
       required super.urlImageATK,
       required super.characterRole,
       required super.characterTypeATK,
-      super.characterSpeciality,
-      super.characterBiography,
-      super.characterWeapon,
-      super.characterStigmata,
-      super.characterTeam});
+      required super.characterSpeciality,
+      required super.characterBiography,
+      required super.characterWeapon,
+      required super.characterStigmata,
+      required super.characterTeam});
 
   factory CharacterModel.fromMap(Map<String, dynamic> map) => CharacterModel(
         characterName: map['characterName'],
@@ -98,7 +98,7 @@ class CharacterWeaponModel extends CharacterWeaponEntity {
       required super.name,
       required super.star,
       required super.urlImage,
-      super.weaponSkill});
+      required super.weaponSkill});
 
   factory CharacterWeaponModel.fromMap(Map<String, dynamic> map) =>
       CharacterWeaponModel(
@@ -128,7 +128,7 @@ class CharacterStigmataModel extends CharacterStigmataEntity {
       required super.setName,
       required super.typeStigmata,
       required super.urlImage,
-      super.stigmataEffect});
+      required super.stigmataEffect});
 
   factory CharacterStigmataModel.fromMap(Map<String, dynamic> map) =>
       CharacterStigmataModel(
