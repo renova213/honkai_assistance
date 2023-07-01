@@ -1,0 +1,52 @@
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:honkai_assistance/common/constant.dart';
+import 'package:honkai_assistance/common/error/error.dart';
+import 'package:honkai_assistance/common/util/utils.dart';
+import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
+import 'package:honkai_assistance/domain/usecases/get_news_update.dart';
+import 'package:honkai_assistance/presentation/provider/news_update_provider.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'news_update_provider_test.mocks.dart';
+
+@GenerateMocks([GetNewsUpdate])
+void main() {
+  const testNewsUpdateEntity = NewsUpdateEntity(
+      urlWeb: "string",
+      date: "string",
+      title: "string",
+      description: "string",
+      urlImage: "string");
+
+  group('NewsUpdateProvider', () {
+    MockGetNewsUpdate usecase = MockGetNewsUpdate();
+    NewsUpdateProvider provider = NewsUpdateProvider(getNewsUpdate: usecase);
+
+    test(
+        'should update app state and NewsUpdateEntity list on successful data retrieval',
+        () async {
+      when(usecase.call()).thenAnswer(
+        (_) async => const Right([testNewsUpdateEntity]),
+      );
+
+      await provider.getNewsUpdates();
+
+      expect(provider.appstate, AppState.loaded);
+      expect(provider.newsUpdates.length, 1);
+    });
+
+    test('should update app state and failureMessage on failed data retrieval',
+        () async {
+      when(usecase.call()).thenAnswer(
+        (_) async => const Left(InternetFailure(message: internetError)),
+      );
+
+      await provider.getNewsUpdates();
+
+      expect(provider.appstate, AppState.failed);
+      expect(provider.failureMessage, internetError);
+    });
+  });
+}

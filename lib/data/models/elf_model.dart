@@ -6,8 +6,8 @@ class ElfModel extends ElfEntity {
       required super.urlImage,
       required super.typeATK,
       required super.urlImageATK,
-      super.elfSkills,
-      super.elfSpecialities});
+      required super.elfSkills,
+      required super.elfSpecialities});
 
   factory ElfModel.fromMap(Map<String, dynamic> map) => ElfModel(
       elfName: map['elfName'],

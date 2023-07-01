@@ -37,9 +37,9 @@ class _DetailElfScreenState extends State<DetailElfScreen> {
                   padding: EdgeInsets.all(20.r),
                   child: Column(
                     children: [
-                      ElfSpeciality(elfSpeciality: widget.elf.elfSpecialities!),
+                      ElfSpeciality(elfSpeciality: widget.elf.elfSpecialities),
                       SizedBox(height: 24.h),
-                      ElfSkill(elfSkills: widget.elf.elfSkills!),
+                      ElfSkill(elfSkills: widget.elf.elfSkills),
                     ],
                   ),
                 ),

@@ -5,15 +5,15 @@ class ElfEntity extends Equatable {
   final String urlImage;
   final String typeATK;
   final String urlImageATK;
-  final List<ElfSpecialityEntity>? elfSpecialities;
-  final List<ElfSkillEntity>? elfSkills;
+  final List<ElfSpecialityEntity> elfSpecialities;
+  final List<ElfSkillEntity> elfSkills;
   const ElfEntity(
       {required this.elfName,
       required this.urlImage,
       required this.typeATK,
       required this.urlImageATK,
-      this.elfSpecialities,
-      this.elfSkills});
+      required this.elfSpecialities,
+      required this.elfSkills});
 
   @override
   List<Object> get props => [
@@ -21,8 +21,8 @@ class ElfEntity extends Equatable {
         urlImage,
         typeATK,
         urlImageATK,
-        elfSpecialities!,
-        elfSkills!,
+        elfSpecialities,
+        elfSkills,
       ];
 }
 
