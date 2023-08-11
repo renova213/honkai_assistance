@@ -99,14 +99,14 @@ class ElfBanner extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.w),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Loading(width: 85, height: 85, borderRadius: 0),
+            Loading(width: 85, height: 85, borderRadius: 0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 Loading(width: 150, height: 15, borderRadius: 0),
                 Loading(width: 150, height: 15, borderRadius: 0),
               ],

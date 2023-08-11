@@ -59,9 +59,9 @@ class _TierListScreenState extends State<TierListScreen> {
                 bottom: BorderSide(color: AppColor.lineColor),
               ),
             ),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
+              children: [
                 Changelog(),
                 Help(),
               ],
