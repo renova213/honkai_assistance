@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../injection_container.dart';
@@ -56,6 +57,7 @@ class StateManagementHelper {
             create: (_) => sl<BeginnerGuideProvider>()),
         ChangeNotifierProvider<GeneralGuideProvider>(
             create: (_) => sl<GeneralGuideProvider>()),
+        ChangeNotifierProvider<AuthProvider>(create: (_) => sl<AuthProvider>()),
 
         //raw
         ChangeNotifierProvider(create: (_) => AboutGameProvider()),

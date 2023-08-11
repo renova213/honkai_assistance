@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
 import 'package:honkai_assistance/data/models/character_model.dart';
 import 'package:honkai_assistance/data/models/elf_banner_model.dart';
@@ -31,6 +33,7 @@ abstract class RemoteDataSource {
   Future<List<ChangelogModel>> getChangelog();
   Future<List<GuideModel>> getBeginnerGuide();
   Future<List<GuideModel>> getGeneralGuide();
+  Future<String> googleSignIn();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -229,5 +232,20 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return guides;
+  }
+
+  @override
+  Future<String> googleSignIn() async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+
+    final response =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    return response.user!.email ?? "";
   }
 }

@@ -221,4 +221,17 @@ class RemoteRepositoryImpl implements RemoteRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, String>> googleSignIn() async {
+    try {
+      final gAuth = await remoteDataSource.googleSignIn();
+
+      return Right(gAuth);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
 }

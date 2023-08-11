@@ -32,4 +32,5 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<ChangelogEntity>>> getChangelog();
   Future<Either<Failure, List<GuideEntity>>> getBeginnerGuide();
   Future<Either<Failure, List<GuideEntity>>> getGeneralGuide();
+  Future<Either<Failure, String>> googleSignIn();
 }
