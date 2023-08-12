@@ -79,29 +79,31 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Consumer _listChat() {
     return Consumer<ChatProvider>(
-      builder: (context, chat, _) => Padding(
-        padding:
-            EdgeInsets.only(bottom: 60.h, left: 20.w, right: 20.w, top: 20.h),
-        child: ListView.separated(
-            itemBuilder: (context, index) {
-              final data = chat.chats[index];
-
-              return Align(
-                alignment: data.senderEmail == data.senderEmail
-                    ? Alignment.centerRight
-                    : Alignment.bottomLeft,
-                child: ChatBubble(message: data.message, time: data.time),
-              );
-            },
-            separatorBuilder: (context, index) => SizedBox(height: 16.h),
-            itemCount: chat.chats.length),
+      builder: (context, chat, _) => Consumer<AuthProvider>(
+        builder: (context, auth, _) => Padding(
+          padding:
+              EdgeInsets.only(bottom: 60.h, left: 20.w, right: 20.w, top: 20.h),
+          child: ListView.separated(
+              itemBuilder: (context, index) {
+                final data = chat.chats[index];
+                chat.sortList();
+                return Align(
+                  alignment: data.senderEmail == auth.emailUser
+                      ? Alignment.centerRight
+                      : Alignment.bottomLeft,
+                  child: ChatBubble(message: data.message, time: data.time),
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(height: 16.h),
+              itemCount: chat.chats.length),
+        ),
       ),
     );
   }
 
   Consumer _inputField() {
-    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final time = DateFormat('HH:mm').format(DateTime.now());
+    final date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final time = DateFormat('HH:mm:ss').format(DateTime.now());
 
     return Consumer<AuthProvider>(
       builder: (context, auth, _) => Consumer<ChatProvider>(
@@ -116,6 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       userEmail: auth.emailUser,
                       otherUserEmail: "rizcorenova31@gmail.com",
                       chat: ChatModel(
+                          createdAt: DateTime.now().toString(),
                           senderEmail: auth.emailUser,
                           message: _messageController.text,
                           receiverEmail: "rizcorenova31@gmail.com",

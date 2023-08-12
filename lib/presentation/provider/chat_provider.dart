@@ -26,13 +26,23 @@ class ChatProvider extends ChangeNotifier {
     failureOrChat.fold(
       (failure) {
         _failureMessage = failure.message;
-        changeAppState(AppState.loaded);
+
+        changeAppState(AppState.failed);
       },
       (chats) {
         _chats = chats;
         changeAppState(AppState.loading);
       },
     );
+  }
+
+  void sortList() async {
+    _chats.sort((a, b) {
+      final date = DateTime.parse(a.createdAt);
+      final date2 = DateTime.parse(b.createdAt);
+
+      return date.compareTo(date2);
+    });
   }
 
   Future<void> addChat(

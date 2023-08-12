@@ -267,6 +267,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       (event) {
         for (var doc in event.docs) {
           final data = ChatModel.fromDoc(doc);
+
           final contain = chats.where((e) => e.id == doc.id).toList();
 
           if (contain.isEmpty) {
@@ -275,6 +276,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
       },
     );
+
     return chats;
   }
 
