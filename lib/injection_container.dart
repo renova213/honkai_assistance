@@ -3,8 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:honkai_assistance/data/datasources/remote_data_source.dart';
 import 'package:honkai_assistance/data/repositories/remote_repository_impl.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
+import 'package:honkai_assistance/domain/usecases/get_chat.dart';
+import 'package:honkai_assistance/domain/usecases/post_chat.dart';
 import 'package:honkai_assistance/domain/usecases/post_google_sign_in.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
+import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
 
 import 'domain/usecases/get_beginner_guide.dart';
 import 'domain/usecases/get_changelog.dart';
@@ -77,6 +80,8 @@ void setUp() {
       () => GetGeneralGuide(remoteRepository: sl()));
   sl.registerLazySingleton<PostGoogleSignIn>(
       () => PostGoogleSignIn(remoteRepository: sl()));
+  sl.registerLazySingleton<GetChat>(() => GetChat(remoteRepository: sl()));
+  sl.registerLazySingleton<PostChat>(() => PostChat(remoteRepository: sl()));
 
   //provider
   sl.registerFactory<RedeemCodeProvider>(
@@ -106,6 +111,8 @@ void setUp() {
   sl.registerFactory<GeneralGuideProvider>(
       () => GeneralGuideProvider(getGeneralGuide: sl()));
   sl.registerFactory<AuthProvider>(() => AuthProvider(postGoogleSignIn: sl()));
+  sl.registerFactory<ChatProvider>(
+      () => ChatProvider(getChat: sl(), postChat: sl()));
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

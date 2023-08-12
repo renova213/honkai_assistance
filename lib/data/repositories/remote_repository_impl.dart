@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:honkai_assistance/data/models/chat_model.dart';
 import 'package:honkai_assistance/domain/entities/changelog_entity.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
@@ -228,6 +229,32 @@ class RemoteRepositoryImpl implements RemoteRepository {
       final gAuth = await remoteDataSource.googleSignIn();
 
       return Right(gAuth);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<void> addChat(
+      String userEmail, String otherUserEmail, ChatModel chat) async {
+    try {
+      await remoteDataSource.addChat(userEmail, otherUserEmail, chat);
+    } on SocketException {
+      throw "Internet Error";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ChatModel>>> getChats(
+      String userEmail, String otherUserEmail) async {
+    try {
+      final chats = await remoteDataSource.getChats(userEmail, otherUserEmail);
+
+      return Right(chats);
     } on SocketException {
       return const Left(
         InternetFailure(message: internetError),

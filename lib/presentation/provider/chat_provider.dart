@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:honkai_assistance/common/util/enum_state.dart';
+import 'package:honkai_assistance/data/models/chat_model.dart';
+import 'package:honkai_assistance/domain/usecases/get_chat.dart';
+import 'package:honkai_assistance/domain/usecases/post_chat.dart';
+
+class ChatProvider extends ChangeNotifier {
+  final GetChat getChat;
+  final PostChat postChat;
+
+  ChatProvider({required this.getChat, required this.postChat});
+
+  List<ChatModel> _chats = [];
+  AppState _appState = AppState.loading;
+  String _failureMessage = "";
+
+  List<ChatModel> get chats => _chats;
+  String get failureMessage => _failureMessage;
+  AppState get appstate => _appState;
+
+  Future<void> getChats(String userEmail, String otherUserEmail) async {
+    changeAppState(AppState.loading);
+
+    final failureOrChat = await getChat.call(userEmail, otherUserEmail);
+
+    failureOrChat.fold(
+      (failure) {
+        _failureMessage = failure.message;
+        changeAppState(AppState.loaded);
+      },
+      (chats) {
+        _chats = chats;
+        changeAppState(AppState.loading);
+      },
+    );
+  }
+
+  Future<void> addChat(
+      {required String userEmail,
+      required String otherUserEmail,
+      required ChatModel chat}) async {
+    try {
+      await postChat.call(userEmail, otherUserEmail, chat);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  changeAppState(AppState state) {
+    _appState = state;
+    notifyListeners();
+  }
+}

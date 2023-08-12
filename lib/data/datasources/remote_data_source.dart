@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
 import 'package:honkai_assistance/data/models/character_model.dart';
+import 'package:honkai_assistance/data/models/chat_model.dart';
 import 'package:honkai_assistance/data/models/elf_banner_model.dart';
 import 'package:honkai_assistance/data/models/elf_model.dart';
 import 'package:honkai_assistance/data/models/equipment_banner_model.dart';
@@ -34,6 +35,8 @@ abstract class RemoteDataSource {
   Future<List<GuideModel>> getBeginnerGuide();
   Future<List<GuideModel>> getGeneralGuide();
   Future<String> googleSignIn();
+  Future<List<ChatModel>> getChats(String userEmail, String otherUserEmail);
+  Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -247,5 +250,50 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     return response.user!.email ?? "";
+  }
+
+  @override
+  Future<List<ChatModel>> getChats(
+      String userEmail, String otherUserEmail) async {
+    List<String> ids = [userEmail, otherUserEmail];
+    List<ChatModel> chats = [];
+
+    firestoreService
+        .collection('chat')
+        .doc(ids.join("_"))
+        .collection('messages')
+        .snapshots()
+        .listen(
+      (event) {
+        for (var doc in event.docs) {
+          final data = ChatModel.fromDoc(doc);
+          final contain = chats.where((e) => e.id == doc.id).toList();
+
+          if (contain.isEmpty) {
+            chats.add(data);
+          }
+        }
+      },
+    );
+    return chats;
+  }
+
+  @override
+  Future<void> addChat(
+      String userEmail, String otherUserEmail, ChatModel chat) async {
+    List<String> ids = [userEmail, otherUserEmail];
+    List<String> ids2 = [otherUserEmail, userEmail];
+
+    await firestoreService
+        .collection('chat')
+        .doc(ids.join("_"))
+        .collection('messages')
+        .add(chat.toJson());
+
+    await firestoreService
+        .collection('chat')
+        .doc(ids2.join("_"))
+        .collection('messages')
+        .add(chat.toJson());
   }
 }

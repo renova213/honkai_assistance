@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:honkai_assistance/data/models/chat_model.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
@@ -33,4 +34,7 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<GuideEntity>>> getBeginnerGuide();
   Future<Either<Failure, List<GuideEntity>>> getGeneralGuide();
   Future<Either<Failure, String>> googleSignIn();
+  Future<Either<Failure, List<ChatModel>>> getChats(
+      String userEmail, String otherUserEmail);
+  Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
 }
