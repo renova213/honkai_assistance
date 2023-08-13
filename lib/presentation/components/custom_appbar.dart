@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/screens/chat/chat_screen.dart';
+import 'package:honkai_assistance/presentation/screens/top_up/menu_top_up_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
@@ -31,7 +32,7 @@ class CustomAppBar extends StatelessWidget {
                   auth.emailUser.isEmpty
                       ? _alertDialog(context)
                       : Navigator.of(context).push(
-                          NavigatorFadeHelper(child: const ChatScreen()),
+                          NavigatorFadeHelper(child: const MenuTopUpScreen()),
                         );
                 },
                 icon: const Icon(Icons.storefront, color: Colors.white)),
@@ -85,7 +86,9 @@ class CustomAppBar extends StatelessWidget {
                         .googleSignIn()
                         .then(
                           (_) => ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Berhasil Login")),
+                            SnackBar(
+                                content: Text(
+                                    "Berhasil Login, selamat datang kembali ${auth.emailUser}")),
                           ),
                         )
                         .then((_) => Navigator.pop(context));
