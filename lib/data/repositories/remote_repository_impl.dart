@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:honkai_assistance/data/models/chat_model.dart';
 import 'package:honkai_assistance/domain/entities/changelog_entity.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
@@ -14,6 +14,7 @@ import 'package:honkai_assistance/domain/entities/redeem_code_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
 import 'package:honkai_assistance/domain/entities/tier_list_entity.dart';
+import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
 import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
 
 import '../../common/constant.dart';
@@ -238,9 +239,10 @@ class RemoteRepositoryImpl implements RemoteRepository {
 
   @override
   Future<void> addChat(
-      String userEmail, String otherUserEmail, ChatModel chat) async {
+      String userEmail, String otherUserEmail, ChatEntity chat) async {
     try {
-      await remoteDataSource.addChat(userEmail, otherUserEmail, chat);
+      await remoteDataSource.addChat(
+          userEmail, otherUserEmail, chat.toChatModel());
     } on SocketException {
       throw "Internet Error";
     } catch (e) {
@@ -249,7 +251,7 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<ChatModel>>> getChats(
+  Future<Either<Failure, List<ChatEntity>>> getChats(
       String userEmail, String otherUserEmail) async {
     try {
       final chats = await remoteDataSource.getChats(userEmail, otherUserEmail);
@@ -259,6 +261,17 @@ class RemoteRepositoryImpl implements RemoteRepository {
       return const Left(
         InternetFailure(message: internetError),
       );
+    }
+  }
+
+  @override
+  Future<void> createTopUpCheckout(TopUpCheckoutEntity topUpCheckout) async {
+    try {
+      await remoteDataSource.createTopUpCheckout(topUpCheckout.toModel());
+    } on SocketException {
+      throw "Internet Error";
+    } catch (e) {
+      rethrow;
     }
   }
 }

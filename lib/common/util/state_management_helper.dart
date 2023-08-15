@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
+import 'package:honkai_assistance/presentation/provider/top_up_checkout_provider.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -63,6 +64,8 @@ class StateManagementHelper {
         ChangeNotifierProvider<ChatProvider>(create: (_) => sl<ChatProvider>()),
         ChangeNotifierProvider<TopUpProvider>(
             create: (_) => sl<TopUpProvider>()),
+        ChangeNotifierProvider<TopUpCheckoutProvider>(
+            create: (_) => sl<TopUpCheckoutProvider>()),
 
         //raw
         ChangeNotifierProvider(create: (_) => AboutGameProvider()),

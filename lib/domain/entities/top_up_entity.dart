@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:honkai_assistance/data/models/topup_item_model.dart';
 
 class TopUpEntity extends Equatable {
   final String categoryName;
@@ -21,6 +22,9 @@ class TopUpItemEntity extends Equatable {
 
   const TopUpItemEntity(
       {required this.itemName, required this.imageAsset, required this.price});
+
+  TopUpItemModel toModel() =>
+      TopUpItemModel(itemName: itemName, imageAsset: imageAsset, price: price);
 
   @override
   List<Object> get props => [itemName, imageAsset, price];

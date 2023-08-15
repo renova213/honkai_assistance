@@ -1,4 +1,4 @@
-import 'package:honkai_assistance/data/models/chat_model.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
 class PostChat {
@@ -7,7 +7,7 @@ class PostChat {
   PostChat({required this.remoteRepository});
 
   Future<void> call(
-      String userEmail, String otherUserEmail, ChatModel chat) async {
+      String userEmail, String otherUserEmail, ChatEntity chat) async {
     await remoteRepository.addChat(userEmail, otherUserEmail, chat);
   }
 }

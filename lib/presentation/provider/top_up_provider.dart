@@ -98,8 +98,10 @@ class TopUpProvider extends ChangeNotifier {
   int _categoryIndex = 0;
   int _itemIndex = 0;
   int _paymentMethodIndex = 0;
-  int _selectedPrice = 0;
-  int _paymentFee = 0;
+  TopUpItemEntity _selectedItem =
+      const TopUpItemEntity(itemName: "", imageAsset: "", price: 0);
+  PaymentEntity _paymentMethod = const PaymentEntity(
+      bankName: "", accountNumber: 0, bankAssetImage: "", paymentFee: 0);
   int _userId = 0;
   AppState _itemIndexState = AppState.loaded;
 
@@ -108,8 +110,8 @@ class TopUpProvider extends ChangeNotifier {
   int get categoryIndex => _categoryIndex;
   int get itemIndex => _itemIndex;
   int get paymentMethodIndex => _paymentMethodIndex;
-  int get selectedPrice => _selectedPrice;
-  int get paymentFee => _paymentFee;
+  TopUpItemEntity get selectedItem => _selectedItem;
+  PaymentEntity get paymentMethod => _paymentMethod;
   int get userId => _userId;
   AppState get itemIndexState => _itemIndexState;
 
@@ -118,15 +120,15 @@ class TopUpProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeItemIndex(int index, int price) {
+  void changeItemIndex(int index, TopUpItemEntity selectedItem) {
     _itemIndex = index;
-    _selectedPrice = price;
+    _selectedItem = selectedItem;
     notifyListeners();
   }
 
-  void changePaymentMethodIndex(int index, int paymentFee) {
+  void changePaymentMethodIndex(int index, PaymentEntity paymentMethod) {
     _paymentMethodIndex = index;
-    _paymentFee = paymentFee;
+    _paymentMethod = paymentMethod;
     notifyListeners();
   }
 

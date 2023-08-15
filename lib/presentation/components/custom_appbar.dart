@@ -29,15 +29,17 @@ class CustomAppBar extends StatelessWidget {
             const Spacer(),
             IconButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    NavigatorFadeHelper(child: const TopUpNavBar()),
-                  );
+                  auth.emailUser.isEmpty
+                      ? _alertDialog(context, 0)
+                      : Navigator.of(context).push(
+                          NavigatorFadeHelper(child: const TopUpNavBar()),
+                        );
                 },
                 icon: const Icon(Icons.storefront, color: Colors.white)),
             IconButton(
                 onPressed: () {
                   auth.emailUser.isEmpty
-                      ? _alertDialog(context)
+                      ? _alertDialog(context, 1)
                       : Navigator.of(context).push(
                           NavigatorFadeHelper(child: const ChatScreen()),
                         );
@@ -49,7 +51,7 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 
-  void _alertDialog(context) {
+  void _alertDialog(context, int index) {
     showDialog(
       context: context,
       builder: (context) => Padding(
@@ -89,7 +91,19 @@ class CustomAppBar extends StatelessWidget {
                                     "Berhasil Login, selamat datang kembali ${auth.emailUser}")),
                           ),
                         )
-                        .then((_) => Navigator.pop(context));
+                        .then(
+                      (_) {
+                        if (index == 0) {
+                          Navigator.of(context).push(
+                            NavigatorFadeHelper(child: const TopUpNavBar()),
+                          );
+                        } else {
+                          Navigator.of(context).push(
+                            NavigatorFadeHelper(child: const ChatScreen()),
+                          );
+                        }
+                      },
+                    );
                   },
                   child: Ink(
                     decoration: BoxDecoration(

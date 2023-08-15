@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
@@ -45,7 +46,12 @@ class UserIdTopUp extends StatelessWidget {
                       ? "0"
                       : userIdController.text));
                 },
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 controller: userIdController,
+                keyboardType: TextInputType.number,
                 style: AppFont.largeText.copyWith(color: Colors.black),
                 decoration: InputDecoration(
                   contentPadding:

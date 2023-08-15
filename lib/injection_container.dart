@@ -6,8 +6,10 @@ import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 import 'package:honkai_assistance/domain/usecases/get_chat.dart';
 import 'package:honkai_assistance/domain/usecases/post_chat.dart';
 import 'package:honkai_assistance/domain/usecases/post_google_sign_in.dart';
+import 'package:honkai_assistance/domain/usecases/post_top_up_checkout.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
+import 'package:honkai_assistance/presentation/provider/top_up_checkout_provider.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 
 import 'domain/usecases/get_beginner_guide.dart';
@@ -83,6 +85,8 @@ void setUp() {
       () => PostGoogleSignIn(remoteRepository: sl()));
   sl.registerLazySingleton<GetChat>(() => GetChat(remoteRepository: sl()));
   sl.registerLazySingleton<PostChat>(() => PostChat(remoteRepository: sl()));
+  sl.registerLazySingleton<PostTopUpCheckout>(
+      () => PostTopUpCheckout(remoteRepository: sl()));
 
   //provider
   sl.registerFactory<RedeemCodeProvider>(
@@ -115,6 +119,8 @@ void setUp() {
   sl.registerFactory<ChatProvider>(
       () => ChatProvider(getChat: sl(), postChat: sl()));
   sl.registerFactory<TopUpProvider>(() => TopUpProvider());
+  sl.registerFactory<TopUpCheckoutProvider>(
+      () => TopUpCheckoutProvider(postTopUpCheckout: sl()));
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

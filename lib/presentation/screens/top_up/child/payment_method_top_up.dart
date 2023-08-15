@@ -32,7 +32,7 @@ class PaymentMethodTopUp extends StatelessWidget {
                 ),
                 SizedBox(width: 12.w),
                 Text(
-                  "Metode Pembayaran",
+                  "Select Payment",
                   style: AppFont.subtitle.copyWith(color: Colors.black),
                 ),
               ],
@@ -60,14 +60,14 @@ class PaymentMethodTopUp extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    if (topup.selectedPrice == 0) {
+                    if (topup.selectedItem.price == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             duration: Duration(seconds: 1),
                             content: Text("Pilih item terlebih dahulu")),
                       );
                     } else {
-                      topup.changePaymentMethodIndex(index, data.paymentFee);
+                      topup.changePaymentMethodIndex(index, data);
                     }
                   },
                   child: Container(
@@ -90,7 +90,7 @@ class PaymentMethodTopUp extends StatelessWidget {
                                 .copyWith(color: Colors.black)),
                         const Spacer(),
                         Text(
-                            "Rp ${NumberFormat('#,##0').format(topup.selectedPrice == 0 ? 0 : data.paymentFee + topup.selectedPrice)}",
+                            "Rp ${NumberFormat('#,##0').format(topup.selectedItem.price == 0 ? 0 : data.paymentFee + topup.selectedItem.price)}",
                             style: AppFont.mediumText
                                 .copyWith(color: Colors.black)),
                       ],

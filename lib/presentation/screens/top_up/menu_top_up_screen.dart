@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/font_style.dart';
+import 'package:honkai_assistance/domain/entities/payment_entity.dart';
+import 'package:honkai_assistance/domain/entities/top_up_entity.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 import 'package:honkai_assistance/presentation/screens/top_up/child/top_up_childs.dart';
 import 'package:provider/provider.dart';
@@ -31,11 +33,16 @@ class _MenuTopUpScreenState extends State<MenuTopUpScreen> {
 
     Future.microtask(() {
       Provider.of<TopUpProvider>(context, listen: false).changeCategoryIndex(0);
+      Provider.of<TopUpProvider>(context, listen: false).changeItemIndex(
+          999, const TopUpItemEntity(itemName: "", imageAsset: "", price: 0));
       Provider.of<TopUpProvider>(context, listen: false)
-          .changeItemIndex(999, 0);
-      Provider.of<TopUpProvider>(context, listen: false)
-          .changePaymentMethodIndex(999, 0);
-
+          .changePaymentMethodIndex(
+              999,
+              const PaymentEntity(
+                  bankName: "",
+                  accountNumber: 0,
+                  bankAssetImage: "",
+                  paymentFee: 0));
       Future.microtask(() =>
           Provider.of<TopUpProvider>(context, listen: false).changeUserId(0));
     });

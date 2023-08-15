@@ -1,22 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 
-class ChatModel {
-  String? id;
-  final String receiverEmail;
-  final String senderEmail;
-  final String message;
-  final String date;
-  final String time;
-  final String createdAt;
-
-  ChatModel(
-      {required this.senderEmail,
-      required this.message,
-      required this.receiverEmail,
-      required this.time,
-      this.id,
-      required this.createdAt,
-      required this.date});
+class ChatModel extends ChatEntity {
+  const ChatModel(
+      {required super.senderEmail,
+      required super.message,
+      required super.receiverEmail,
+      required super.time,
+      required super.id,
+      required super.createdAt,
+      required super.date});
 
   factory ChatModel.fromDoc(DocumentSnapshot doc) => ChatModel(
       date: (doc.data() as Map)['date'],

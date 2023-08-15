@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:honkai_assistance/data/models/chat_model.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/entities/elf_entity.dart';
 import 'package:honkai_assistance/domain/entities/equipment_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/event_entity.dart';
 import 'package:honkai_assistance/domain/entities/news_update_entity.dart';
 import 'package:honkai_assistance/domain/entities/outfit_entity.dart';
 import 'package:honkai_assistance/domain/entities/stigmata_entity.dart';
+import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
 import 'package:honkai_assistance/domain/entities/weapon_entity.dart';
 
 import '../../common/error/error.dart';
@@ -34,7 +35,9 @@ abstract class RemoteRepository {
   Future<Either<Failure, List<GuideEntity>>> getBeginnerGuide();
   Future<Either<Failure, List<GuideEntity>>> getGeneralGuide();
   Future<Either<Failure, String>> googleSignIn();
-  Future<Either<Failure, List<ChatModel>>> getChats(
+  Future<Either<Failure, List<ChatEntity>>> getChats(
       String userEmail, String otherUserEmail);
-  Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
+  Future<void> addChat(
+      String userEmail, String otherUserEmail, ChatEntity chat);
+  Future<void> createTopUpCheckout(TopUpCheckoutEntity topUpCheckout);
 }

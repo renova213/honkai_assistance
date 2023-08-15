@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/common/error/error.dart';
-import 'package:honkai_assistance/data/models/chat_model.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
 class GetChat {
@@ -8,7 +8,7 @@ class GetChat {
 
   GetChat({required this.remoteRepository});
 
-  Future<Either<Failure, List<ChatModel>>> call(
+  Future<Either<Failure, List<ChatEntity>>> call(
       String userEmail, String otherUserEmail) async {
     final chats = await remoteRepository.getChats(userEmail, otherUserEmail);
 

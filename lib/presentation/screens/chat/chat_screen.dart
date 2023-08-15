@@ -118,6 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       userEmail: auth.emailUser,
                       otherUserEmail: "rizcorenova31@gmail.com",
                       chat: ChatModel(
+                          id: "",
                           createdAt: DateTime.now().toString(),
                           senderEmail: auth.emailUser,
                           message: _messageController.text,

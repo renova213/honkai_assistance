@@ -12,6 +12,7 @@ import 'package:honkai_assistance/data/models/news_update_model.dart';
 import 'package:honkai_assistance/data/models/outfit_model.dart';
 import 'package:honkai_assistance/data/models/redeem_code_model.dart';
 import 'package:honkai_assistance/data/models/stigmata_model.dart';
+import 'package:honkai_assistance/data/models/top_up_checkout_model.dart';
 
 import '../models/changelog_model.dart';
 import '../models/guide_model.dart';
@@ -37,6 +38,7 @@ abstract class RemoteDataSource {
   Future<String> googleSignIn();
   Future<List<ChatModel>> getChats(String userEmail, String otherUserEmail);
   Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
+  Future<void> createTopUpCheckout(TopUpCheckoutModel topUpCheckout);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -297,5 +299,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         .doc(ids2.join("_"))
         .collection('messages')
         .add(chat.toJson());
+  }
+
+  @override
+  Future<void> createTopUpCheckout(TopUpCheckoutModel topUpCheckout) async {
+    await firestoreService
+        .collection('topup_checkout')
+        .add(topUpCheckout.toJson());
   }
 }

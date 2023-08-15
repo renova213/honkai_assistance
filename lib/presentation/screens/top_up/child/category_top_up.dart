@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/style.dart';
 import 'package:honkai_assistance/common/util/enum_state.dart';
+import 'package:honkai_assistance/domain/entities/payment_entity.dart';
+import 'package:honkai_assistance/domain/entities/top_up_entity.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -33,18 +35,18 @@ class CategoryTopUp extends StatelessWidget {
                 ),
                 SizedBox(width: 12.w),
                 Text(
-                  "Pilih Kategori & Item",
+                  "Select Category & Item",
                   style: AppFont.subtitle.copyWith(color: Colors.black),
                 ),
               ],
             ),
             SizedBox(height: 24.h),
-            Text("Pilih Kategori",
+            Text("Select Kategori",
                 style: AppFont.mediumText.copyWith(color: Colors.black)),
             SizedBox(height: 16.h),
             _listCategory(),
             SizedBox(height: 24.h),
-            Text("Pilih Item",
+            Text("Select Item",
                 style: AppFont.mediumText.copyWith(color: Colors.black)),
             SizedBox(height: 16.h),
             _listItem(),
@@ -74,10 +76,19 @@ class CategoryTopUp extends StatelessWidget {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          topup.changeCategoryIndex(index);
                           topup.changeItemIndexState();
-                          topup.changeItemIndex(999, 0);
-                          topup.changePaymentMethodIndex(999, 0);
+                          topup.changeCategoryIndex(index);
+                          topup.changeItemIndex(
+                              999,
+                              const TopUpItemEntity(
+                                  itemName: "", imageAsset: "", price: 0));
+                          topup.changePaymentMethodIndex(
+                              999,
+                              const PaymentEntity(
+                                  bankName: "",
+                                  accountNumber: 0,
+                                  bankAssetImage: "",
+                                  paymentFee: 0));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -141,7 +152,7 @@ class CategoryTopUp extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        topup.changeItemIndex(index, data.price);
+                        topup.changeItemIndex(index, data);
                       },
                       child: Container(
                         decoration: BoxDecoration(

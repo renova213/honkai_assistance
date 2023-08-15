@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/style/font_style.dart';
 
-class TrackOrderScreen extends StatelessWidget {
-  const TrackOrderScreen({super.key});
+class OrderHistoryScreen extends StatelessWidget {
+  const OrderHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

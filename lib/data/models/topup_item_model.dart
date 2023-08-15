@@ -12,4 +12,12 @@ class TopUpItemModel extends TopUpItemEntity {
       {required super.itemName,
       required super.imageAsset,
       required super.price});
+
+  factory TopUpItemModel.fromMap(Map<String, dynamic> map) => TopUpItemModel(
+      itemName: map['itemName'],
+      imageAsset: map['imageAsset'],
+      price: map['price']);
+
+  Map<String, dynamic> toJson() =>
+      {'itemName': itemName, 'imageAsset': imageAsset, 'price': price};
 }

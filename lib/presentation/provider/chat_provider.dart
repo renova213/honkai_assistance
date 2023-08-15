@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/enum_state.dart';
-import 'package:honkai_assistance/data/models/chat_model.dart';
+import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/usecases/get_chat.dart';
 import 'package:honkai_assistance/domain/usecases/post_chat.dart';
 
@@ -10,11 +10,11 @@ class ChatProvider extends ChangeNotifier {
 
   ChatProvider({required this.getChat, required this.postChat});
 
-  List<ChatModel> _chats = [];
+  List<ChatEntity> _chats = [];
   AppState _appState = AppState.loading;
   String _failureMessage = "";
 
-  List<ChatModel> get chats => _chats;
+  List<ChatEntity> get chats => _chats;
   String get failureMessage => _failureMessage;
   AppState get appstate => _appState;
 
@@ -48,7 +48,7 @@ class ChatProvider extends ChangeNotifier {
   Future<void> addChat(
       {required String userEmail,
       required String otherUserEmail,
-      required ChatModel chat}) async {
+      required ChatEntity chat}) async {
     try {
       await postChat.call(userEmail, otherUserEmail, chat);
     } catch (e) {
