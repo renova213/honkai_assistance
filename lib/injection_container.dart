@@ -8,6 +8,7 @@ import 'package:honkai_assistance/domain/usecases/post_chat.dart';
 import 'package:honkai_assistance/domain/usecases/post_google_sign_in.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
+import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 
 import 'domain/usecases/get_beginner_guide.dart';
 import 'domain/usecases/get_changelog.dart';
@@ -113,6 +114,7 @@ void setUp() {
   sl.registerFactory<AuthProvider>(() => AuthProvider(postGoogleSignIn: sl()));
   sl.registerFactory<ChatProvider>(
       () => ChatProvider(getChat: sl(), postChat: sl()));
+  sl.registerFactory<TopUpProvider>(() => TopUpProvider());
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

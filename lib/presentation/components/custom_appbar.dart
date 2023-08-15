@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/screens/chat/chat_screen.dart';
-import 'package:honkai_assistance/presentation/screens/top_up/menu_top_up_screen.dart';
+import 'package:honkai_assistance/presentation/screens/top_up/top_up_navbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/style/style.dart';
@@ -29,11 +29,9 @@ class CustomAppBar extends StatelessWidget {
             const Spacer(),
             IconButton(
                 onPressed: () {
-                  auth.emailUser.isEmpty
-                      ? _alertDialog(context)
-                      : Navigator.of(context).push(
-                          NavigatorFadeHelper(child: const MenuTopUpScreen()),
-                        );
+                  Navigator.of(context).push(
+                    NavigatorFadeHelper(child: const TopUpNavBar()),
+                  );
                 },
                 icon: const Icon(Icons.storefront, color: Colors.white)),
             IconButton(

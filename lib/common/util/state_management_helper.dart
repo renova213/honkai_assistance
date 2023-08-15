@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
+import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../injection_container.dart';
@@ -60,6 +61,8 @@ class StateManagementHelper {
             create: (_) => sl<GeneralGuideProvider>()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => sl<AuthProvider>()),
         ChangeNotifierProvider<ChatProvider>(create: (_) => sl<ChatProvider>()),
+        ChangeNotifierProvider<TopUpProvider>(
+            create: (_) => sl<TopUpProvider>()),
 
         //raw
         ChangeNotifierProvider(create: (_) => AboutGameProvider()),
