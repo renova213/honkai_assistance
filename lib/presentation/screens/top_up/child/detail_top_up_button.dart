@@ -118,6 +118,98 @@ class DetailTopUpButton extends StatelessWidget {
                 ),
               ),
             ),
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => const Dialog(child: ModalUploadPayment()),
+              );
+            },
+            child: Text("Upload Payment", style: AppFont.mediumText),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ModalUploadPayment extends StatefulWidget {
+  const ModalUploadPayment({super.key});
+
+  @override
+  State<ModalUploadPayment> createState() => _ModalUploadPaymentState();
+}
+
+class _ModalUploadPaymentState extends State<ModalUploadPayment> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        Provider.of<TopUpCheckoutProvider>(context, listen: false)
+            .clearImage());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Container(
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 24),
+        width: MediaQuery.of(context).size.width * 0.8,
+        decoration: BoxDecoration(
+          color: AppColor.containerColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            Consumer<TopUpCheckoutProvider>(
+              builder: (context, topUpCheckout, _) => GestureDetector(
+                onTap: () async {
+                  await topUpCheckout.getImage();
+                },
+                child: topUpCheckout.image == null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                            "assets/images/placeholder_image.jpg",
+                            fit: BoxFit.cover,
+                            width: double.maxFinite,
+                            height: 200.h),
+                      )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.file(topUpCheckout.image!,
+                            fit: BoxFit.cover,
+                            width: double.maxFinite,
+                            height: 200.h),
+                      ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+            _confirmUploadPaymentButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Consumer _confirmUploadPaymentButton() {
+    return Consumer<TopUpCheckoutProvider>(
+      builder: (context, topUpCheckout, _) => SizedBox(
+        width: double.maxFinite,
+        height: 50,
+        child: Consumer<NavbarProvider>(
+          builder: (context, navBar, _) => ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor:
+                  const MaterialStatePropertyAll<Color>(Color(0xFFD18002)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(10), // Adjust the radius as needed
+                ),
+              ),
+            ),
             onPressed: () {},
             child: Text("Upload Payment", style: AppFont.mediumText),
           ),

@@ -23,7 +23,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       final String emailUser =
           Provider.of<AuthProvider>(context, listen: false).emailUser;
 
-      Provider.of<TopUpCheckoutProvider>(context, listen: false)
+      await Provider.of<TopUpCheckoutProvider>(context, listen: false)
           .getTopUpCheckouts(emailUser)
           .then((_) async =>
               await Provider.of<TopUpCheckoutProvider>(context, listen: false)
@@ -166,17 +166,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        color: topUpCheckout
-                                                    .topUpCheckout!.status ==
-                                                0
+                                        color: data.status == 0
                                             ? const Color(0xFFf2e0bf)
-                                            : topUpCheckout.topUpCheckout!
-                                                        .status ==
-                                                    1
+                                            : data.status == 1
                                                 ? Colors.green
-                                                : topUpCheckout.topUpCheckout!
-                                                            .status ==
-                                                        2
+                                                : data.status == 2
                                                     ? Colors.blue
                                                     : Colors.red),
                                     child: Text(
@@ -188,9 +182,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                                     ? "Done"
                                                     : "Cancel",
                                         style: AppFont.mediumText.copyWith(
-                                            color: topUpCheckout.topUpCheckout!
-                                                        .status ==
-                                                    0
+                                            color: data.status == 0
                                                 ? Colors.brown
                                                 : Colors.white)),
                                   ),

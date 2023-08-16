@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
 import 'package:honkai_assistance/domain/usecases/get_top_up_checkout.dart';
 import 'package:honkai_assistance/domain/usecases/post_top_up_checkout.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TopUpCheckoutProvider extends ChangeNotifier {
   final PostTopUpCheckout postTopUpCheckout;
@@ -17,6 +20,10 @@ class TopUpCheckoutProvider extends ChangeNotifier {
   late TopUpCheckoutEntity _topUpCheckout;
   int _filterIndex = 0;
   String _filterState = "";
+  final String _urlProductImage = "";
+  File? _image;
+  String? _imageName;
+  final _imagePicker = ImagePicker();
 
   AppState get appState => _appState;
   List<TopUpCheckoutEntity> get topUpCheckouts => _topUpCheckouts;
@@ -25,6 +32,9 @@ class TopUpCheckoutProvider extends ChangeNotifier {
   String get filterState => _filterState;
   int get filterIndex => _filterIndex;
   TopUpCheckoutEntity? get topUpCheckout => _topUpCheckout;
+  String get urlProductImage => _urlProductImage;
+  File? get image => _image;
+  String? get imageName => _imageName;
 
   Future<void> getTopUpCheckouts(String userEmail) async {
     changeAppState(AppState.loading);
@@ -99,6 +109,23 @@ class TopUpCheckoutProvider extends ChangeNotifier {
     _filterTopUpCheckouts.sort(
       (a, b) => b.createdAtFormat.compareTo(a.createdAtFormat),
     );
+    notifyListeners();
+  }
+
+  void clearImage() {
+    if (_image != null) {
+      _image = null;
+    }
+    notifyListeners();
+  }
+
+  Future<void> getImage() async {
+    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      _image = File(image.path);
+      _imageName = image.name;
+    }
     notifyListeners();
   }
 
