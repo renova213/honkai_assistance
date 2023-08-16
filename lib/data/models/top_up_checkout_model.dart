@@ -7,9 +7,12 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
   const TopUpCheckoutModel(
       {required super.invoiceId,
       required super.topUpItem,
+      required super.createdAt,
+      required super.expiredAt,
       required super.userId,
       required super.status,
       required super.paymentMethod,
+      required super.date,
       required super.quantity,
       required super.total,
       required super.id,
@@ -20,6 +23,9 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
       TopUpCheckoutModel(
           invoiceId: (doc.data() as Map)['invoiceId'],
           userEmail: (doc.data() as Map)['userEmail'],
+          createdAt: (doc.data() as Map)['createdAt'],
+          expiredAt: (doc.data() as Map)['expiredAt'],
+          date: (doc.data() as Map)['date'],
           topUpItem: TopUpItemModel.fromMap((doc.data() as Map)['topUpItem']),
           userId: (doc.data() as Map)['userId'],
           status: (doc.data() as Map)['status'],
@@ -38,7 +44,10 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
         'paymentMethod': paymentMethod.toModel().toJson(),
         'userEmail': userEmail,
         'quantity': quantity,
+        'date': date,
         'transferUrlImage': transferUrlImage,
-        'total': total
+        'total': total,
+        'expiredAt': expiredAt,
+        'createdAt': createdAt
       };
 }

@@ -37,7 +37,12 @@ abstract class RemoteRepository {
   Future<Either<Failure, String>> googleSignIn();
   Future<Either<Failure, List<ChatEntity>>> getChats(
       String userEmail, String otherUserEmail);
+  Future<Either<Failure, List<TopUpCheckoutEntity>>> getTopUpCheckout(
+      String userEmail);
+  Future<Either<Failure, TopUpCheckoutEntity>> getTopUpCheckoutByInvoiceId(
+      String userEmail, String invoiceId);
   Future<void> addChat(
       String userEmail, String otherUserEmail, ChatEntity chat);
-  Future<void> createTopUpCheckout(TopUpCheckoutEntity topUpCheckout);
+  Future<void> createTopUpCheckout(
+      TopUpCheckoutEntity topUpCheckout, String userEmail);
 }

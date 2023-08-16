@@ -1,17 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
+import 'package:honkai_assistance/domain/usecases/get_top_up_checkout.dart';
 import 'package:honkai_assistance/domain/usecases/post_top_up_checkout.dart';
 
 class TopUpCheckoutProvider extends ChangeNotifier {
   final PostTopUpCheckout postTopUpCheckout;
-  TopUpCheckoutProvider({required this.postTopUpCheckout});
+  final GetTopUpCheckout getTopUpCheckout;
+  TopUpCheckoutProvider(
+      {required this.postTopUpCheckout, required this.getTopUpCheckout});
+
+  AppState _appState = AppState.loading;
+  String _failureMessage = '';
+  List<TopUpCheckoutEntity> _topUpCheckouts = [];
+  List<TopUpCheckoutEntity> _filterTopUpCheckouts = [];
+  late TopUpCheckoutEntity _topUpCheckout;
+  int _filterIndex = 0;
+  String _filterState = "";
+
+  AppState get appState => _appState;
+  List<TopUpCheckoutEntity> get topUpCheckouts => _topUpCheckouts;
+  List<TopUpCheckoutEntity> get filterTopUpCheckouts => _filterTopUpCheckouts;
+  String get failureMessage => _failureMessage;
+  String get filterState => _filterState;
+  int get filterIndex => _filterIndex;
+  TopUpCheckoutEntity? get topUpCheckout => _topUpCheckout;
+
+  Future<void> getTopUpCheckouts(String userEmail) async {
+    changeAppState(AppState.loading);
+
+    final failureOrTopUpCheckouts =
+        await getTopUpCheckout.getTopUpCheckout(userEmail);
+
+    failureOrTopUpCheckouts.fold(
+      (failure) {
+        _failureMessage = failure.message;
+        changeAppState(AppState.failed);
+      },
+      (topUpCheckouts) {
+        _topUpCheckouts = topUpCheckouts;
+
+        changeAppState(AppState.loaded);
+      },
+    );
+  }
+
+  Future<void> getTopUpCheckoutsByInvoiceId(
+      String userEmail, String invoiceId) async {
+    final failureOrTopUpCheckouts = await getTopUpCheckout
+        .getTopUpCheckoutByInvoiceId(userEmail, invoiceId);
+
+    failureOrTopUpCheckouts.fold(
+      (failure) {
+        _failureMessage = failure.message;
+      },
+      (topUpCheckout) {
+        _topUpCheckout = topUpCheckout;
+      },
+    );
+  }
 
   Future<void> createTopUpCheckout(
-      {required TopUpCheckoutEntity topUpCheckout}) async {
+      {required TopUpCheckoutEntity topUpCheckout,
+      required String userEmail}) async {
     try {
-      await postTopUpCheckout.call(topUpCheckout);
+      await postTopUpCheckout.call(topUpCheckout, userEmail);
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> changeFilterState(int index) async {
+    if (index == 0) {
+      _filterState = "";
+      _filterIndex = index;
+      _filterTopUpCheckouts = topUpCheckouts;
+    } else if (index == 1) {
+      _filterState = "Pending";
+      _filterIndex = index;
+      _filterTopUpCheckouts =
+          topUpCheckouts.where((e) => e.status == index - 1).toList();
+    } else if (index == 2) {
+      _filterState = "Process";
+      _filterIndex = index;
+      _filterTopUpCheckouts =
+          topUpCheckouts.where((e) => e.status == index - 1).toList();
+    } else if (index == 3) {
+      _filterState = "Done";
+      _filterIndex = index;
+      _filterTopUpCheckouts =
+          topUpCheckouts.where((e) => e.status == index - 1).toList();
+    } else if (index == 4) {
+      _filterState = "Cancel";
+      _filterIndex = index;
+      _filterTopUpCheckouts =
+          topUpCheckouts.where((e) => e.status == index - 1).toList();
+    }
+    _filterTopUpCheckouts.sort(
+      (a, b) => b.createdAtFormat.compareTo(a.createdAtFormat),
+    );
+    notifyListeners();
+  }
+
+  changeAppState(AppState state) {
+    _appState = state;
+    notifyListeners();
   }
 }

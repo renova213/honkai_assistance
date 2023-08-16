@@ -35,10 +35,14 @@ abstract class RemoteDataSource {
   Future<List<ChangelogModel>> getChangelog();
   Future<List<GuideModel>> getBeginnerGuide();
   Future<List<GuideModel>> getGeneralGuide();
+  Future<List<TopUpCheckoutModel>> getTopUpCheckout(String userEmail);
+  Future<TopUpCheckoutModel> getTopUpCheckoutByInvoiceId(
+      String userEmail, String invoiceId);
   Future<String> googleSignIn();
   Future<List<ChatModel>> getChats(String userEmail, String otherUserEmail);
   Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
-  Future<void> createTopUpCheckout(TopUpCheckoutModel topUpCheckout);
+  Future<void> createTopUpCheckout(
+      TopUpCheckoutModel topUpCheckout, String userEmail);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -302,9 +306,51 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<void> createTopUpCheckout(TopUpCheckoutModel topUpCheckout) async {
+  Future<void> createTopUpCheckout(
+      TopUpCheckoutModel topUpCheckout, String userEmail) async {
     await firestoreService
         .collection('topup_checkout')
+        .doc(userEmail)
+        .collection(userEmail)
         .add(topUpCheckout.toJson());
+  }
+
+  @override
+  Future<List<TopUpCheckoutModel>> getTopUpCheckout(String userEmail) async {
+    List<TopUpCheckoutModel> topUpCheckouts = [];
+    await firestoreService
+        .collection('topup_checkout')
+        .doc(userEmail)
+        .collection(userEmail)
+        .get()
+        .then(
+      (value) {
+        for (var i in value.docs) {
+          topUpCheckouts.add(TopUpCheckoutModel.fromDoc(i));
+        }
+      },
+    );
+    return topUpCheckouts;
+  }
+
+  @override
+  Future<TopUpCheckoutModel> getTopUpCheckoutByInvoiceId(
+      String userEmail, String invoiceId) async {
+    List<TopUpCheckoutModel> topUpCheckouts = [];
+    await firestoreService
+        .collection('topup_checkout')
+        .doc(userEmail)
+        .collection(userEmail)
+        .get()
+        .then(
+      (value) {
+        for (var i in value.docs) {
+          if (i.data()['invoiceId'] == invoiceId) {
+            topUpCheckouts.add(TopUpCheckoutModel.fromDoc(i));
+          }
+        }
+      },
+    );
+    return topUpCheckouts.first;
   }
 }

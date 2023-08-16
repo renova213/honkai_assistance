@@ -6,7 +6,8 @@ class PostTopUpCheckout {
 
   PostTopUpCheckout({required this.remoteRepository});
 
-  Future<void> call(TopUpCheckoutEntity topUpCheckout) async {
-    await remoteRepository.createTopUpCheckout(topUpCheckout.toModel());
+  Future<void> call(TopUpCheckoutEntity topUpCheckout, String userEmail) async {
+    await remoteRepository.createTopUpCheckout(
+        topUpCheckout.toModel(), userEmail);
   }
 }

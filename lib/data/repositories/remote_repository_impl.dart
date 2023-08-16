@@ -265,13 +265,48 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<void> createTopUpCheckout(TopUpCheckoutEntity topUpCheckout) async {
+  Future<void> createTopUpCheckout(
+      TopUpCheckoutEntity topUpCheckout, String userEmail) async {
     try {
-      await remoteDataSource.createTopUpCheckout(topUpCheckout.toModel());
+      await remoteDataSource.createTopUpCheckout(
+          topUpCheckout.toModel(), userEmail);
     } on SocketException {
       throw "Internet Error";
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TopUpCheckoutEntity>>> getTopUpCheckout(
+      String userEmail) async {
+    try {
+      final topUpCheckouts = await remoteDataSource.getTopUpCheckout(userEmail);
+
+      return Right(topUpCheckouts);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, TopUpCheckoutEntity>> getTopUpCheckoutByInvoiceId(
+      String userEmail, String invoiceId) async {
+    try {
+      final topUpCheckouts = await remoteDataSource.getTopUpCheckoutByInvoiceId(
+          userEmail, invoiceId);
+
+      return Right(topUpCheckouts);
+    } on SocketException {
+      return const Left(
+        InternetFailure(message: internetError),
+      );
+    } catch (e) {
+      return Left(
+        InternetFailure(message: e.toString()),
+      );
     }
   }
 }

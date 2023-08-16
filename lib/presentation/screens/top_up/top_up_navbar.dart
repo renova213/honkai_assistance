@@ -34,7 +34,7 @@ class _BottomNavigationBarExampleState extends State<TopUpNavBar> {
             BottomNavigationBarItem(
               activeIcon: Icon(Icons.history_edu),
               icon: Icon(Icons.history_edu_outlined),
-              label: 'Track Order',
+              label: 'Order History',
             ),
           ],
           selectedLabelStyle: AppFont.mediumText,
