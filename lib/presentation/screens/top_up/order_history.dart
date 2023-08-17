@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/style/font_style.dart';
 import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
+import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_checkout_provider.dart';
 import 'package:honkai_assistance/presentation/screens/top_up/detail_top_up_checkout_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -107,6 +109,33 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final data = topUpCheckout.filterTopUpCheckouts[index];
+                        String temporaryCurrentDateTime =
+                            DateFormat('dd MMMM yyyy HH:mm:ss')
+                                .format(DateTime.now());
+
+                        final DateTime currentDateTime =
+                            DateFormat('dd MMMM yyyy HH:mm:ss')
+                                .parse(temporaryCurrentDateTime);
+
+                        if (currentDateTime.isAfter(data.expiredAtFormat) &&
+                            data.status != 3) {
+                          topUpCheckout.updateTopUpCheckout(
+                              topUpCheckout: TopUpCheckoutEntity(
+                                  id: data.id,
+                                  userEmail: data.userEmail,
+                                  invoiceId: data.invoiceId,
+                                  topUpItem: data.topUpItem,
+                                  date: data.date,
+                                  userId: data.userId,
+                                  status: 3,
+                                  paymentMethod: data.paymentMethod,
+                                  createdAt: data.createdAt,
+                                  expiredAt: data.expiredAt,
+                                  transferUrlImage: data.transferUrlImage,
+                                  total: data.total),
+                              userEmail: auth.emailUser,
+                              id: data.id);
+                        }
 
                         return InkWell(
                           onTap: () async {

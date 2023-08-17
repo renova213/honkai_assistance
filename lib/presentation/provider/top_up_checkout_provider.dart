@@ -1,17 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/utils.dart';
 import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
-import 'package:honkai_assistance/domain/usecases/get_top_up_checkout.dart';
-import 'package:honkai_assistance/domain/usecases/post_top_up_checkout.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:honkai_assistance/domain/usecases/top_up_checkout_usecase.dart';
 
 class TopUpCheckoutProvider extends ChangeNotifier {
-  final PostTopUpCheckout postTopUpCheckout;
-  final GetTopUpCheckout getTopUpCheckout;
-  TopUpCheckoutProvider(
-      {required this.postTopUpCheckout, required this.getTopUpCheckout});
+  final TopUpCheckoutUsecase topUpCheckoutUsecase;
+  TopUpCheckoutProvider({required this.topUpCheckoutUsecase});
 
   AppState _appState = AppState.loading;
   String _failureMessage = '';
@@ -20,10 +14,6 @@ class TopUpCheckoutProvider extends ChangeNotifier {
   late TopUpCheckoutEntity _topUpCheckout;
   int _filterIndex = 0;
   String _filterState = "";
-  final String _urlProductImage = "";
-  File? _image;
-  String? _imageName;
-  final _imagePicker = ImagePicker();
 
   AppState get appState => _appState;
   List<TopUpCheckoutEntity> get topUpCheckouts => _topUpCheckouts;
@@ -32,15 +22,12 @@ class TopUpCheckoutProvider extends ChangeNotifier {
   String get filterState => _filterState;
   int get filterIndex => _filterIndex;
   TopUpCheckoutEntity? get topUpCheckout => _topUpCheckout;
-  String get urlProductImage => _urlProductImage;
-  File? get image => _image;
-  String? get imageName => _imageName;
 
   Future<void> getTopUpCheckouts(String userEmail) async {
     changeAppState(AppState.loading);
 
     final failureOrTopUpCheckouts =
-        await getTopUpCheckout.getTopUpCheckout(userEmail);
+        await topUpCheckoutUsecase.getTopUpCheckout(userEmail);
 
     failureOrTopUpCheckouts.fold(
       (failure) {
@@ -57,7 +44,7 @@ class TopUpCheckoutProvider extends ChangeNotifier {
 
   Future<void> getTopUpCheckoutsByInvoiceId(
       String userEmail, String invoiceId) async {
-    final failureOrTopUpCheckouts = await getTopUpCheckout
+    final failureOrTopUpCheckouts = await topUpCheckoutUsecase
         .getTopUpCheckoutByInvoiceId(userEmail, invoiceId);
 
     failureOrTopUpCheckouts.fold(
@@ -74,7 +61,21 @@ class TopUpCheckoutProvider extends ChangeNotifier {
       {required TopUpCheckoutEntity topUpCheckout,
       required String userEmail}) async {
     try {
-      await postTopUpCheckout.call(topUpCheckout, userEmail);
+      await topUpCheckoutUsecase.postTopUpCheckout(topUpCheckout, userEmail);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateTopUpCheckout(
+      {required TopUpCheckoutEntity topUpCheckout,
+      required String userEmail,
+      required String id}) async {
+    try {
+      await topUpCheckoutUsecase.updateTopUpCheckout(
+          topUpCheckout, userEmail, id);
+      await getTopUpCheckouts(userEmail);
+      await getTopUpCheckoutsByInvoiceId(userEmail, topUpCheckout.invoiceId);
     } catch (e) {
       rethrow;
     }
@@ -109,23 +110,6 @@ class TopUpCheckoutProvider extends ChangeNotifier {
     _filterTopUpCheckouts.sort(
       (a, b) => b.createdAtFormat.compareTo(a.createdAtFormat),
     );
-    notifyListeners();
-  }
-
-  void clearImage() {
-    if (_image != null) {
-      _image = null;
-    }
-    notifyListeners();
-  }
-
-  Future<void> getImage() async {
-    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      _image = File(image.path);
-      _imageName = image.name;
-    }
     notifyListeners();
   }
 

@@ -13,7 +13,6 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
       required super.status,
       required super.paymentMethod,
       required super.date,
-      required super.quantity,
       required super.total,
       required super.id,
       required super.transferUrlImage,
@@ -31,7 +30,6 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
           status: (doc.data() as Map)['status'],
           paymentMethod:
               PaymentModel.fromMap((doc.data() as Map)['paymentMethod']),
-          quantity: (doc.data() as Map)['quantity'],
           total: (doc.data() as Map)['total'],
           transferUrlImage: (doc.data() as Map)['transferUrlImage'] ?? "",
           id: doc.id);
@@ -43,7 +41,6 @@ class TopUpCheckoutModel extends TopUpCheckoutEntity {
         'status': status,
         'paymentMethod': paymentMethod.toModel().toJson(),
         'userEmail': userEmail,
-        'quantity': quantity,
         'date': date,
         'transferUrlImage': transferUrlImage,
         'total': total,

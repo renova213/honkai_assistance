@@ -105,20 +105,37 @@ class _AppBarDetailTopUpState extends State<AppBarDetailTopUp> {
                             color: Colors.white, size: 32)),
                   ),
                   Center(
-                    child: Column(
-                      children: [
-                        Text("Complete payment in", style: AppFont.headline6),
-                        SizedBox(height: 8.h),
-                        Text(countDown,
-                            style: AppFont.headline6
-                                .copyWith(color: const Color(0xFFd18002))),
-                        SizedBox(height: 8.h),
-                        Text("Payment deadline", style: AppFont.largeText),
-                        Consumer<TopUpCheckoutProvider>(
-                            builder: (context, topUpCheckout, _) => Text(
-                                topUpCheckout.topUpCheckout!.expiredAt,
-                                style: AppFont.subtitle)),
-                      ],
+                    child: Consumer<TopUpCheckoutProvider>(
+                      builder: (context, topUpCheckout, _) => topUpCheckout
+                                  .topUpCheckout!.status ==
+                              1
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 24),
+                              child: Text("The order has been paid",
+                                  style: AppFont.headline6
+                                      .copyWith(color: Colors.greenAccent)),
+                            )
+                          : topUpCheckout.topUpCheckout!.status == 2
+                              ? const SizedBox()
+                              : Column(
+                                  children: [
+                                    Text("Complete payment in",
+                                        style: AppFont.headline6),
+                                    SizedBox(height: 8.h),
+                                    Text(countDown,
+                                        style: AppFont.headline6.copyWith(
+                                            color: const Color(0xFFd18002))),
+                                    SizedBox(height: 8.h),
+                                    Text("Payment deadline",
+                                        style: AppFont.largeText),
+                                    Consumer<TopUpCheckoutProvider>(
+                                        builder: (context, topUpCheckout, _) =>
+                                            Text(
+                                                topUpCheckout
+                                                    .topUpCheckout!.expiredAt,
+                                                style: AppFont.subtitle)),
+                                  ],
+                                ),
                     ),
                   ),
                 ],

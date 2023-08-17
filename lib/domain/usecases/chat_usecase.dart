@@ -1,17 +1,22 @@
 import 'package:dartz/dartz.dart';
-import 'package:honkai_assistance/common/error/error.dart';
+import 'package:honkai_assistance/common/error/failure.dart';
 import 'package:honkai_assistance/domain/entities/chat_entity.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
 
-class GetChat {
+class ChatUsecase {
   final RemoteRepository remoteRepository;
 
-  GetChat({required this.remoteRepository});
+  ChatUsecase({required this.remoteRepository});
 
-  Future<Either<Failure, List<ChatEntity>>> call(
+  Future<Either<Failure, List<ChatEntity>>> getChats(
       String userEmail, String otherUserEmail) async {
     final chats = await remoteRepository.getChats(userEmail, otherUserEmail);
 
     return chats;
+  }
+
+  Future<void> postChat(
+      String userEmail, String otherUserEmail, ChatEntity chat) async {
+    await remoteRepository.postChat(userEmail, otherUserEmail, chat);
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:honkai_assistance/common/util/navigator_fade_helper.dart';
+import 'package:honkai_assistance/domain/entities/topup_checkout_entity.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/navbar_provider.dart';
+import 'package:honkai_assistance/presentation/provider/storage_image_provide.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_checkout_provider.dart';
 import 'package:honkai_assistance/presentation/screens/top_up/detail_top_up_checkout_screen.dart';
+import 'package:honkai_assistance/presentation/screens/top_up/top_up_navbar.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../common/style/style.dart';
@@ -145,8 +148,7 @@ class _ModalUploadPaymentState extends State<ModalUploadPayment> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TopUpCheckoutProvider>(context, listen: false)
-            .clearImage());
+        Provider.of<StorageImageProvider>(context, listen: false).clearImage());
   }
 
   @override
@@ -162,12 +164,12 @@ class _ModalUploadPaymentState extends State<ModalUploadPayment> {
         ),
         child: Column(
           children: [
-            Consumer<TopUpCheckoutProvider>(
-              builder: (context, topUpCheckout, _) => GestureDetector(
+            Consumer<StorageImageProvider>(
+              builder: (context, storageImage, _) => GestureDetector(
                 onTap: () async {
-                  await topUpCheckout.getImage();
+                  await storageImage.getImage();
                 },
-                child: topUpCheckout.image == null
+                child: storageImage.image == null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
@@ -178,7 +180,7 @@ class _ModalUploadPaymentState extends State<ModalUploadPayment> {
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.file(topUpCheckout.image!,
+                        child: Image.file(storageImage.image!,
                             fit: BoxFit.cover,
                             width: double.maxFinite,
                             height: 200.h),
@@ -195,23 +197,66 @@ class _ModalUploadPaymentState extends State<ModalUploadPayment> {
 
   Consumer _confirmUploadPaymentButton() {
     return Consumer<TopUpCheckoutProvider>(
-      builder: (context, topUpCheckout, _) => SizedBox(
-        width: double.maxFinite,
-        height: 50,
-        child: Consumer<NavbarProvider>(
-          builder: (context, navBar, _) => ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor:
-                  const MaterialStatePropertyAll<Color>(Color(0xFFD18002)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(10), // Adjust the radius as needed
+      builder: (context, topUpCheckout, _) => Consumer<StorageImageProvider>(
+        builder: (context, storageImage, _) => Consumer<AuthProvider>(
+          builder: (context, auth, _) => SizedBox(
+            width: double.maxFinite,
+            height: 50,
+            child: Consumer<NavbarProvider>(
+              builder: (context, navBar, _) => ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      const MaterialStatePropertyAll<Color>(Color(0xFFD18002)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10), // Adjust the radius as needed
+                    ),
+                  ),
                 ),
+                onPressed: () async {
+                  final TopUpCheckoutEntity topUpCheckoutEntity =
+                      topUpCheckout.topUpCheckout!;
+                  try {
+                    await storageImage
+                        .uploadProductImage()
+                        .then((_) async =>
+                            await topUpCheckout.updateTopUpCheckout(
+                                topUpCheckout: TopUpCheckoutEntity(
+                                    id: topUpCheckout.topUpCheckout!.id,
+                                    userEmail: topUpCheckoutEntity.userEmail,
+                                    invoiceId: topUpCheckoutEntity.invoiceId,
+                                    topUpItem: topUpCheckoutEntity.topUpItem,
+                                    date: topUpCheckoutEntity.date,
+                                    userId: topUpCheckoutEntity.userId,
+                                    status: 1,
+                                    paymentMethod:
+                                        topUpCheckoutEntity.paymentMethod,
+                                    createdAt: topUpCheckoutEntity.createdAt,
+                                    expiredAt: topUpCheckoutEntity.expiredAt,
+                                    transferUrlImage:
+                                        storageImage.urlProductImage!,
+                                    total: topUpCheckoutEntity.total),
+                                userEmail: auth.emailUser,
+                                id: topUpCheckoutEntity.id))
+                        .then((_) => navBar.changeTopUpIndex(1))
+                        .then(
+                          (value) => Navigator.of(context).pushReplacement(
+                            NavigatorFadeHelper(child: const TopUpNavBar()),
+                          ),
+                        );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: const Duration(seconds: 1),
+                        content: Text(e.toString()),
+                      ),
+                    );
+                  }
+                },
+                child: Text("Upload Payment", style: AppFont.mediumText),
               ),
             ),
-            onPressed: () {},
-            child: Text("Upload Payment", style: AppFont.mediumText),
           ),
         ),
       ),

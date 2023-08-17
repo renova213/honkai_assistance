@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:honkai_assistance/domain/entities/character_banner_entity.dart';
 import 'package:honkai_assistance/domain/entities/chat_entity.dart';
@@ -19,6 +21,7 @@ import '../entities/redeem_code_entity.dart';
 import '../entities/tier_list_entity.dart';
 
 abstract class RemoteRepository {
+  //get
   Future<Either<Failure, List<RedeemCodeEntity>>> getRedeemCode();
   Future<Either<Failure, List<NewsUpdateEntity>>> getNewsUpdate();
   Future<Either<Failure, List<EventEntity>>> getEvent();
@@ -41,8 +44,15 @@ abstract class RemoteRepository {
       String userEmail);
   Future<Either<Failure, TopUpCheckoutEntity>> getTopUpCheckoutByInvoiceId(
       String userEmail, String invoiceId);
-  Future<void> addChat(
+
+  //post
+  Future<void> postChat(
       String userEmail, String otherUserEmail, ChatEntity chat);
   Future<void> createTopUpCheckout(
       TopUpCheckoutEntity topUpCheckout, String userEmail);
+  Future<String> postImage(File file, String path);
+
+  //put
+  Future<void> putTopUpCheckout(TopUpCheckoutEntity topUpCheckout,
+      String topUpCheckoutId, String userEmail);
 }

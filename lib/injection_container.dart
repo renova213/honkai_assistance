@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:honkai_assistance/data/datasources/remote_data_source.dart';
 import 'package:honkai_assistance/data/repositories/remote_repository_impl.dart';
 import 'package:honkai_assistance/domain/repositories/remote_repository.dart';
-import 'package:honkai_assistance/domain/usecases/get_chat.dart';
-import 'package:honkai_assistance/domain/usecases/get_top_up_checkout.dart';
-import 'package:honkai_assistance/domain/usecases/post_chat.dart';
+import 'package:honkai_assistance/domain/usecases/chat_usecase.dart';
 import 'package:honkai_assistance/domain/usecases/post_google_sign_in.dart';
-import 'package:honkai_assistance/domain/usecases/post_top_up_checkout.dart';
+import 'package:honkai_assistance/domain/usecases/post_image.dart';
+import 'package:honkai_assistance/domain/usecases/top_up_checkout_usecase.dart';
 import 'package:honkai_assistance/presentation/provider/auth_provider.dart';
 import 'package:honkai_assistance/presentation/provider/chat_provider.dart';
+import 'package:honkai_assistance/presentation/provider/storage_image_provide.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_checkout_provider.dart';
 import 'package:honkai_assistance/presentation/provider/top_up_provider.dart';
 
@@ -48,8 +49,8 @@ final sl = GetIt.instance;
 
 void setUp() {
   //datasource
-  sl.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(firestoreService: sl()));
+  sl.registerLazySingleton<RemoteDataSource>(() =>
+      RemoteDataSourceImpl(firestoreService: sl(), firebaseStorage: sl()));
 
   //repository
   sl.registerLazySingleton<RemoteRepository>(
@@ -83,16 +84,17 @@ void setUp() {
       () => GetBeginnerGuide(remoteRepository: sl()));
   sl.registerLazySingleton<GetGeneralGuide>(
       () => GetGeneralGuide(remoteRepository: sl()));
-  sl.registerLazySingleton<GetChat>(() => GetChat(remoteRepository: sl()));
-  sl.registerLazySingleton<GetTopUpCheckout>(
-      () => GetTopUpCheckout(remoteRepository: sl()));
 
   //post
   sl.registerLazySingleton<PostGoogleSignIn>(
       () => PostGoogleSignIn(remoteRepository: sl()));
-  sl.registerLazySingleton<PostChat>(() => PostChat(remoteRepository: sl()));
-  sl.registerLazySingleton<PostTopUpCheckout>(
-      () => PostTopUpCheckout(remoteRepository: sl()));
+  sl.registerLazySingleton<PostImage>(() => PostImage(remoteRepository: sl()));
+
+  //all request
+  sl.registerLazySingleton<ChatUsecase>(
+      () => ChatUsecase(remoteRepository: sl()));
+  sl.registerLazySingleton<TopUpCheckoutUsecase>(
+      () => TopUpCheckoutUsecase(remoteRepository: sl()));
 
   //provider
   sl.registerFactory<RedeemCodeProvider>(
@@ -122,12 +124,14 @@ void setUp() {
   sl.registerFactory<GeneralGuideProvider>(
       () => GeneralGuideProvider(getGeneralGuide: sl()));
   sl.registerFactory<AuthProvider>(() => AuthProvider(postGoogleSignIn: sl()));
-  sl.registerFactory<ChatProvider>(
-      () => ChatProvider(getChat: sl(), postChat: sl()));
+  sl.registerFactory<ChatProvider>(() => ChatProvider(chatUsecase: sl()));
   sl.registerFactory<TopUpProvider>(() => TopUpProvider());
-  sl.registerFactory<TopUpCheckoutProvider>(() =>
-      TopUpCheckoutProvider(postTopUpCheckout: sl(), getTopUpCheckout: sl()));
+  sl.registerFactory<TopUpCheckoutProvider>(
+      () => TopUpCheckoutProvider(topUpCheckoutUsecase: sl()));
+  sl.registerFactory<StorageImageProvider>(
+      () => StorageImageProvider(postImage: sl()));
 
   //other 3rd party
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
 }

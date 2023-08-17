@@ -238,10 +238,10 @@ class RemoteRepositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<void> addChat(
+  Future<void> postChat(
       String userEmail, String otherUserEmail, ChatEntity chat) async {
     try {
-      await remoteDataSource.addChat(
+      await remoteDataSource.postChat(
           userEmail, otherUserEmail, chat.toChatModel());
     } on SocketException {
       throw "Internet Error";
@@ -307,6 +307,30 @@ class RemoteRepositoryImpl implements RemoteRepository {
       return Left(
         InternetFailure(message: e.toString()),
       );
+    }
+  }
+
+  @override
+  Future<String> postImage(File file, String path) async {
+    try {
+      return await remoteDataSource.postImage(file, path);
+    } on SocketException {
+      throw "Internet Error";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> putTopUpCheckout(TopUpCheckoutEntity topUpCheckout,
+      String topUpCheckoutId, String userEmail) async {
+    try {
+      return await remoteDataSource.putTopUpCheckout(
+          topUpCheckout.toModel(), topUpCheckoutId, userEmail);
+    } on SocketException {
+      throw "Internet Error";
+    } catch (e) {
+      rethrow;
     }
   }
 }

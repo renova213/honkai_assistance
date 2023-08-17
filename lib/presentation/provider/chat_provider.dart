@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:honkai_assistance/common/util/enum_state.dart';
 import 'package:honkai_assistance/domain/entities/chat_entity.dart';
-import 'package:honkai_assistance/domain/usecases/get_chat.dart';
-import 'package:honkai_assistance/domain/usecases/post_chat.dart';
+import 'package:honkai_assistance/domain/usecases/chat_usecase.dart';
 
 class ChatProvider extends ChangeNotifier {
-  final GetChat getChat;
-  final PostChat postChat;
+  final ChatUsecase chatUsecase;
 
-  ChatProvider({required this.getChat, required this.postChat});
+  ChatProvider({required this.chatUsecase});
 
   List<ChatEntity> _chats = [];
   AppState _appState = AppState.loading;
@@ -21,7 +19,7 @@ class ChatProvider extends ChangeNotifier {
   Future<void> getChats(String userEmail, String otherUserEmail) async {
     changeAppState(AppState.loading);
 
-    final failureOrChat = await getChat.call(userEmail, otherUserEmail);
+    final failureOrChat = await chatUsecase.getChats(userEmail, otherUserEmail);
 
     failureOrChat.fold(
       (failure) {
@@ -50,7 +48,7 @@ class ChatProvider extends ChangeNotifier {
       required String otherUserEmail,
       required ChatEntity chat}) async {
     try {
-      await postChat.call(userEmail, otherUserEmail, chat);
+      await chatUsecase.postChat(userEmail, otherUserEmail, chat);
     } catch (e) {
       rethrow;
     }

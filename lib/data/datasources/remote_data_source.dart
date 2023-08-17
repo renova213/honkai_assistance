@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:honkai_assistance/data/models/character_banner_model.dart';
 import 'package:honkai_assistance/data/models/character_model.dart';
@@ -20,6 +23,7 @@ import '../models/tier_list_model.dart';
 import '../models/weapon_model.dart';
 
 abstract class RemoteDataSource {
+  //get
   Future<List<RedeemCodeModel>> getRedeemCode();
   Future<List<NewsUpdateModel>> getNewsUpdate();
   Future<List<EventModel>> getEvent();
@@ -38,16 +42,26 @@ abstract class RemoteDataSource {
   Future<List<TopUpCheckoutModel>> getTopUpCheckout(String userEmail);
   Future<TopUpCheckoutModel> getTopUpCheckoutByInvoiceId(
       String userEmail, String invoiceId);
+
+  //post
   Future<String> googleSignIn();
   Future<List<ChatModel>> getChats(String userEmail, String otherUserEmail);
-  Future<void> addChat(String userEmail, String otherUserEmail, ChatModel chat);
+  Future<void> postChat(
+      String userEmail, String otherUserEmail, ChatModel chat);
   Future<void> createTopUpCheckout(
       TopUpCheckoutModel topUpCheckout, String userEmail);
+  Future<String> postImage(File file, String path);
+
+  //put
+  Future<void> putTopUpCheckout(TopUpCheckoutModel topUpCheckout,
+      String topUpCheckoutId, String userEmail);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final FirebaseFirestore firestoreService;
-  RemoteDataSourceImpl({required this.firestoreService});
+  final FirebaseStorage firebaseStorage;
+  RemoteDataSourceImpl(
+      {required this.firestoreService, required this.firebaseStorage});
   @override
   Future<List<RedeemCodeModel>> getRedeemCode() async {
     List<RedeemCodeModel> redeemCodes = [];
@@ -287,7 +301,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<void> addChat(
+  Future<void> postChat(
       String userEmail, String otherUserEmail, ChatModel chat) async {
     List<String> ids = [userEmail, otherUserEmail];
     List<String> ids2 = [otherUserEmail, userEmail];
@@ -352,5 +366,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       },
     );
     return topUpCheckouts.first;
+  }
+
+  @override
+  Future<String> postImage(File file, String path) async {
+    final ref = firebaseStorage.ref().child(path);
+    final upload = ref.putFile(file);
+
+    return await (await upload).ref.getDownloadURL();
+  }
+
+  @override
+  Future<void> putTopUpCheckout(TopUpCheckoutModel topUpCheckout,
+      String topUpCheckoutId, String userEmail) async {
+    await firestoreService
+        .collection('topup_checkout')
+        .doc(userEmail)
+        .collection(userEmail)
+        .doc(topUpCheckoutId)
+        .update(topUpCheckout.toJson());
   }
 }

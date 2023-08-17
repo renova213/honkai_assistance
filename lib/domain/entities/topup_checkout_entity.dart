@@ -14,7 +14,6 @@ class TopUpCheckoutEntity extends Equatable {
   final int status;
   final int userId;
   final TopUpItemEntity topUpItem;
-  final int quantity;
   final PaymentEntity paymentMethod;
   final int total;
   final String transferUrlImage;
@@ -30,7 +29,6 @@ class TopUpCheckoutEntity extends Equatable {
       required this.paymentMethod,
       required this.createdAt,
       required this.expiredAt,
-      required this.quantity,
       required this.transferUrlImage,
       required this.total});
 
@@ -44,7 +42,6 @@ class TopUpCheckoutEntity extends Equatable {
       status: status,
       createdAt: createdAt,
       paymentMethod: paymentMethod.toModel(),
-      quantity: quantity,
       total: total,
       id: id,
       transferUrlImage: transferUrlImage);
@@ -56,7 +53,6 @@ class TopUpCheckoutEntity extends Equatable {
         userId,
         topUpItem,
         createdAt,
-        quantity,
         paymentMethod,
         userEmail,
         date,
@@ -66,7 +62,7 @@ class TopUpCheckoutEntity extends Equatable {
       ];
 
   DateTime get expiredAtFormat =>
-      DateFormat('dd MMMM yyyy hh:mm:ss').parse(expiredAt);
+      DateFormat('dd MMMM yyyy HH:mm:ss').parse(expiredAt);
   DateTime get createdAtFormat =>
       DateFormat('yyyy-MM-dd HH:mm:ss').parse(createdAt);
 }

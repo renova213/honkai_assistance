@@ -107,7 +107,7 @@ class DetailPaymentTopUp extends StatelessWidget {
                 onPressed: () async {
                   final date =
                       DateFormat('dd MMMM yyyy').format(DateTime.now());
-                  final expiredAt = DateFormat('dd MMMM yyyy hh:mm:ss a')
+                  final expiredAt = DateFormat('dd MMMM yyyy HH:mm:ss')
                       .format(DateTime.now().add(const Duration(days: 1)));
 
                   if (topup.userId == 0) {
@@ -133,7 +133,6 @@ class DetailPaymentTopUp extends StatelessWidget {
                                 userId: topup.userId,
                                 status: 0,
                                 paymentMethod: topup.paymentMethod,
-                                quantity: 1,
                                 transferUrlImage: "",
                                 total: topup.selectedItem.price +
                                     topup.paymentMethod.paymentFee,
