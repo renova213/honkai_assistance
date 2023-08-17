@@ -34,15 +34,6 @@ class ChatProvider extends ChangeNotifier {
     );
   }
 
-  void sortList() async {
-    _chats.sort((a, b) {
-      final date = DateTime.parse(a.createdAt);
-      final date2 = DateTime.parse(b.createdAt);
-
-      return date.compareTo(date2);
-    });
-  }
-
   Future<void> addChat(
       {required String userEmail,
       required String otherUserEmail,

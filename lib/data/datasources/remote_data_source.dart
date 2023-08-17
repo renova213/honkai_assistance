@@ -293,6 +293,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           if (contain.isEmpty) {
             chats.add(data);
           }
+          chats.sort((a, b) {
+            final date = DateTime.parse(a.createdAt);
+            final date2 = DateTime.parse(b.createdAt);
+
+            return date.compareTo(date2);
+          });
         }
       },
     );

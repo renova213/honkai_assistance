@@ -25,6 +25,11 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
+    Future.microtask(() async =>
+        await Provider.of<ChatProvider>(context, listen: false).getChats(
+            Provider.of<AuthProvider>(context, listen: false).emailUser,
+            "rizcorenova31@gmail.com"));
+
     _startPollingForMessages();
   }
 
@@ -86,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: ListView.separated(
               itemBuilder: (context, index) {
                 final data = chat.chats[index];
-                chat.sortList();
+
                 return Align(
                   alignment: data.senderEmail == auth.emailUser
                       ? Alignment.centerRight
