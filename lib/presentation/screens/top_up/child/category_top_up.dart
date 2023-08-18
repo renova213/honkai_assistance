@@ -138,7 +138,7 @@ class CategoryTopUp extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 24,
                 mainAxisSpacing: 24,
-                childAspectRatio: 2 / 1.8,
+                childAspectRatio: 2 / 2.1,
               ),
               itemCount: topup.categoryIndex > 100
                   ? 0

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:honkai_assistance/presentation/screens/top_up/menu_top_up_screen.dart';
-import 'package:honkai_assistance/presentation/screens/top_up/order_history.dart';
+import 'package:honkai_assistance/presentation/screens/top_up/order_history_screen.dart';
 
 import '../screens/about/about_game_screen.dart';
 import '../screens/database/database_screen.dart';
