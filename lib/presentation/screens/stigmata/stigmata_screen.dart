@@ -28,8 +28,12 @@ class _BattlesuitScreenState extends State<StigmataScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<StigmataProvider>(context, listen: false)
-        .searchStigmata(""));
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<StigmataProvider>(context, listen: false)
+            .searchStigmata("");
+      }
+    });
   }
 
   @override

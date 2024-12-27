@@ -26,19 +26,16 @@ class CustomDropdownButton extends StatelessWidget {
       width: width.w,
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
-          dropdownMaxHeight: 200.h,
-          selectedItemHighlightColor: AppColor.blue,
-          icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white),
-          dropdownDecoration: const BoxDecoration(
-            color: AppColor.containerColor,
-          ),
-          buttonDecoration: BoxDecoration(
-            border: Border.all(
-              color: AppColor.borderColor,
-            ),
-            color: AppColor.containerColor,
-          ),
-          focusColor: Colors.white,
+          buttonStyleData: ButtonStyleData(
+              overlayColor: WidgetStatePropertyAll<Color>(AppColor.blue),
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.borderColor),
+                  color: AppColor.containerColor)),
+          iconStyleData: IconStyleData(
+              icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white)),
+          dropdownStyleData: DropdownStyleData(
+              maxHeight: 200.h,
+              decoration: const BoxDecoration(color: AppColor.containerColor)),
           items: items
               .map(
                 (item) => DropdownMenuItem<String>(

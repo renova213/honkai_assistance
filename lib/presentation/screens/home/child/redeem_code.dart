@@ -100,9 +100,8 @@ class RedeemCode extends StatelessWidget {
   SizedBox _listRedeemCode(List<RedeemCodeEntity> redeemCodes) {
     return SizedBox(
       height: 130.h,
-      child: ListView.builder(
+      child: PageView.builder(
         scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
         itemCount: redeemCodes.length,
         itemBuilder: (context, index) {
           final data = redeemCodes[index];

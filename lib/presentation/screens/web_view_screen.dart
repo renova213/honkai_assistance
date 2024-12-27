@@ -21,7 +21,7 @@ class _InAppBrowserScreenState extends State<WebViewScreen> {
           children: [
             InAppWebView(
               initialUrlRequest: URLRequest(
-                url: Uri.parse(widget.urlWeb),
+                url: WebUri(widget.urlWeb),
               ),
               onProgressChanged:
                   (InAppWebViewController controller, int progress) {

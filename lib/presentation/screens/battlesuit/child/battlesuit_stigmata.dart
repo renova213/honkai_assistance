@@ -26,10 +26,12 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<BattlesuitProvider>(context, listen: false)
-          .filterStigmata(widget.battlesuitStigmatas),
-    );
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .filterStigmata(widget.battlesuitStigmatas);
+      }
+    });
   }
 
   @override
@@ -172,28 +174,31 @@ class _BattlesuitStigmataState extends State<BattlesuitStigmata> {
                             onTap: () async {
                               await notifier.searchStigmata(data.setName).then(
                                 (_) {
-                                  notifier.searchResults.isEmpty
-                                      ? ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                          const SnackBar(
-                                            duration: Duration(seconds: 1),
-                                            content: Text(
-                                                "Sorry, this stigmata info hasn't been updated yet"),
-                                          ),
-                                        )
-                                      : Navigator.of(context).push(
-                                          NavigatorFadeHelper(
-                                            child: DetailStigmataScreen(
-                                                stigmata: notifier.searchResults
-                                                        .isNotEmpty
-                                                    ? notifier
-                                                        .searchResults.first
-                                                    : const StigmataEntity(
-                                                        stigmataName: "",
-                                                        stigmataImage: "",
-                                                        setEffects: [])),
-                                          ),
-                                        );
+                                  if (context.mounted) {
+                                    notifier.searchResults.isEmpty
+                                        ? ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                            const SnackBar(
+                                              duration: Duration(seconds: 1),
+                                              content: Text(
+                                                  "Sorry, this stigmata info hasn't been updated yet"),
+                                            ),
+                                          )
+                                        : Navigator.of(context).push(
+                                            NavigatorFadeHelper(
+                                              child: DetailStigmataScreen(
+                                                  stigmata: notifier
+                                                          .searchResults
+                                                          .isNotEmpty
+                                                      ? notifier
+                                                          .searchResults.first
+                                                      : const StigmataEntity(
+                                                          stigmataName: "",
+                                                          stigmataImage: "",
+                                                          setEffects: [])),
+                                            ),
+                                          );
+                                  }
                                 },
                               );
                             },

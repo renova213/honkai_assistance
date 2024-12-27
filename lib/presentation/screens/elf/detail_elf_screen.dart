@@ -18,8 +18,11 @@ class _DetailElfScreenState extends State<DetailElfScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(
-        () => Provider.of<ElfProvider>(context, listen: false).changeIndex(0));
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<ElfProvider>(context, listen: false).changeIndex(0);
+      }
+    });
   }
 
   @override

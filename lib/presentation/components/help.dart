@@ -44,77 +44,78 @@ class Help extends StatelessWidget {
           child: Container(
             color: AppColor.secondaryColor,
             child: Consumer<GlossaryProvider>(
-              builder: (context, notifier, _) => SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 60.h,
-                      width: double.maxFinite,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Color(0xff616161)),
-                        ),
+              builder: (context, notifier, _) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60.h,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xff616161)),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Glossary", style: AppFont.subtitle),
-                            Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () => Navigator.pop(context),
-                                child: Icon(Icons.close,
-                                    size: 24.r, color: Colors.white),
-                              ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Glossary", style: AppFont.subtitle),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Icon(Icons.close,
+                                  size: 24.r, color: Colors.white),
                             ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 8),
+                            Text("Modes", style: AppFont.subtitle),
+                            const SizedBox(height: 8),
+                            Text(
+                                "Each character gets a rating based on how good it is in certain game mode. Below you will find a short description of all game modes available in game",
+                                style: AppFont.smallText),
+                            const SizedBox(height: 16),
+                            _table(
+                                title: "Mode",
+                                description: "Description",
+                                height: 60.h,
+                                indexColor: 0),
+                            _gamModeTable(),
+                            SizedBox(height: 16.h),
+                            _table(
+                                title: "Rating",
+                                description: "Description",
+                                indexColor: 0,
+                                height: 60.h),
+                            _rankTable(),
+                            SizedBox(height: 16.h),
+                            _table(
+                                title: "Speciality",
+                                description: "Description",
+                                indexColor: 0,
+                                height: 60.h),
+                            _specialityTable(),
+                            SizedBox(height: 16.h),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.h),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 8),
-                          Text("Modes", style: AppFont.subtitle),
-                          const SizedBox(height: 8),
-                          Text(
-                              "Each character gets a rating based on how good it is in certain game mode. Below you will find a short description of all game modes available in game",
-                              style: AppFont.smallText),
-                          const SizedBox(height: 16),
-                          _table(
-                              title: "Mode",
-                              description: "Description",
-                              height: 60.h,
-                              indexColor: 0),
-                          _gamModeTable(),
-                          SizedBox(height: 16.h),
-                          _table(
-                              title: "Rating",
-                              description: "Description",
-                              indexColor: 0,
-                              height: 60.h),
-                          _rankTable(),
-                          SizedBox(height: 16.h),
-                          _table(
-                              title: "Speciality",
-                              description: "Description",
-                              indexColor: 0,
-                              height: 60.h),
-                          _specialityTable(),
-                          SizedBox(height: 16.h),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ),

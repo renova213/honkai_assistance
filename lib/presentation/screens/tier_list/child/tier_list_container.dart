@@ -71,24 +71,27 @@ class TierListContainer extends StatelessWidget {
                                                 roleValue: "Any Role")
                                             .then(
                                           (_) {
-                                            battlesuit.searchResults.isEmpty
-                                                ? ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                    const SnackBar(
-                                                      duration:
-                                                          Duration(seconds: 1),
-                                                      content: Text(
-                                                          "Sorry, this battlesuit info hasn't been updated yet"),
-                                                    ),
-                                                  )
-                                                : Navigator.of(context).push(
-                                                    NavigatorFadeHelper(
-                                                      child: DetailBattlesuitScreen(
-                                                          character: battlesuit
-                                                              .searchResults
-                                                              .first),
-                                                    ),
-                                                  );
+                                            if (context.mounted) {
+                                              battlesuit.searchResults.isEmpty
+                                                  ? ScaffoldMessenger.of(
+                                                          context)
+                                                      .showSnackBar(
+                                                      const SnackBar(
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        content: Text(
+                                                            "Sorry, this battlesuit info hasn't been updated yet"),
+                                                      ),
+                                                    )
+                                                  : Navigator.of(context).push(
+                                                      NavigatorFadeHelper(
+                                                        child: DetailBattlesuitScreen(
+                                                            character: battlesuit
+                                                                .searchResults
+                                                                .first),
+                                                      ),
+                                                    );
+                                            }
                                           },
                                         );
                                       },

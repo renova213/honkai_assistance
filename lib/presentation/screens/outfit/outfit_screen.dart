@@ -29,8 +29,11 @@ class _BattlesuitScreenState extends State<OutfitScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(() =>
-        Provider.of<OutfitProvider>(context, listen: false).searchOutfit(""));
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<OutfitProvider>(context, listen: false).searchOutfit("");
+      }
+    });
   }
 
   @override

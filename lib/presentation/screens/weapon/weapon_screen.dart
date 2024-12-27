@@ -30,8 +30,12 @@ class _BattlesuitScreenState extends State<WeaponScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(() => Provider.of<WeaponProvider>(context, listen: false)
-        .searchWeapon(searchValue: "", typeValue: "Any Type"));
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<WeaponProvider>(context, listen: false)
+            .searchWeapon(searchValue: "", typeValue: "Any Type");
+      }
+    });
   }
 
   @override

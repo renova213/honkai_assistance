@@ -30,9 +30,13 @@ class _BattlesuitScreenState extends State<BattlesuitScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<BattlesuitProvider>(context, listen: false).searchBattlesuit(
-          searchValue: "", roleValue: "Any Role", typeValue: "Any Type");
-      Provider.of<BattlesuitProvider>(context, listen: false).getBattlesuits();
+      if (mounted) {
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .searchBattlesuit(
+                searchValue: "", roleValue: "Any Role", typeValue: "Any Type");
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .getBattlesuits();
+      }
     });
   }
 

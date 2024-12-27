@@ -22,7 +22,9 @@ class _TierListScreenState extends State<TierListScreen> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TierListProvider>(context, listen: false).changeRole('DPS');
+      if (mounted) {
+        Provider.of<TierListProvider>(context, listen: false).changeRole('DPS');
+      }
     });
   }
 

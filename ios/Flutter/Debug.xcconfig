@@ -1,1 +1,2 @@
+#include? "Pods/Target Support Files/Pods-HonkaiAssistance/Pods-HonkaiAssistance.debug.xcconfig"
 #include "Generated.xcconfig"

@@ -7,11 +7,10 @@ class Loading extends StatelessWidget {
   final double height;
   final double borderRadius;
   const Loading(
-      {Key? key,
+      {super.key,
       required this.width,
       required this.height,
-      required this.borderRadius})
-      : super(key: key);
+      required this.borderRadius});
   @override
   Widget build(BuildContext context) {
     return SkeletonAnimation(

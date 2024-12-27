@@ -21,7 +21,10 @@ class _HelpState extends State<Changelog> {
     super.initState();
     Future.microtask(
       () {
-        Provider.of<ChangelogProvider>(context, listen: false).getchangelogs();
+        if (mounted) {
+          Provider.of<ChangelogProvider>(context, listen: false)
+              .getchangelogs();
+        }
       },
     );
   }
@@ -62,42 +65,39 @@ class _HelpState extends State<Changelog> {
           child: Container(
             color: AppColor.secondaryColor,
             child: Consumer<GlossaryProvider>(
-              builder: (context, notifier, _) => SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 60.h,
-                      width: double.maxFinite,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Color(0xff616161)),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Changelog", style: AppFont.subtitle),
-                            Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                onTap: () => Navigator.pop(context),
-                                child: Icon(Icons.close,
-                                    size: 24.r, color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
+              builder: (context, notifier, _) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60.h,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Color(0xff616161)),
                       ),
                     ),
-                    SizedBox(height: 16.h),
-                    _listChangeLog(),
-                  ],
-                ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Changelog", style: AppFont.subtitle),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () => Navigator.pop(context),
+                              child: Icon(Icons.close,
+                                  size: 24.r, color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(child: _listChangeLog()),
+                ],
               ),
             ),
           ),
@@ -109,7 +109,6 @@ class _HelpState extends State<Changelog> {
   Widget _listChangeLog() {
     return Consumer<ChangelogProvider>(
       builder: (context, notifier, _) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: notifier.changelogs.length,
         itemBuilder: (context, index) {

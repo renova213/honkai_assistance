@@ -30,8 +30,12 @@ class _BattlesuitScreenState extends State<ElfScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(() => Provider.of<ElfProvider>(context, listen: false)
-        .searchElf(searchValue: "", typeValue: "Any Type"));
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<ElfProvider>(context, listen: false)
+            .searchElf(searchValue: "", typeValue: "Any Type");
+      }
+    });
   }
 
   @override

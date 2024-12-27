@@ -21,7 +21,7 @@ import '../provider/weapon_provider.dart';
 import 'navbar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -30,14 +30,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AssetImage? assetImage;
   startTime() async {
-    await Future.delayed(
-      const Duration(seconds: 2),
-      () => Navigator.of(context).pushReplacement(
-        NavigatorFadeHelper(
-          child: const NavbarScreen(),
-        ),
-      ),
-    );
+    await Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        Navigator.of(context).pushReplacement(
+          NavigatorFadeHelper(
+            child: const NavbarScreen(),
+          ),
+        );
+      }
+    });
   }
 
   @override
@@ -45,25 +46,30 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     assetImage = const AssetImage('assets/images/crystal.png');
     Future.microtask(() {
-      //remote
-      Provider.of<RedeemCodeProvider>(context, listen: false).getRedeemCodes();
-      Provider.of<NewsUpdateProvider>(context, listen: false).getNewsUpdates();
-      Provider.of<EventProvider>(context, listen: false).getEvents();
-      Provider.of<CharacterBannerProvider>(context, listen: false)
-          .getCharacterBanners();
-      Provider.of<EquipmentBannerProvider>(context, listen: false)
-          .getEquipmentBanners();
-      Provider.of<ElfBannerProvider>(context, listen: false).getElfBanners();
-      Provider.of<BattlesuitProvider>(context, listen: false).getBattlesuits();
-      Provider.of<ElfProvider>(context, listen: false).getElfs();
-      Provider.of<OutfitProvider>(context, listen: false).getOutfits();
-      Provider.of<StigmataProvider>(context, listen: false).getStigmatas();
-      Provider.of<TierListProvider>(context, listen: false).getTierLists();
-      Provider.of<WeaponProvider>(context, listen: false).getWeapons();
-      Provider.of<BeginnerGuideProvider>(context, listen: false)
-          .getBeginnerGuides();
-      Provider.of<GeneralGuideProvider>(context, listen: false)
-          .getGeneralGuides();
+      if (mounted) {
+        //remote
+        Provider.of<RedeemCodeProvider>(context, listen: false)
+            .getRedeemCodes();
+        Provider.of<NewsUpdateProvider>(context, listen: false)
+            .getNewsUpdates();
+        Provider.of<EventProvider>(context, listen: false).getEvents();
+        Provider.of<CharacterBannerProvider>(context, listen: false)
+            .getCharacterBanners();
+        Provider.of<EquipmentBannerProvider>(context, listen: false)
+            .getEquipmentBanners();
+        Provider.of<ElfBannerProvider>(context, listen: false).getElfBanners();
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .getBattlesuits();
+        Provider.of<ElfProvider>(context, listen: false).getElfs();
+        Provider.of<OutfitProvider>(context, listen: false).getOutfits();
+        Provider.of<StigmataProvider>(context, listen: false).getStigmatas();
+        Provider.of<TierListProvider>(context, listen: false).getTierLists();
+        Provider.of<WeaponProvider>(context, listen: false).getWeapons();
+        Provider.of<BeginnerGuideProvider>(context, listen: false)
+            .getBeginnerGuides();
+        Provider.of<GeneralGuideProvider>(context, listen: false)
+            .getGeneralGuides();
+      }
     });
     startTime();
   }

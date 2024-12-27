@@ -22,10 +22,12 @@ class _BattlesuitWeaponState extends State<BattlesuitWeapon> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<BattlesuitProvider>(context, listen: false)
-          .filterWeapon(widget.battlesuitWeapons),
-    );
+    Future.microtask(() {
+      if (mounted) {
+        Provider.of<BattlesuitProvider>(context, listen: false)
+            .filterWeapon(widget.battlesuitWeapons);
+      }
+    });
   }
 
   @override
